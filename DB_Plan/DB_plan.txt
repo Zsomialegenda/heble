@@ -1,0 +1,169 @@
+//dbdiagram.io
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Project KERI_project {
+  database_type: 'MySQL'
+  Note: 'Database for a webapplication game where you would need to level up to get discount'
+}
+
+Table user {
+  id integer [primary key, unique] 
+  username varchar
+  password varchar
+  eMail varchar
+  firstName text
+  lastName text
+  telephone integer
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table userAddress {
+  id integer [primary key, unique]
+  user_ID integer
+  address1 varchar
+  address2 varchar
+  city varchar
+  postalCode varchar
+  country varchar
+  telephone integer
+}
+
+Table userPayment {
+  id integer [primary key, unique]
+  user_ID integer
+  paymentType varchar
+  provider varchar
+  accountNO integer
+  expiry date 
+}
+
+Table gameAccount {
+  user_ID integer [primary key, unique]
+  level integer [increment]
+  XP integer
+}
+
+Table adminType {
+  id integer [primary key, unique]
+  adminType varchar
+  permissions varchar
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table adminUser {
+  id integer [primary key, unique]
+  username varchar
+  password varchar
+  firstName varchar
+  lastName varchar
+  typeId integer
+  lastLogin timestamp
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table product {
+  id integer [primary key, unique]
+  name varchar
+  desc text
+  SKU varchar
+  category_ID integer
+  inventory_ID integer
+  price decimal
+  discountId int
+  created_at timestamp
+  modified_at timestamp
+  deleted_at timestamp
+}
+
+Table product_Category {
+  id integer [primary key, unique]
+  name varchar
+  desc text
+  created_at timestamp
+  modified_at timestamp
+  deleted_at timestamp
+}
+
+Table product_Inventory {
+  id integer [primary key, unique]
+  quantity integer
+  created_at timestamp
+  modified_at timestamp
+  deleted_at timestamp
+}
+
+Table discount {
+  id integer [primary key, unique]
+  name varchar
+  desc text
+  discountPercent decimal
+  active boolean
+  created_at timestamp
+  modified_at timestamp
+  deleted_at timestamp
+}
+
+Table cart_Item {
+  id integer [primary key, unique]
+  sessionId integer
+  productId integer
+  quantity integer
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table shopping_Session {
+  id integer [primary key, unique]
+  user_ID varchar
+  total decimal
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table order_Items {
+  id integer [primary key, unique]
+  order_ID integer
+  product_ID integer
+  quantity integer
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table order_Details {
+  id integer [primary key, unique]
+  user_ID integer
+  total decimal
+  payment_ID integer
+  created_at timestamp
+  modified_at timestamp
+}
+
+Table payment_Details {
+  id integer [primary key, unique]
+  order_ID integer
+  amount integer
+  provider varchar
+  status varchar
+  created_at timestamp
+  modified_at timestamp
+}
+
+Ref: user.id > gameAccount.user_ID
+Ref: user.id > userPayment.user_ID
+Ref: user.id > userAddress.user_ID
+Ref: adminType.id > adminUser.typeId
+Ref: product.category_ID > product_Category.id
+Ref: product.inventory_ID > product_Inventory.id
+Ref: product.discountId > discount.id
+Ref: product.id > cart_Item.productId
+Ref: shopping_Session.id > cart_Item.sessionId
+Ref: user.id > shopping_Session.user_ID
+Ref: product.id > order_Items.product_ID
+Ref: order_Items.order_ID > order_Details.id
+Ref: order_Details.payment_ID > payment_Details.id
+
+// Docs: https://dbml.dbdiagram.io/docs
