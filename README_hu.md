@@ -26,7 +26,7 @@ __Frontend terv___:
  - Lábléc = márkajelzés
    1. Szerzői jog
    2. (Közösségi média)
-   3. Körülbelül
+   3. Rólunk
    4. Támogatás 
 
 __Háttérterv__:  
