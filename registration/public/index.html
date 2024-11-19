@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write file with JS</title>
+
+    <style>
+        *, *::before, *::after{
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90svh;
+        }
+    </style>
+
+    <script src="registerBeta.js" defer></script>
+</head>
+<body>
+    
+    <main>
+        <div class="datas">
+            <label for="firstName">First Name: </label>
+            <input type="text" name="firstName" id="firstName" required>
+        </div>
+        <div class="datas">
+            <label for="secondName">Second Name:</label>
+            <input type="text" name="secondName" id="secondName" required>
+        </div>
+        <div>
+            <label for="gender">Gender:</label>
+            <select>
+                <option value="male">Male</option>
+                <option value="Female">Female</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="datas">
+            <label for="E-mail">E-mail:</label>
+            <input type="email" name="E-mail" id="E-mail" required>
+        </div>
+        <div class="datas">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+    </main>    
+
+
+    <div>
+        <button id="writeButton">
+            Write with me!
+        </button>
+    </div>
+</body>
+</html>

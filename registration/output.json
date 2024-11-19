@@ -1,0 +1,10 @@
+{
+  "user": {
+    "uuid": "080eac95-0ab9-4b59-89dd-7281c2081682",
+    "firstName": "Patrik",
+    "secondName": "Sedlák",
+    "gender": "male",
+    "email": "heble@gmail.com",
+    "password": "asd"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "writefilewithjs",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Akos Sedlak",
+  "license": "ISC",
+  "description": "This is a bacis code how to write files with nodejs. 85% Chatgpt, 'cus I ain't gonna watch 300 videos :)",
+  "dependencies": {
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "nodemon": "^3.1.7"
+  },
+  "devDependencies": {}
+}
