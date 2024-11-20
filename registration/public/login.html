@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <style>
+        *, *::before, *::after{
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90svh;
+        }
+    </style>
+
+  <script src="login.js" defer></script>
+</head>
+<body>
+    <header>
+        <a href="index.html">Registration</a>
+    </header>
+    <main>
+            <div class="datas">
+                <label for="email">E-mail:</label>
+                <input type="email" name="E-mail" id="email" required>
+            </div>
+            <div class="datas">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div>
+                <button id="loginButton" type="submit">Register</button>
+            </div>
+
+            email: john.doe@example.com
+      password: password123
+    </main>
+</body>
+</html>
