@@ -42,9 +42,14 @@ writeButton.addEventListener("click", () => {
       return response.text();
     })
     .then(data => {
-      alert(data);
+      alert(data); 
     })
     .catch(error => {
-      alert('Error: ' + error.message);
+      if (error.message.includes('User already exists')) {
+        alert('This email is already registered. Please use another email.');
+      } else {
+        alert('Error: ' + error.message);
+      }
     });
+  
 });
