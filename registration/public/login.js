@@ -1,17 +1,22 @@
-const loginButton = document.getElementById('loginButton');
-
-loginButton.addEventListener('click', event => {
-    event.preventDefault(); // Prevent the form from reloading the page
+document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); 
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    if (!email || !password) {
+        alert('Both email and password are required');
+        return;
+    }
+
+    console.log({ email, password });
+
     fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json', 
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }) 
     })
     .then(response => {
         if (!response.ok) {
@@ -20,9 +25,10 @@ loginButton.addEventListener('click', event => {
         return response.text();
     })
     .then(data => {
-        alert(data); // Show success message
+        alert(data);
     })
     .catch(error => {
-        alert('Error: ' + error.message); // Show error message
+        console.error('Error:', error.message);
+        alert('Error: ' + error.message);
     });
 });
