@@ -37,7 +37,7 @@ REST API URL conventions: https://restfulapi.net/resource-naming/
 /server | | | |
 | | /testRun | GET | __Test method__: checks whether the server is running or not. | [blank] |
 | | /testRunByID/id | GET | __Test method__: checks whether reciving parameters is working correctly or not. | [blank] |
- /user | | | |
+ /user | Parent Ropute |||
 | /testUserRoute | GET | __Test method__: tests if the route is whether reachable or not. | [blank] |
 | /testUserRouteID/{userID} | GET | __Test method__: tests if the parameters are working correctly in this route. | [blank] |
 | /getAllUsers | GET | Returns all users informations without passwords. | [blank] |
