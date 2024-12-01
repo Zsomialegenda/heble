@@ -33,9 +33,10 @@ __Backend Plan__:
 Each endpoint begins with the introduction /api/vx.x.x, where x.x.x is the version number of the API.  
 REST API URL conventions: https://restfulapi.net/resource-naming/
  Endpoint URL | HTTP method | Operation | Status code and data sent in response 
- --- | --- | --- | --- 
- /server | GET | __Test method__: checks whether the server is running or not. | [blank]
- /server/test/id | GET | __Test method__: checks whether reciving parameters is working correctly or not. | [blank]
+--- | --- | --- | --- 
+/server | | | |
+| | /testRun | GET | __Test method__: checks whether the server is running or not. | [blank]
+| | /test/id | GET | __Test method__: checks whether reciving parameters is working correctly or not. | [blank]
  /user | | | |
 | | /test | GET | __Test method__: tests if the route is whether reachable or not. | [blank]
 | | /id | GET | __Test method__: tests if the parameters are working correctly in this route. | [blank]
@@ -45,7 +46,7 @@ REST API URL conventions: https://restfulapi.net/resource-naming/
 | | /getUserByID/{userID} | GET | Querying the data of a user with the given ID (userID)... | [blank]
 | | /signup | POST | Inserts a user into the database. | [blank]
 | | /login | POST | Managing user logins… | [blank]
-| /logout | POST | Manage user logout… | [blank] //still missing
+| | /logout | POST | Manage user logout… | [blank] //still missing
 | | /updateUser | PATCH | Changing the data of a user with the given ID (userID)... | [blank]
 | | /deleteUser/{userID} | DELETE | Deleting a user with the given ID (userID)... | [blank]
 | | /deleteUser | DELETE | Deleting a user with the given E-mail... | [blank]
