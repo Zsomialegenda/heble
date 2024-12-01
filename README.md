@@ -34,10 +34,10 @@ Each endpoint begins with the introduction /api/vx.x.x, where x.x.x is the versi
 REST API URL conventions: https://restfulapi.net/resource-naming/
  Endpoint URL | HTTP method | Operation | Status code and data sent in response 
 --- | --- | --- | --- 
-/server | | | |
+| _/server - Parent Route_ |
 | | /testRun | GET | __Test method__: checks whether the server is running or not. | [blank] |
 | | /testRunByID/id | GET | __Test method__: checks whether reciving parameters is working correctly or not. | [blank] |
- /user | Parent Route |
+| _/user - Parent Route_ |
 | /testUserRoute | GET | __Test method__: tests if the route is whether reachable or not. | [blank] |
 | /testUserRouteID/{userID} | GET | __Test method__: tests if the parameters are working correctly in this route. | [blank] |
 | /getAllUsers | GET | Returns all users informations without passwords. | [blank] |
