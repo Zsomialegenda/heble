@@ -53,5 +53,3 @@ REST API URL conventions: https://restfulapi.net/resource-naming/
 | /deleteUserByID/{userID} | DELETE | Deleting a user with the given ID (userID)... | [blank] |
 | /deleteUserByEmail | DELETE | Deleting a user with the given E-mail... | [blank] |
 | /gain-xp/{userID} | POST | Adding experience points to a user by given ID | [blank] |
-| merge right ||       |
- 
