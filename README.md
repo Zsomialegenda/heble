@@ -2,8 +2,8 @@
 __Project work of János Bence Dakos+Gergő Fodor+Patrik András Sedlák.__
 
 __Technologies used:__
-- Frontend: Angular
-- Backend: Node.JS
+- Frontend: Angular 19
+- Backend: Node.JS (including: argon2, bcrypt, bcryptjs, cors, dotenv, express, express-validator, mysql2, nodemon, sequelize)
 - Database: MySQL (MariaDB) [XAMPP]
 
 __Roles in use:__  
