@@ -1,56 +1,78 @@
-# Project Plan
-__Project work of János Bence Dakos+Gergő Fodor+Patrik András Sedlák.__
+# Project Plan - HeBLE
 
-__Technologies used:__
+**Project work by János Bence Dakos, Gergő Fodor, and Patrik András Sedlák.**
+
+---
+
+## Technologies Used
+
 - **Frontend**: Angular 19  
 - **Backend**: Node.JS  
   - Packages: argon2, bcrypt, bcryptjs, cors, dotenv, express, express-validator, mysql2, nodemon, sequelize  
-- **Database**: MySQL (MariaDB) [XAMPP]
+- **Database**: MySQL (MariaDB) [XAMPP]  
 
-__Roles in use:__  
+---
+
+## Roles in Use  
+
 [blank]
 
-__Application features:__  
- - Registering users
- - Tracking the users' workout
- - Suggestions for a better lifestyle (meals, workout advice...)
- - Claiming points based on the workout
+---
 
-__Frontend Plan___:  
- - Header = navigation bar
-   1. Landing page icon
-   2. Coach
-   3. Store
-   4. Free Content (articles, guides...)
- - Body = main content
-   1. [blank]
- - Footer = branding
-   1. Copyright
-   2. (Social media)
-   3. About
-   4. Support 
+## Application Features  
 
-__Backend Plan__:  
-Each endpoint begins with the introduction /api/vx.x.x, where x.x.x is the version number of the API.  
-REST API URL conventions: https://restfulapi.net/resource-naming/
- Endpoint URL | HTTP method | Operation | Status code and data sent in response 
---- | --- | --- | --- 
-| | | |
-| _/server - Parent Route_ |
-| /testRun | GET | __Test method__: checks whether the server is running or not. | [blank] |
-| /testRunByID/id | GET | __Test method__: checks whether reciving parameters is working correctly or not. | [blank] |
-| | | |
-| _/user - Parent Route_ |
-| /testUserRoute | GET | __Test method__: tests if the route is whether reachable or not. | [blank] |
-| /testUserRouteID/{userID} | GET | __Test method__: tests if the parameters are working correctly in this route. | [blank] |
-| /getAllUsers | GET | Returns all users informations without passwords. | [blank] |
-| /getUserByID/{userID} | GET | Querying the data of a user with the given ID (userID)... | [blank] |
-| /getUserByEmail | GET | Query registered user based on E-mail... | [blank] |
-| /signup | POST | Inserts a user into the database. | [blank] |
-| /login | POST | Managing user logins… | [blank] |
-| /logout | POST | Manage user logout… | [blank] //still missing method |
-| /updateUserByID/{userID} | PATCH | Changing the data of a user with the given E-mail... | [blank] |
-| /updateUserByEmail | PATCH | Changing the data of a user with the given E-mail... | [blank] |
-| /deleteUserByID/{userID} | DELETE | Deleting a user with the given ID (userID)... | [blank] |
-| /deleteUserByEmail | DELETE | Deleting a user with the given E-mail... | [blank] |
-| /gain-xp/{userID} | POST | Adding experience points to a user by given ID | [blank] |
+- **Registering users**  
+- **Tracking the users' workout**  
+- **Suggestions for a better lifestyle (meals, workout advice...)**  
+- **Claiming points based on the workout**  
+
+---
+
+## Frontend Plan  
+
+- **Header = navigation bar**  
+  - **Landing page icon**  
+  - **Coach**  
+  - **Store**  
+  - **Free Content (articles, guides...)**  
+
+- **Body = main content**  
+  1. [blank]  
+
+- **Footer = branding**  
+  - **Copyright**  
+  - **Social media**  
+  - **About**  
+  - **Support**  
+
+---
+
+## Backend Plan  
+
+Each endpoint begins with `/api/vx.x.x`, where `x.x.x` is the version number of the API.  
+
+**REST API URL conventions:** [https://restfulapi.net/resource-naming/](https://restfulapi.net/resource-naming/)  
+
+---
+
+### Endpoints Overview  
+
+| Endpoint URL            | HTTP Method | Operation Description                                   | Status Code / Response Data |  
+|--------------------------|-------------|---------------------------------------------------------|-----------------------------|  
+| **/server - Parent Route** |             |                                                         |                             |  
+| `/testRun`               | GET         | **Test method**: checks whether the server is running. | [blank]                    | 
+| `/testRunByID/id`        | GET         | **Test method**: checks if receiving parameters works.  | [blank]                    | 
+| **/user - Parent Route** |             |                                                         |                             |
+| `/testUserRoute`         | GET         | **Test method**: tests if the route is reachable.       | [blank]                    | 
+| `/testUserRouteID/{userID}` | GET       | **Test method**: tests if the parameters work in this route. | [blank] |  
+| `/getAllUsers`           | GET         | Returns all users' information without passwords.       | [blank] |  
+| `/getUserByID/{userID}`  | GET         | Queries the data of a user with the given ID (userID).  | [blank] |  
+| `/getUserByEmail`        | GET         | Queries a registered user based on email.               | [blank] |  
+| `/signup`                | POST        | Inserts a user into the database.                       | [blank] |  
+| `/login`                 | POST        | Manages user logins.                                    | [blank] |  
+| `/logout`                | POST        | Manages user logouts.                                   | [blank] (method still missing) |  
+| `/updateUserByID/{userID}` | PATCH     | Updates user data with the given ID.                    | [blank] |  
+| `/updateUserByEmail`     | PATCH       | Updates user data with the given email.                 | [blank] |  
+| `/deleteUserByID/{userID}` | DELETE   | Deletes a user with the given ID.                       | [blank] |  
+| `/deleteUserByEmail`     | DELETE      | Deletes a user with the given email.                    | [blank] |  
+| `/gain-xp/{userID}`      | POST        | Adds experience points to a user with the given ID.     | [blank] |  
