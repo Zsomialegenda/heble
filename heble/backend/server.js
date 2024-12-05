@@ -5,6 +5,7 @@ const cors = require("cors");
 const userRoute = require("./routes/user");
 const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/errorController");
+const exerciseRoutes = require('./routes/exercise');
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/user", userRoute);
-app.use("/auth", authRoutes);
+app.use("/api/user", userRoute);
+app.use("/api/auth", authRoutes);
+app.use('/api', exerciseRoutes);
 
 // Error handling
 app.use(errorController.get404);

@@ -1,7 +1,13 @@
+const Users = require('../models/User');
+const bcrypt = require('bcryptjs');
+
+const Achievement = require('../models/Achivement');
+const UserAchievement = require('../models/UserAchivement');
 
 
 const testUserRoute = (req, res) => {
     res.send("Hello from the user route");
+    console.log(Users);
 };
 
 const testUserRouteID = (req, res) => {
@@ -12,9 +18,7 @@ const testUserRouteID = (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll({
-            attributes: ['id', 'firstName', 'lastName', 'email', 'level', 'xp']
-        });
+        const users = await Users.findAll();
         res.status(200).json(users);
     } catch (error) {
         console.log(error);
@@ -27,7 +31,10 @@ const getAllUsers = async (req, res) => {
 
 const getAllUsersNoPassword = async (req, res) => {
     try {
-        const [users] = await db.query('SELECT id, firstName, lastName, email, level, xp FROM Users');
+        //Let us not send password it wouldn't be too shiny
+        const users = await Users.findAll({
+            attributes: ['id', 'firstName', 'lastName', 'email', 'level', 'xp', 'createdAt', 'updatedAt']
+        });
         res.status(200).json(users);
     } catch (error) {
         console.log(error);
@@ -42,14 +49,17 @@ const getUserByID = async (req, res) => {
     const userId = req.params.id * 1;
 
     try {
-        const [user] = await db.query('SELECT id, firstName, lastName, email, xp, created_at FROM users WHERE id = ?'  , [userId]); 
+        const user = await Users.findOne({
+            where: { id: userId },
+            attributes: ['id', 'firstName', 'lastName', 'email', 'xp', 'createdAt', 'updatedAt']
+        });
         if (user.length === 0) {
             return res.status(404).json({
                 message: 'User not found.',
                 üzenet: 'A felhasználó nem található.'
             });
         }
-        res.status(200).json(user[0]);
+        res.status(200).json(user);
     } catch (error) {
         console.log(error);
         res.status(500).json({ 
@@ -65,14 +75,17 @@ const getUserByEmail = async (req, res) => {
 
    try {
        //Let us not send password it wouldn't be too shiny
-       const [user] = await db.query('SELECT id, firstName, lastName, email, xp, created_at FROM Users WHERE email = ?', [email]); 
+       const user = await Users.findOne({
+        where: { email: email },
+        attributes: ['id', 'firstName', 'lastName', 'email', 'xp', 'createdAt', 'updatedAt']
+    });
        if (user.length === 0) {
            return res.status(404).json({
                message: 'User not found.',
                üzenet: 'A felhasználó nem található.'
            });
        }
-       res.status(200).json(user[0]);
+       res.status(200).json(user);
    } catch (error) {
        console.log(error);
        res.status(500).json({ 
@@ -81,6 +94,23 @@ const getUserByEmail = async (req, res) => {
        });
    }
 };
+
+const listAchivements = async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const achievements = await UserAchievement.findAll({
+        where: { user_id: userId },
+        include: [Achievement]
+      });
+  
+      res.status(200).json(achievements);
+    } catch (error) {
+      console.error('Error fetching user achievements:', error);
+      res.status(500).json({
+        message: 'Failed to fetch achievements.'
+      });
+    }
+}
 
 const signupUser = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
@@ -93,7 +123,7 @@ const signupUser = async (req, res) => {
     }
 
     try {
-        const [existingUser] = await db.query('SELECT id FROM Users WHERE email = ?', [email]);
+        const [existingUser] = await Users.findOne({ where: { email: email } });
         if (existingUser.length > 0) {
             return res.status(409).json({
                 message: 'E-mail already in use.',
@@ -103,9 +133,12 @@ const signupUser = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const [newUser] = await db.query('INSERT INTO Users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)',
-                                        [firstName, lastName, email, hashedPassword]);
-
+        const [newUser] = await Users.create({
+            firstName,
+            lastName,
+            email,
+            password: hashedPassword
+        });
         res.status(201).json({
             userId: newUser.insertId,
             message: 'User registered successfully!',
@@ -131,7 +164,7 @@ const loginUser = async (req, res) => {
     }
 
     try {
-        const [user] = await db.query("SELECT * FROM Users WHERE email = ?", [email]);
+        const [user] = await Users.findOne({ where: { email: email } });
 
         if (user.length === 0) {
             return res.status(401).json({ 
@@ -175,7 +208,7 @@ const gainXP = async (req, res) => {
     }
 
     try {
-        const [user] = await db.query('SELECT level, xp FROM Users WHERE id = ?', [userId]);
+        const user = await Users.findOne({ where: { id: userId } });
         if (user.length === 0) {
             return res.status(404).json({
                 message: 'User not found.',
@@ -183,7 +216,7 @@ const gainXP = async (req, res) => {
             });
         }
 
-        const currentUser = user[0];
+        const currentUser = user;
         const newXp = currentUser.xp + xpAmount;
         let newLevel = currentUser.level;
 
@@ -194,7 +227,7 @@ const gainXP = async (req, res) => {
             newLevel++;
         }
 
-        await db.query('UPDATE Users SET xp = ?, level = ? WHERE id = ?', [newXp, newLevel, userId]);
+        await user.update({ xp: newXp, level: newLevel });
 
         res.status(200).json({
             currentLevel: newLevel,
@@ -211,7 +244,7 @@ const gainXP = async (req, res) => {
     }
 };
 
-const updateUser = async (req, res) => { //might change to ID
+const updatePassword = async (req, res) => { //might change to ID
     const { email, newPassword } = req.body;
 
     if (!email || !newPassword) {
@@ -222,7 +255,7 @@ const updateUser = async (req, res) => { //might change to ID
     }
 
     try {
-        const [user] = await db.query('SELECT * FROM Users WHERE email = ?', [email]);
+        const [user] = await Users.findOne({ where: { email: email } });
         if (user.length === 0) {
             return res.status(404).json({
                 message: 'User not found.',
@@ -232,7 +265,7 @@ const updateUser = async (req, res) => { //might change to ID
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        await db.query('UPDATE Users SET password = ? WHERE email = ?', [hashedPassword, email]);
+        await user.update({ password: hashedPassword });
 
         res.status(200).json({
             message: 'Password updated successfully!',
@@ -247,11 +280,11 @@ const updateUser = async (req, res) => { //might change to ID
     }
 };
 
-const deleteUserID = async (req, res) => {
+const deleteUserByID = async (req, res) => {
     const userId = req.params.id * 1;
 
     try {
-        const [user] = await db.query('SELECT * FROM Users WHERE id = ?', [userId]);
+        const user = await Users.findOne({ where: { id: userId } });
         if (user.length === 0) {
             return res.status(404).json({
                 message: 'User not found.',
@@ -259,7 +292,7 @@ const deleteUserID = async (req, res) => {
             });
         }
 
-        await db.query('DELETE FROM Users WHERE id = ?', [userId]);
+        await user.destroy();
 
         res.status(200).json({
             message: 'User deleted successfully.',
@@ -274,12 +307,12 @@ const deleteUserID = async (req, res) => {
     }
 };
 
-const deleteUserEmail = async (req, res) => {
+const deleteUserByEmail = async (req, res) => {
     // Expecting email in the request body rather than in the URL (unlike with the ID based method)
     const email = req.body.email;
 
     try {
-        const [user] = await db.query('SELECT * FROM Users WHERE email = ?', [email]);
+        const user = await Users.findOne({ where: { email: email } });
         if (user.length === 0) {
             return res.status(404).json({
                 message: 'User not found.',
@@ -287,7 +320,7 @@ const deleteUserEmail = async (req, res) => {
             });
         }
 
-        await db.query('DELETE FROM Users WHERE email = ?', [email]);
+        await user.destroy();
 
         res.status(200).json({
             message: 'User deleted successfully.',
@@ -302,4 +335,18 @@ const deleteUserEmail = async (req, res) => {
     }
 };
 
-module.exports = router;
+module.exports = {
+    testUserRoute,
+    testUserRouteID,
+    getAllUsers,
+    getAllUsersNoPassword,
+    getUserByID,
+    getUserByEmail,
+    listAchivements,
+    signupUser,
+    loginUser,
+    gainXP,
+    updatePassword,
+    deleteUserByID,
+    deleteUserByEmail
+};

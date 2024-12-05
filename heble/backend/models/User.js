@@ -22,8 +22,17 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  level: {
+    type: DataTypes.INTEGER,
+    defaultValue: 1,
+  },
+  xp: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
 }, {
-  timestamps: true, // Automatically add createdAt and updatedAt columns
+  timestamps: true,
+  tableName: 'Users'
 });
 
 module.exports = User;
