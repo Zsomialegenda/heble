@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
   process.env.PASSWORD, 
   {
   host: process.env.HOST,
-  dialect: 'mysql'
+  dialect: 'mariadb'
   });
 
 // Test the connection
