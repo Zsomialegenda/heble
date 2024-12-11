@@ -62,7 +62,68 @@ const logExercise = async (req, res) => {
     }
 };
 
+const getAllExercises = async (req, res) => {
+    try {
+        const exercises = await Exercises.findAll();
+        res.status(200).json(exercises);
+    } catch (error) {
+        console.error('Error fetching exercises:', error);
+        res.status(500).json({
+            message: 'Failed to fetch exercises.',
+            üzenet: 'Hiba merült fel a gyakorlatok lekérése közben.'
+        });
+    }
+};
+
+const getExerciseByUserID = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const exercise = await Exercises.findOne({ where: { user_id: userId } });
+        if (!exercise) {
+            return res.status(404).json({
+                message: 'Exercises not found for this user.',
+                üzenet: 'A felhasználóhoz nem találhatóak gyakorlatok.'
+            });
+        }
+        res.status(200).json(exercise);
+    } catch (error) {
+        console.error('Error fetching exercise:', error);
+        res.status(500).json({
+            message: 'Failed to fetch exercise.',
+            üzenet: 'Hiba merült fel a gyakorlatok lekérése közben.'
+        });
+    }
+};
+
+const addExercise = async (req, res) => {
+    const { user_id, pushUps, pullUps, squats, running } = req.body;
+
+    try {
+        const newExercise = await Exercises.create({
+            user_id,
+            pushUps,
+            pullUps,
+            squats,
+            running
+        });
+        res.status(201).json({
+            message: 'Exercise added successfully.',
+            exercise: newExercise
+        });
+    } catch (error) {
+        console.error('Error adding exercise:', error);
+        res.status(500).json({
+            message: 'Failed to add exercise.',
+            üzenet: 'Hiba merült fel a gyakorlat hozzáadása közben.'
+        });
+    }
+};
+
 module.exports = {
+    getAllExercises,
     getUserExercises,
-    logExercise
+    logExercise,
+    getExerciseByUserID,
+    addExercise
 };

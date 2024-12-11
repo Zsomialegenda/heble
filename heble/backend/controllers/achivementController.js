@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const User = require('../models/User');
-const Achievement = require('../models/Achievement');
-const UserAchievement = require('../models/UserAchievement');
+const Achievement = require('../models/Achivement');
+const UserAchievement = require('../models/UserAchivement');
 
 const checkAndAwardAchievements = async (userId, completedExercises) => {
   try {
@@ -59,7 +59,70 @@ const listAchivements = async (req, res) => {
     }
 }
 
+const getAllAchievements = async (req, res) => {
+    try {
+        const achievements = await Achievement.findAll();
+        res.status(200).json(achievements);
+    } catch (error) {
+        console.error('Error fetching achievements:', error);
+        res.status(500).json({
+            message: 'Failed to fetch achievements.',
+            üzenet: 'Hiba merült fel az eredmények lekérése közben.'
+        });
+    }
+};
+
+const addAchievement = async (req, res) => {
+    const { name, description, points } = req.body;
+
+    try {
+        const newAchievement = await Achievement.create({ name, description, points });
+        res.status(201).json({
+            message: 'Achievement created successfully.',
+            achievement: newAchievement
+        });
+    } catch (error) {
+        console.error('Error creating achievement:', error);
+        res.status(500).json({
+            message: 'Failed to create achievement.',
+            üzenet: 'Hiba merült fel az eredmény létrehozása közben.'
+        });
+    }
+};
+
+const updateAchievement = async (req, res) => {
+    const achievementId = req.params.id;
+    const { name, description, points } = req.body;
+
+    try {
+        const achievement = await Achievement.findByPk(achievementId);
+        if (!achievement) {
+            return res.status(404).json({
+                message: 'Achievement not found.',
+                üzenet: 'Az eredmény nem található.'
+            });
+        }
+
+        await achievement.update({ name, description, points });
+
+        res.status(200).json({
+            message: 'Achievement updated successfully.',
+            achievement
+        });
+    } catch (error) {
+        console.error('Error updating achievement:', error);
+        res.status(500).json({
+            message: 'Failed to update achievement.',
+            üzenet: 'Hiba merült fel az eredmény frissítése közben.'
+        });
+    }
+};
+
+
 module.exports = {
     checkAndAwardAchievements,
-    listAchivements
+    listAchivements,
+    getAllAchievements,
+    addAchievement,
+    updateAchievement
 };

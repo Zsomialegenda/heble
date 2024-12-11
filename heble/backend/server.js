@@ -6,11 +6,18 @@ const userRoute = require("./routes/user");
 const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/errorController");
 const exerciseRoutes = require('./routes/exercise');
+const achievementRoutes = require('./routes/achivement'); // Import achievement routes
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "http://localhost:4200", methods: "GET,POST,PUT,DELETE", credentials: true }));
+app.use(cors(
+  {
+    origin: "http://localhost:4200", 
+    methods: "GET, POST, PUT, DELETE", 
+    credentials: true 
+  }
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -18,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoutes);
 app.use('/api', exerciseRoutes);
+app.use('/api', achievementRoutes);
 
 // Error handling
 app.use(errorController.get404);

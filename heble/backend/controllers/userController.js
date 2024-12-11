@@ -1,6 +1,7 @@
 const Users = require('../models/User');
 const bcrypt = require('bcryptjs');
 
+
 const Achievement = require('../models/Achivement');
 const UserAchievement = require('../models/UserAchivement');
 
@@ -335,6 +336,74 @@ const deleteUserByEmail = async (req, res) => {
     }
 };
 
+const getUserAchievements = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const userAchievements = await UserAchievement.findAll({
+            where: { user_id: userId },
+            include: [Achievements]
+        });
+        res.status(200).json(userAchievements);
+    } catch (error) {
+        console.error('Error fetching user achievements:', error);
+        res.status(500).json({
+            message: 'Failed to fetch user achievements.',
+            üzenet: 'Hiba merült fel a felhasználói eredmények lekérése közben.'
+        });
+    }
+};
+
+const addUserAchievement = async (req, res) => {
+    const { user_id, achievement_id } = req.body;
+
+    try {
+        const newUserAchievement = await UserAchievement.create({
+            user_id,
+            achievement_id
+        });
+        res.status(201).json({
+            message: 'User achievement added successfully.',
+            üzenet: 'Felhasználói achievement sikeresen hozzáadva',
+            userAchievement: newUserAchievement
+        });
+    } catch (error) {
+        console.error('Error adding user achievement:', error);
+        res.status(500).json({
+            message: 'Failed to add user achievement.',
+            üzenet: 'Hiba merült fel a felhasználói eredmény hozzáadása közben.'
+        });
+    }
+};
+
+const removeUserAchievement = async (req, res) => {
+    const { user_id, achievement_id } = req.body;
+
+    try {
+        const userAchievement = await UserAchievement.findOne({
+            where: { user_id, achievement_id }
+        });
+        if (!userAchievement) {
+            return res.status(404).json({
+                message: 'User achievement not found.',
+                üzenet: 'Felhasználói eredmény nem található.'
+            });
+        }
+
+        await userAchievement.destroy();
+        res.status(200).json({
+            message: 'User achievement removed successfully.',
+            üzenet: 'Felhasználói eredmény sikeresen törölve.'
+        });
+    } catch (error) {
+        console.error('Error removing user achievement:', error);
+        res.status(500).json({
+            message: 'Failed to remove user achievement.',
+            üzenet: 'Hiba merült fel a felhasználói eredmény törlése közben.'
+        });
+    }
+};
+
 module.exports = {
     testUserRoute,
     testUserRouteID,
@@ -348,5 +417,8 @@ module.exports = {
     gainXP,
     updatePassword,
     deleteUserByID,
-    deleteUserByEmail
+    deleteUserByEmail,
+    getUserAchievements,
+    addUserAchievement,
+    removeUserAchievement
 };
