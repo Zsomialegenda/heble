@@ -6,7 +6,7 @@ const userRoute = require("./routes/user");
 const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/errorController");
 const exerciseRoutes = require('./routes/exercise');
-const achievementRoutes = require('./routes/achivement'); // Import achievement routes
+const achievementRoutes = require('./routes/achivement');
 
 const app = express();
 
@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/api/user", userRoute);
-app.use("/api/auth", authRoutes);
-app.use('/api', exerciseRoutes);
-app.use('/api', achievementRoutes);
+app.use("/users", userRoute);
+app.use("auth", authRoutes);
+app.use('', exerciseRoutes);
+app.use('', achievementRoutes);
 
 // Error handling
 app.use(errorController.get404);

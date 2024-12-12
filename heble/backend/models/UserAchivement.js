@@ -18,7 +18,7 @@ const UserAchievement = sequelize.define('UserAchievement', {
   timestamps: false
 });
 
-UserAchievement.belongsTo(User, { foreignKey: 'user_id' });
-UserAchievement.belongsTo(Achievement, { foreignKey: 'achievement_id' });
+UserAchievement.belongsTo(User, { foreignKey: 'user_id', allowNull: false, onDelete: 'CASCADE' });
+UserAchievement.belongsTo(Achievement, { foreignKey: 'achievement_id', allowNull: false, onDelete: 'CASCADE' });
 
 module.exports = UserAchievement;

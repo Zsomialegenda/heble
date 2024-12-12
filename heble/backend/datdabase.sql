@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Exercises (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL, 
-  FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+  userId INT NOT NULL, 
+  FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
 
   pushUps INT DEFAULT 0,
   pullUps INT DEFAULT 0,
@@ -41,13 +41,13 @@ CREATE TABLE IF NOT EXISTS Achievements (
 
 CREATE TABLE IF NOT EXISTS UserAchievements (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
+  userId INT NOT NULL,
   achievement_id INT NOT NULL,
   earnedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
-  FOREIGN KEY (achievement_id) REFERENCES Achievements(id) ON DELETE CASCADE,
-  UNIQUE(user_id, achievement_id)
+  FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+  FOREIGN KEY (achievementId) REFERENCES Achievements(id) ON DELETE CASCADE,
+  UNIQUE(userId, achievementId)
 );
 
 INSERT INTO Users (firstName, lastName, email, password, level, xp, createdAt) 
