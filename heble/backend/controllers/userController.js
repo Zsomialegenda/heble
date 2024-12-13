@@ -6,8 +6,8 @@ const { Users, Exercises, Achievements, UserAchievements } = require('../models'
 const SECRET_KEY = 'your_secret_key';
 
 const isAdmin = (req) => {
-    const { username, password } = req.headers;
-    return username === 'admin' && password === 'Kicsicsirke_1298';
+    const { username, adminPassword } = req.body;
+    return username === 'admin' && adminPassword === 'Kicsicsirke_1298';
 };
 
 const testUserRoute = (req, res) => {
@@ -476,8 +476,6 @@ const updateUser = async (req, res) => {
     }
 };
 
-
-
 const deleteUser = async (req, res) => {
     try {
         if (isAdmin(req)) {
@@ -551,6 +549,7 @@ module.exports = {
     signupUser,
     loginUser,
     gainXP,
+    checkAndGrantAchievements,
     updateUser,
     deleteUser
 };

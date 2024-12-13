@@ -53,7 +53,7 @@ router.patch('/patch/:id', userController.updateUser);
 
 //// START OF DELETE METHODS ////
 ///
-router.delete('/deleteUserID/:id', userController.deleteUser);
+router.delete('/delete', userController.deleteUser);
 
 
 module.exports = router;
