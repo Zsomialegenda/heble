@@ -1,0 +1,46 @@
+<div class="signup-container">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <h2>Signup</h2>
+
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" type="text" />
+      <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched">
+        First name is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName" type="text" />
+      <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched">
+        Last name is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" />
+      <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+        A valid email is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" />
+      <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+        Password is required (minimum 6 characters).
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+  </form>
+
+  <div *ngIf="message" class="success-message">
+    <p>{{ message }}</p>
+  </div>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+</div>

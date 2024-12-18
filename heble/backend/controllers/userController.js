@@ -124,9 +124,9 @@ const getUserByEmail = async (req, res) => {
 const listAchivements = async (req, res) => {
     try {
         const userId = req.params.userId;
-        const achievements = await UserAchievement.findAll({
+        const achievements = await UserAchievements.findAll({
             where: { user_id: userId },
-            include: [Achievement]
+            include: [Achievements]
         });
         res.status(200).json({
             status: 200,
@@ -147,18 +147,18 @@ const checkAndGrantAchievements = async (userId) => {
         const user = await Users.findOne({ where: { id: userId } });
         if (!user) return;
 
-        const achievements = await Achievement.findAll();
+        const achievements = await Achievements.findAll();
         for (const achievement of achievements) {
             const prerequisites = JSON.parse(achievement.prerequisites || '{}');
             const { required, requiredAmount } = prerequisites;
 
             if (required && user[required] >= requiredAmount) {
-                const alreadyEarned = await UserAchievement.findOne({
+                const alreadyEarned = await UserAchievements.findOne({
                     where: { user_id: userId, achievement_id: achievement.id }
                 });
 
                 if (!alreadyEarned) {
-                    await UserAchievement.create({
+                    await UserAchievements.create({
                         user_id: userId,
                         achievement_id: achievement.id
                     });
@@ -212,7 +212,6 @@ const signupUser = async (req, res) => {
             running: 0
         }, { transaction });
 
-        // Commit the transaction
         await transaction.commit();
 
         res.status(201).json({
@@ -301,7 +300,7 @@ const loginUser = async (req, res) => {
 };
 
 const gainXP = async (req, res) => {
-    const { id: userId } = req.params; // User ID for admin updates
+    const { id: userId } = req.params;
     const { email, password, xpAmount } = req.body;
 
     if (!xpAmount || typeof xpAmount !== 'number') {
@@ -315,7 +314,6 @@ const gainXP = async (req, res) => {
     try {
         let user;
 
-        // Case 1: Admin updates XP by userId
         if (isAdmin(req)) {
             if (!userId) {
                 return res.status(400).json({
@@ -333,8 +331,7 @@ const gainXP = async (req, res) => {
                     üzenet: 'A felhasználó nem található.'
                 });
             }
-        } 
-        // Case 2: User updates their own XP using email-password
+        }
         else if (email && password) {
             user = await Users.findOne({ where: { email } });
 

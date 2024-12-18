@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const { Users, Exercises, Achievements, UserAchievements } = require('../models');
 
 // Signup method
 exports.signup = async (req, res, next) => {
@@ -25,7 +25,7 @@ exports.signup = async (req, res, next) => {
         };
 
         // Save user to the database
-        const results = await User.save(userDetails);
+        const results = await Users.save(userDetails);
 
         // Respond with success
         res.status(201).json({ message: 'User is registered!' });

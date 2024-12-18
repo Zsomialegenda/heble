@@ -1,18 +1,15 @@
 const { Op } = require('sequelize');
-const User = require('../models/User');
-const Achievement = require('../models/Achivement');
-const UserAchievement = require('../models/UserAchivement');
+const { Users, Exercises, Achievements, UserAchievements } = require('../models');
 
 const checkAndAwardAchievements = async (userId, completedExercises) => {
   try {
-    // Example: Awarding an achievement for reaching 100 push-ups in total
-    const user = await User.findByPk(userId);
+    const user = await Users.findByPk(userId);
     if (!user) {
       throw new Error('User not found');
     }
 
     // Check achievements criteria
-    const achievements = await Achievement.findAll({
+    const achievements = await Achievements.findAll({
       where: {
         points: {
           [Op.lte]: completedExercises.totalPoints 
@@ -22,7 +19,7 @@ const checkAndAwardAchievements = async (userId, completedExercises) => {
     });
 
     for (const achievement of achievements) {
-      const existingAchievement = await UserAchievement.findOne({
+      const existingAchievement = await UserAchievements.findOne({
         where: {
           user_id: userId,
           achievement_id: achievement.id
@@ -30,7 +27,7 @@ const checkAndAwardAchievements = async (userId, completedExercises) => {
       });
 
       if (!existingAchievement) {
-        await UserAchievement.create({
+        await UserAchievements.create({
           user_id: userId,
           achievement_id: achievement.id
         });
@@ -45,9 +42,9 @@ const checkAndAwardAchievements = async (userId, completedExercises) => {
 const listAchivements = async (req, res) => {
     try {
       const userId = req.params.userId;
-      const achievements = await UserAchievement.findAll({
+      const achievements = await UserAchievements.findAll({
         where: { user_id: userId },
-        include: [Achievement]
+        include: [Achievements]
       });
   
       res.status(200).json(achievements);
@@ -61,7 +58,7 @@ const listAchivements = async (req, res) => {
 
 const getAllAchievements = async (req, res) => {
     try {
-        const achievements = await Achievement.findAll();
+        const achievements = await Achievements.findAll();
         res.status(200).json(achievements);
     } catch (error) {
         console.error('Error fetching achievements:', error);
@@ -76,7 +73,7 @@ const addAchievement = async (req, res) => {
     const { name, description, points } = req.body;
 
     try {
-        const newAchievement = await Achievement.create({ name, description, points });
+        const newAchievement = await Achievements.create({ name, description, points });
         res.status(201).json({
             message: 'Achievement created successfully.',
             achievement: newAchievement
@@ -95,7 +92,7 @@ const updateAchievement = async (req, res) => {
     const { name, description, points } = req.body;
 
     try {
-        const achievement = await Achievement.findByPk(achievementId);
+        const achievement = await Achievements.findByPk(achievementId);
         if (!achievement) {
             return res.status(404).json({
                 message: 'Achievement not found.',

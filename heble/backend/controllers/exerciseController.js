@@ -1,5 +1,4 @@
-const Exercises = require('../models/Exercise');
-const Users = require('../models/User');
+const { Users, Exercises, Achievements, UserAchievements } = require('../models');
 
 const getUserExercises = async (req, res) => {
     const userId = req.params.id;
