@@ -3,10 +3,10 @@ require("dotenv").config();
 const cors = require("cors");
 
 const userRoute = require("./routes/user");
-const authRoutes = require("./routes/auth");
 const errorController = require("./controllers/errorController");
 const exerciseRoutes = require('./routes/exercise');
 const achievementRoutes = require('./routes/achivement');
+const userAchievementRoutes = require('./routes/userAchievementRoutes');
 
 const app = express();
 
@@ -23,13 +23,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/users", userRoute);
-app.use("auth", authRoutes);
-app.use('', exerciseRoutes);
-app.use('', achievementRoutes);
+app.use('/exercises', exerciseRoutes);
+app.use('/userAchivements', userAchievementRoutes);
 
 // Error handling
 app.use(errorController.get404);
 app.use(errorController.get500);
+
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('All tables created successfully!');
+  })
+  .catch(err => {
+    console.error('Failed to create tables:', err.message);
+  });
 
 // Start server
 const PORT = process.env.PORT || 3000;

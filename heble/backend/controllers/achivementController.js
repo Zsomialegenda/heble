@@ -12,8 +12,7 @@ const checkAndAwardAchievements = async (userId, completedExercises) => {
     const achievements = await Achievements.findAll({
       where: {
         points: {
-          [Op.lte]: completedExercises.totalPoints 
-          // Assumes totalPoints are calculated from completedExercises
+          [Op.lte]: completedExercises.totalPoints
         }
       }
     });
@@ -51,7 +50,8 @@ const listAchivements = async (req, res) => {
     } catch (error) {
       console.error('Error fetching user achievements:', error);
       res.status(500).json({
-        message: 'Failed to fetch achievements.'
+        message: 'Failed to fetch achievements.',
+        üzenet: 'Hiba merült fel az eredmények lekérése közben.'
       });
     }
 }

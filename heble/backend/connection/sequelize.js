@@ -1,25 +1,24 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config(); 
+const config = require('../config');
 
 const sequelize = new Sequelize(
-  process.env.DATABASE,
-  process.env.USERNAME,
-  process.env.PASSWORD,
+  config.db.name,
+  config.db.username,
+  config.db.password,
   {
-    host: process.env.HOST,
-    dialect: 'mariadb',
-    port: process.env.DATABASE_PORT || 3306,
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
+    host: config.db.host,
+    dialect: config.db.dialect,
+    logging: console.log,
   }
 );
 
 sequelize.authenticate()
-  .then(() => console.log('Database connection established.'))
-  .catch(err => console.error('Unable to connect to the database:', err.message));
+.then(() => {
+  console.log('Successfully connected to the database:', config.db.name);
+})
+.catch(err => {
+  console.error('Failed to connect to the database:', err.message);
+});
+
 
 module.exports = sequelize;

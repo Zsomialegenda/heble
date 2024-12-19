@@ -1,0 +1,9 @@
+"firstName": "John",
+"lastName": "Doe",
+"email": "johndoe@example.com",
+"password": "SecurePassword123"
+
+"firstName": "Patrik",
+"lastName": "Sedlák",
+"email": "sedlakpatrik555@gmail.com",
+"password": "Kicsicsirke_1298"

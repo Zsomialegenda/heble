@@ -6,7 +6,7 @@ router.get('/achievements', achievementController.getAllAchievements);
 
 router.post('/achievements', achievementController.addAchievement);
 
-router.put('/achievements/:id', achievementController.updateAchievement);
+router.put('/achievements/:userId', achievementController.updateAchievement);
 
 router.get('/achievements/user/:userId', achievementController.listAchivements);
 

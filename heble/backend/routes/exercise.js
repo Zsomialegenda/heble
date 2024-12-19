@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const exerciseController = require('../controllers/exerciseController');
 
-router.get('/exercises/:id', exerciseController.getUserExercises);
-
-router.post('/exercises/log', exerciseController.logExercise);
-
-// router.put('/exercises/:id', exerciseController.updateExerciseLog);
-
-// router.delete('/exercises/:id', exerciseController.deleteExerciseLog);
+router.get('/', exerciseController.getAllExercises);
+router.get('/:userId', exerciseController.getUserExercises);
+router.post('/log', exerciseController.logExercise);
 
 module.exports = router;

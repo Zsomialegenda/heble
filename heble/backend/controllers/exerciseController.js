@@ -1,4 +1,26 @@
-const { Users, Exercises, Achievements, UserAchievements } = require('../models');
+const { 
+    Users, 
+    Exercises, 
+    Achievements, 
+    UserAchievements
+} = require('../models');
+
+const getAllExercises = async (req, res) => {
+    try {
+        const exercises = await Exercises.findAll();
+        res.status(200).json({
+            message: 'All exercises fetched successfully.',
+            üzenet: 'Az összes gyakorlat sikeresen lekérve.',
+            data: exercises
+        });
+    } catch (error) {
+        console.error('Error fetching exercises:', error);
+        res.status(500).json({
+            message: 'Failed to fetch exercises.',
+            üzenet: 'Hiba merült fel a gyakorlatok lekérése közben.'
+        });
+    }
+};
 
 const getUserExercises = async (req, res) => {
     const userId = req.params.id;
@@ -11,7 +33,11 @@ const getUserExercises = async (req, res) => {
                 üzenet: 'Nincsenek gyakorlatok ehhez a felhasználóhoz.'
             });
         }
-        res.status(200).json(exercises);
+        res.status(200).json({
+            message: 'User exercises fetched successfully.',
+            üzenet: 'A felhasználó gyakorlatai sikeresen lekérve.',
+            data: exercises
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -22,10 +48,10 @@ const getUserExercises = async (req, res) => {
 };
 
 const logExercise = async (req, res) => {
-    const userId = req.body.userId;
-    const { pushUps, pullUps, squats, running } = req.body;
+    const { userId, pushUps, pullUps, squats, running } = req.body;
 
-    if (!userId || (typeof pushUps !== 'number' && typeof pullUps !== 'number' && typeof squats !== 'number' && typeof running !== 'number')) {
+    if (!userId || 
+        (pushUps === undefined && pullUps === undefined && squats === undefined && running === undefined)) {
         return res.status(400).json({
             message: 'Invalid input data.',
             üzenet: 'Nem megfelelő bemenő adat.'
@@ -33,23 +59,25 @@ const logExercise = async (req, res) => {
     }
 
     try {
-        const [exercise, created] = await Exercises.findOrCreate({
-            where: { userId },
-            defaults: { pushUps, pullUps, squats, running }
-        });
+        const exercise = await Exercises.findOne({ where: { userId } });
 
-        if (!created) {
-            // Update the existing record
-            exercise.pushUps += pushUps;
-            exercise.pullUps += pullUps;
-            exercise.squats += squats;
-            exercise.running += running;
-            await exercise.save();
+        if (!exercise) {
+            return res.status(404).json({
+                message: 'Exercise record not found for the user.',
+                üzenet: 'A felhasználóhoz tartozó gyakorlat nem található.'
+            });
         }
 
+        if (typeof pushUps === 'number') exercise.pushUps += pushUps;
+        if (typeof pullUps === 'number') exercise.pullUps += pullUps;
+        if (typeof squats === 'number') exercise.squats += squats;
+        if (typeof running === 'number') exercise.running += running;
+
+        await exercise.save();
+
         res.status(200).json({
-            message: created ? 'New exercise entry created.' : 'Exercise updated.',
-            üzenet: created ? 'Új gyakorlat rögzítve.' : 'Gyakorlat frissítve.',
+            message: 'Exercise updated successfully.',
+            üzenet: 'Gyakorlat sikeresen frissítve.',
             data: exercise
         });
     } catch (error) {
@@ -61,31 +89,22 @@ const logExercise = async (req, res) => {
     }
 };
 
-const getAllExercises = async (req, res) => {
-    try {
-        const exercises = await Exercises.findAll();
-        res.status(200).json(exercises);
-    } catch (error) {
-        console.error('Error fetching exercises:', error);
-        res.status(500).json({
-            message: 'Failed to fetch exercises.',
-            üzenet: 'Hiba merült fel a gyakorlatok lekérése közben.'
-        });
-    }
-};
-
 const getExerciseByUserID = async (req, res) => {
     const userId = req.params.userId;
 
     try {
-        const exercise = await Exercises.findOne({ where: { user_id: userId } });
+        const exercise = await Exercises.findOne({ where: { userId: userId } });
         if (!exercise) {
             return res.status(404).json({
                 message: 'Exercises not found for this user.',
                 üzenet: 'A felhasználóhoz nem találhatóak gyakorlatok.'
             });
         }
-        res.status(200).json(exercise);
+        res.status(200).json({
+            message: 'Exercise data fetched successfully for the user.',
+            üzenet: 'A felhasználó gyakorlatai sikeresen lekérve.',
+            data: exercise
+        });
     } catch (error) {
         console.error('Error fetching exercise:', error);
         res.status(500).json({
@@ -95,34 +114,9 @@ const getExerciseByUserID = async (req, res) => {
     }
 };
 
-const addExercise = async (req, res) => {
-    const { user_id, pushUps, pullUps, squats, running } = req.body;
-
-    try {
-        const newExercise = await Exercises.create({
-            user_id,
-            pushUps,
-            pullUps,
-            squats,
-            running
-        });
-        res.status(201).json({
-            message: 'Exercise added successfully.',
-            exercise: newExercise
-        });
-    } catch (error) {
-        console.error('Error adding exercise:', error);
-        res.status(500).json({
-            message: 'Failed to add exercise.',
-            üzenet: 'Hiba merült fel a gyakorlat hozzáadása közben.'
-        });
-    }
-};
-
 module.exports = {
     getAllExercises,
     getUserExercises,
     logExercise,
-    getExerciseByUserID,
-    addExercise
+    getExerciseByUserID
 };
