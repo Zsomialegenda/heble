@@ -18,7 +18,6 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
     validate: {
       isEmail: true,
     },
@@ -26,14 +25,6 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  level: {
-    type: DataTypes.INTEGER,
-    defaultValue: 1,
-  },
-  xp: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
   },
 }, {
   timestamps: true,

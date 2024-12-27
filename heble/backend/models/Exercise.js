@@ -4,12 +4,13 @@ const sequelize = require('../connection/sequelize');
 const Exercise = sequelize.define('Exercise', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
     primaryKey: true,
+    autoIncrement: true,
   },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
     references: {
       model: 'Users',
       key: 'id',
@@ -19,22 +20,32 @@ const Exercise = sequelize.define('Exercise', {
   pushUps: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
+    allowNull: false,
   },
   pullUps: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
+    allowNull: false,
+  },
+  sitUps: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
   },
   squats: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
+    allowNull: false,
   },
   running: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+    allowNull: false,
+    comment: 'Running distance in kilometers',
   },
 }, {
-  timestamps: true,
   tableName: 'Exercises',
+  timestamps: true, // Keeps track of createdAt and updatedAt
 });
 
 module.exports = Exercise;

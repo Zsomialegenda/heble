@@ -5,8 +5,9 @@ const Achievement = require('./Achivement');
 const Exercise = require('./Exercise');
 const Token = require('./Token');
 const UserAchievement = require('./UserAchivement');
+const UserExperience = require('./UserExperience');
 
-// Kapcsolatok definiálása
+// Define relationships
 User.hasMany(Exercise, { foreignKey: 'userId' });
 Exercise.belongsTo(User, { foreignKey: 'userId' });
 
@@ -16,6 +17,9 @@ Token.belongsTo(User, { foreignKey: 'userId' });
 User.belongsToMany(Achievement, { through: UserAchievement, foreignKey: 'userId' });
 Achievement.belongsToMany(User, { through: UserAchievement, foreignKey: 'achievementId' });
 
+User.hasOne(UserExperience, { foreignKey: 'userId', onDelete: 'CASCADE' });
+UserExperience.belongsTo(User, { foreignKey: 'userId' });
+
 module.exports = {
   sequelize,
   User,
@@ -23,4 +27,5 @@ module.exports = {
   Exercise,
   Token,
   UserAchievement,
+  UserExperience,
 };

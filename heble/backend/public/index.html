@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Felület</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Felület</h1>
+    
+    <!-- Felhasználó törlése -->
+    <div class="form-group">
+      <label for="deleteUserId">Felhasználó ID törlése:</label>
+      <input type="number" id="deleteUserId" placeholder="Felhasználó ID">
+      <button class="button" onclick="deleteUser()">Felhasználó törlése</button>
+    </div>
+
+    <!-- Achievement hozzáadása -->
+    <div class="form-group">
+      <label for="achievementName">Achievement neve:</label>
+      <input type="text" id="achievementName" placeholder="Achievement neve">
+    </div>
+    <div class="form-group">
+      <label for="achievementDescription">Achievement leírása:</label>
+      <textarea id="achievementDescription" placeholder="Achievement leírása"></textarea>
+    </div>
+    <button class="button" onclick="addAchievement()">Achievement hozzáadása</button>
+
+    <!-- Admin kijelentkezés -->
+    <button class="button" style="background-color: #DC3545;" onclick="logoutAdmin()">Admin kijelentkezés</button>
+  </div>
+
+  <script>
+    // Felhasználó törlése
+    async function deleteUser() {
+      const userId = document.getElementById('deleteUserId').value;
+      if (!userId) {
+        alert('Kérlek add meg a felhasználó ID-t!');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/admin/deleteUser/${userId}`, {
+          method: 'DELETE',
+        });
+        const data = await response.json();
+        alert(data.message || 'Felhasználó törölve!');
+      } catch (error) {
+        console.error('Hiba a törlés során:', error);
+        alert('Hiba történt a törlés során.');
+      }
+    }
+
+    // Achievement hozzáadása
+    async function addAchievement() {
+      const name = document.getElementById('achievementName').value;
+      const description = document.getElementById('achievementDescription').value;
+
+      if (!name || !description) {
+        alert('Kérlek töltsd ki az összes mezőt!');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/admin/addAchievement', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, description }),
+        });
+        const data = await response.json();
+        alert(data.message || 'Achievement hozzáadva!');
+      } catch (error) {
+        console.error('Hiba a hozzáadás során:', error);
+        alert('Hiba történt az achievement hozzáadása során.');
+      }
+    }
+
+    // Admin kijelentkezés
+    function logoutAdmin() {
+      fetch('/api/admin/logout', {
+        method: 'POST',
+      })
+        .then(() => {
+          alert('Kijelentkeztél!');
+          window.location.href = '/login'; // Átirányítás a bejelentkezési oldalra
+        })
+        .catch((error) => {
+          console.error('Hiba a kijelentkezés során:', error);
+          alert('Hiba történt a kijelentkezés során.');
+        });
+    }
+  </script>
+</body>
+</html>

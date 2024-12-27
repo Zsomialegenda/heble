@@ -15,7 +15,19 @@ const Achievement = sequelize.define('Achievement', {
   description: {
     type: DataTypes.TEXT,
   },
-  points: {
+  pushUpsRequired: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  pullUpsRequired: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  squatsRequired: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  runningRequired: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
@@ -23,5 +35,6 @@ const Achievement = sequelize.define('Achievement', {
   timestamps: true,
   tableName: 'Achievements',
 });
+
 
 module.exports = Achievement;

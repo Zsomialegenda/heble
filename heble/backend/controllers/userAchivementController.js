@@ -1,4 +1,4 @@
-const { UserAchievement, User, Achievement } = require('../models');
+const { UserAchievement, User, Achievement, Exercise } = require('../models');
 
 // Get all achievements
 const getAllAchievements = async (req, res) => {
@@ -66,7 +66,81 @@ const getUserAchievements = async (req, res) => {
     }
 };
 
-module.exports = {
-    getAllAchievements,
-    getUserAchievements
+const checkAchievements = async (userId) => {
+    try {
+      const userExercises = await Exercise.findOne({ where: { userId } });
+      if (!userExercises) {
+        console.log('No exercises found for this user.');
+        return [];
+      }
+  
+      console.log('Cumulative exercise totals:', {
+        pushUps: userExercises.pushUps,
+        pullUps: userExercises.pullUps,
+        squats: userExercises.squats,
+        running: userExercises.running,
+      });
+  
+      const achievements = await Achievement.findAll();
+  
+      // Filter achievements based on requirements
+      const earnedAchievements = achievements.filter((achievement) => {
+        console.log(`Checking achievement: ${achievement.name}`);
+        const meetsRequirements =
+          userExercises.pushUps >= achievement.pushUpsRequired &&
+          userExercises.pullUps >= achievement.pullUpsRequired &&
+          userExercises.squats >= achievement.squatsRequired &&
+          userExercises.running >= achievement.runningRequired;
+  
+        console.log(
+          `Achievement: ${achievement.name}, Meets Requirements: ${meetsRequirements}`
+        );
+  
+        return meetsRequirements;
+      });
+  
+      console.log('Earned achievements:', earnedAchievements);
+      return earnedAchievements;
+    } catch (error) {
+      console.error('Error checking achievements:', error);
+      throw error;
+    }
 };
+  
+  
+  
+  const assignAchievements = async (userId) => {
+    try {
+      const earnedAchievements = await checkAchievements(userId);
+  
+      const newlyEarnedAchievements = [];
+  
+      for (const achievement of earnedAchievements) {
+        const alreadyEarned = await UserAchievement.findOne({
+          where: { userId: userId, achievementId: achievement.id },
+        });
+  
+        if (!alreadyEarned) {
+          await UserAchievement.create({
+            userId: userId,
+            achievementId: achievement.id,
+          });
+          newlyEarnedAchievements.push(achievement);
+        }
+      }
+  
+      return newlyEarnedAchievements; // Only return newly earned achievements
+    } catch (error) {
+      console.error('Error assigning achievements:', error);
+      throw error;
+    }
+  };
+  
+  
+  
+  module.exports = {
+    getAllAchievements,
+    getUserAchievements,
+    assignAchievements,
+  };
+  
