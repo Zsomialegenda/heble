@@ -39,7 +39,7 @@ app.use(express.static('public'));
 app.use('/users', userRoute);
 app.use('/exercises', exerciseRoute);
 app.use('/achievements', achievementRoute);
-app.use('/userAchivement', userAchievementRoute);
+app.use('/userAchivements', userAchievementRoute);
 app.use('/tokens', tokenRoute);
 
 app.get('/', (req, res) => {

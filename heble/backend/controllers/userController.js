@@ -22,15 +22,13 @@ const testUserRouteID = (req, res) => {
     });
 };
 
+// Fetch all users
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll();
-        res.status(200).json({
-            status: 200,
-            data: users
-        });
+        const users = await User.findAll({ include: [Exercise, UserExperience] });
+        res.status(200).json(users);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({
             status: 500,
             message: 'An error occurred while fetching users.',
@@ -39,25 +37,27 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-const getAllUsersNoPassword = async (req, res) => {
+// Fetch all users without passwords
+const countUsers = async (req, res) => {
     try {
-        const users = await User.findAll({
-            attributes: ['id', 'firstName', 'lastName', 'email', 'level', 'xp', 'createdAt', 'updatedAt']
-        });
+        const userCount = await User.count();
         res.status(200).json({
             status: 200,
-            data: users
+            message: 'User count fetched successfully.',
+            üzenet: 'Felhasználók száma sikeresen lekérve.',
+            userCount,
         });
     } catch (error) {
-        console.log(error);
+        console.error('Error fetching user count:', error);
         res.status(500).json({
             status: 500,
-            message: 'An error occurred while fetching users.',
-            üzenet: 'Hiba merült fel az adatok lekérése közben.'
+            message: 'Error fetching user count.',
+            üzenet: 'Hiba történt a felhasználók számának lekérése közben.',
         });
     }
 };
 
+// Fetch a user by ID
 const getUserByID = async (req, res) => {
     const userId = parseInt(req.params.userId, 10);
 
@@ -71,8 +71,10 @@ const getUserByID = async (req, res) => {
     try {
         const user = await User.findOne({
             where: { id: userId },
-            attributes: ['id', 'firstName', 'lastName', 'email', 'xp', 'createdAt', 'updatedAt']
+            attributes: ['id', 'firstName', 'lastName', 'email', 'createdAt', 'updatedAt'],
+            include: [Exercise, UserExperience]
         });
+
         if (!user) {
             return res.status(404).json({
                 status: 404,
@@ -80,12 +82,10 @@ const getUserByID = async (req, res) => {
                 üzenet: 'A felhasználó nem található.'
             });
         }
-        res.status(200).json({
-            status: 200,
-            data: user
-        });
+
+        res.status(200).json(user);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({
             status: 500,
             message: 'An error occurred while fetching the user.',
@@ -94,14 +94,24 @@ const getUserByID = async (req, res) => {
     }
 };
 
+// Fetch a user by email
 const getUserByEmail = async (req, res) => {
-    const email = req.body.email;
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({
+            message: 'Email is required.',
+            üzenet: 'Az email megadása kötelező.'
+        });
+    }
 
     try {
         const user = await User.findOne({
-            where: { email: email },
-            attributes: ['id', 'firstName', 'lastName', 'email', 'xp', 'createdAt', 'updatedAt']
+            where: { email },
+            attributes: ['id', 'firstName', 'lastName', 'email', 'createdAt', 'updatedAt'],
+            include: [Exercise, UserExperience]
         });
+
         if (!user) {
             return res.status(404).json({
                 status: 404,
@@ -109,12 +119,10 @@ const getUserByEmail = async (req, res) => {
                 üzenet: 'A felhasználó nem található.'
             });
         }
-        res.status(200).json({
-            status: 200,
-            data: user
-        });
+
+        res.status(200).json(user);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({
             status: 500,
             message: 'An error occurred while fetching the user.',
@@ -458,53 +466,54 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        if (isAdmin(req)) {
-            const { id, email } = req.body;
+        // if (!isAdmin(req)) {
+        //     return res.status(403).json({
+        //         status: 403,
+        //         message: 'Unauthorized. Admin credentials required.',
+        //         üzenet: 'Hozzáférés megtagadva. Admin jogosultság szükséges.'
+        //     });
+        // }
 
-            if (email) {
-                const user = await User.findOne({ where: { email } });
-                if (!user) {
-                    return res.status(404).json({
-                        status: 404,
-                        message: 'User not found by email.',
-                        üzenet: 'Felhasználó nem található email alapján.'
-                    });
-                }
+        const { id, email } = req.body; // For payload-based delete
+        const userId = req.params.id; // For URL-based delete
 
-                await user.destroy();
-                return res.status(200).json({
-                    status: 200,
-                    message: 'User deleted successfully by email.',
-                    üzenet: 'Felhasználó sikeresen törölve email alapján.'
-                });
-            } else if (id) {
-                const user = await User.findOne({ where: { id } });
-                if (!user) {
-                    return res.status(404).json({
-                        status: 404,
-                        message: 'User not found by ID.',
-                        üzenet: 'Felhasználó nem található azonosító alapján.'
-                    });
-                }
-
-                await user.destroy();
-                return res.status(200).json({
-                    status: 200,
-                    message: 'User deleted successfully by ID.',
-                    üzenet: 'Felhasználó sikeresen törölve azonosító alapján.'
-                });
-            } else {
-                return res.status(400).json({
-                    status: 400,
-                    message: 'Provide either user ID or email.',
-                    üzenet: 'Adjon meg azonosítót vagy e-mailt.'
+        if (email) {
+            const user = await User.findOne({ where: { email } });
+            if (!user) {
+                return res.status(404).json({
+                    status: 404,
+                    message: 'User not found by email.',
+                    üzenet: 'Felhasználó nem található email alapján.'
                 });
             }
+
+            await user.destroy();
+            return res.status(200).json({
+                status: 200,
+                message: 'User deleted successfully by email.',
+                üzenet: 'Felhasználó sikeresen törölve email alapján.'
+            });
+        } else if (id || userId) {
+            const user = await User.findOne({ where: { id: id || userId } });
+            if (!user) {
+                return res.status(404).json({
+                    status: 404,
+                    message: 'User not found by ID.',
+                    üzenet: 'Felhasználó nem található azonosító alapján.'
+                });
+            }
+
+            await user.destroy();
+            return res.status(200).json({
+                status: 200,
+                message: 'User deleted successfully by ID.',
+                üzenet: 'Felhasználó sikeresen törölve azonosító alapján.'
+            });
         } else {
-            return res.status(403).json({
-                status: 403,
-                message: 'Unauthorized. Admin credentials required.',
-                üzenet: 'Hozzáférés megtagadva. Admin jogosultság szükséges.'
+            return res.status(400).json({
+                status: 400,
+                message: 'Provide either user ID or email.',
+                üzenet: 'Adjon meg azonosítót vagy e-mailt.'
             });
         }
     } catch (error) {
@@ -522,7 +531,7 @@ module.exports = {
     testUserRoute,
     testUserRouteID,
     getAllUsers,
-    getAllUsersNoPassword,
+    countUsers,
     getUserByID,
     getUserByEmail,
     signupUser,

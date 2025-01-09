@@ -4,10 +4,12 @@ const {
     fetchAllTokens,
     fetchTokenById,
     fetchTokenByUserId,
+    countToken,
 } = require('../controllers/tokenController');
 
 // GET Methods
 router.get('/', fetchAllTokens);
+router.get('/count', countToken);
 router.get('/:id', fetchTokenById);
 router.get('/user/:id', fetchTokenByUserId);
 

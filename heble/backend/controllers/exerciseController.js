@@ -1,4 +1,5 @@
 const {
+  sequelize,
   Users,
   Exercise,
   Achievement,
@@ -200,6 +201,24 @@ const logExerciseAndGainXP = async (req, res) => {
 };
 
 
+const statsExercises = async (req, res) => {
+  try {
+    const totals = await Exercise.findAll({
+      attributes: [
+        [sequelize.fn('SUM', sequelize.col('pushUps')), 'totalPushUps'],
+        [sequelize.fn('SUM', sequelize.col('pullUps')), 'totalPullUps'],
+        [sequelize.fn('SUM', sequelize.col('sitUps')), 'totalSitUps'],
+        [sequelize.fn('SUM', sequelize.col('squats')), 'totalSquats'],
+        [sequelize.fn('SUM', sequelize.col('running')), 'totalRunning'],
+      ],
+    });
+
+    res.json(totals[0].dataValues);
+  } catch (error) {
+    console.error('Error fetching exercise sums:', error);
+    res.status(500).json({ message: 'Failed to fetch exercise sums.' });
+  }
+};
 
 
 module.exports = {
@@ -207,4 +226,5 @@ module.exports = {
   getUserExercises,
   getExerciseByUserID,
   logExerciseAndGainXP,
+  statsExercises
 };

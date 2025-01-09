@@ -1,4 +1,4 @@
-const { UserAchievement, User, Achievement, Exercise } = require('../models');
+const { UserAchievement, User, Achievement, Exercise, sequelize } = require('../models');
 
 // Get all achievements
 const getAllAchievements = async (req, res) => {
@@ -106,41 +106,75 @@ const checkAchievements = async (userId) => {
       throw error;
     }
 };
-  
-  
-  
-  const assignAchievements = async (userId) => {
-    try {
-      const earnedAchievements = await checkAchievements(userId);
-  
-      const newlyEarnedAchievements = [];
-  
-      for (const achievement of earnedAchievements) {
-        const alreadyEarned = await UserAchievement.findOne({
-          where: { userId: userId, achievementId: achievement.id },
+
+
+const assignAchievements = async (userId) => {
+  try {
+    const earnedAchievements = await checkAchievements(userId);
+
+    const newlyEarnedAchievements = [];
+
+    for (const achievement of earnedAchievements) {
+      const alreadyEarned = await UserAchievement.findOne({
+        where: { userId: userId, achievementId: achievement.id },
+      });
+
+      if (!alreadyEarned) {
+        await UserAchievement.create({
+          userId: userId,
+          achievementId: achievement.id,
         });
-  
-        if (!alreadyEarned) {
-          await UserAchievement.create({
-            userId: userId,
-            achievementId: achievement.id,
-          });
-          newlyEarnedAchievements.push(achievement);
-        }
+        newlyEarnedAchievements.push(achievement);
       }
-  
-      return newlyEarnedAchievements; // Only return newly earned achievements
-    } catch (error) {
-      console.error('Error assigning achievements:', error);
-      throw error;
     }
-  };
-  
+
+    return newlyEarnedAchievements; // Only return newly earned achievements
+  } catch (error) {
+    console.error('Error assigning achievements:', error);
+    throw error;
+  }
+};
+
+
+const statsAchievements = async (req, res) => {
+  try {
+    const achievements = await UserAchievement.findAll({
+      attributes: [
+        [sequelize.col('Achievement.name'), 'name'], // Include achievement title
+        [sequelize.fn('COUNT', sequelize.col('userId')), 'totalUsers'], // Count users who achieved
+      ],
+      include: [
+        {
+          model: Achievement, // Assuming there's a related Achievement model
+          attributes: [], // Exclude additional fields
+        },
+      ],
+      group: ['Achievement.title'],
+      order: [[sequelize.literal('totalUsers'), 'DESC']], // Order by total users
+    });
+
+    res.status(200).json({
+      status: 200,
+      message: 'Achievements statistics fetched successfully.',
+      data: achievements,
+    });
+  } catch (error) {
+    console.error('Error fetching achievements statistics:', error);
+    res.status(500).json({
+      status: 500,
+      message: 'Error fetching achievements statistics.',
+      error: error.message,
+    });
+  }
+};
+
+
   
   
   module.exports = {
     getAllAchievements,
     getUserAchievements,
     assignAchievements,
+    statsAchievements
   };
   

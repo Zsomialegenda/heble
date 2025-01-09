@@ -4,7 +4,6 @@ const {
     testUserRoute,
     testUserRouteID,
     getAllUsers,
-    getAllUsersNoPassword,
     getUserByEmail,
     getUserByID,
     signupUser,
@@ -12,6 +11,7 @@ const {
     logoutUser,
     updateUser,
     deleteUser,
+    countUsers,
 } = require('../controllers/userController');
 
 // Test Routes
@@ -20,7 +20,7 @@ router.get('/testUserRouteID/:id', testUserRouteID);
 
 // GET Methods
 router.get('/', getAllUsers);
-router.get('/noPass', getAllUsersNoPassword);
+router.get('/stats', countUsers);
 router.get('/email', getUserByEmail);
 router.get('/:userId', getUserByID);
 
@@ -34,7 +34,7 @@ router.put('/signup', signupUser);
 // PATCH Methods
 router.patch('/patch/:userId', updateUser);
 
-// DELETE Methods
-router.delete('/delete', deleteUser);
+// DELETE Method
+router.delete('/delete/:id?', deleteUser);
 
 module.exports = router;

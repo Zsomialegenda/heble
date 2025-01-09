@@ -1,146 +1,369 @@
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Felület</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .button:hover {
-      background-color: #0056b3;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Admin Felület</h1>
-    
-    <!-- Felhasználó törlése -->
-    <div class="form-group">
-      <label for="deleteUserId">Felhasználó ID törlése:</label>
-      <input type="number" id="deleteUserId" placeholder="Felhasználó ID">
-      <button class="button" onclick="deleteUser()">Felhasználó törlése</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Felület</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      .button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .button:hover {
+        background-color: #0056b3;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="container">
+      <h1>Admin Felület</h1>
+
+      <!-- Felhasználó törlése -->
+      <div class="form-group">
+        <label for="deleteUserId">Felhasználó ID törlése:</label>
+        <input type="number" id="deleteUserId" placeholder="Felhasználó ID" />
+        <button class="button" onclick="deleteUser()">
+          Felhasználó törlése
+        </button>
+      </div>
+
+      <!-- Achievement hozzáadása -->
+      <div class="form-group">
+        <label for="achievementName">Achievement neve:</label>
+        <input
+          type="text"
+          id="achievementName"
+          placeholder="Achievement neve"
+        />
+      </div>
+      <div class="form-group">
+        <label for="achievementDescription">Achievement leírása:</label>
+        <textarea
+          id="achievementDescription"
+          placeholder="Achievement leírása"
+        ></textarea>
+      </div>
+      <button class="button" onclick="addAchievement()">
+        Achievement hozzáadása
+      </button>
+
+      <div class="form-group">
+        <h2>Statisztikák</h2>
+        <p>Felhasználók száma: <span id="userCount">0</span></p>
+        <p>Tokenek száma: <span id="tokenCount">0</span></p>
+      </div>
+
+      <!-- Admin kijelentkezés -->
+      <button
+        class="button"
+        style="background-color: #dc3545"
+        onclick="logoutAdmin()"
+      >
+        Admin kijelentkezés
+      </button>
     </div>
 
-    <!-- Achievement hozzáadása -->
-    <div class="form-group">
-      <label for="achievementName">Achievement neve:</label>
-      <input type="text" id="achievementName" placeholder="Achievement neve">
-    </div>
-    <div class="form-group">
-      <label for="achievementDescription">Achievement leírása:</label>
-      <textarea id="achievementDescription" placeholder="Achievement leírása"></textarea>
-    </div>
-    <button class="button" onclick="addAchievement()">Achievement hozzáadása</button>
+    <div class="container">
+      <h2>Statisztikák</h2>
 
-    <!-- Admin kijelentkezés -->
-    <button class="button" style="background-color: #DC3545;" onclick="logoutAdmin()">Admin kijelentkezés</button>
-  </div>
+      <!-- User Exercise Statistics -->
+      <div class="form-group">
+        <h2>Felhasználói Gyakorlat Statisztikák</h2>
+        <canvas id="exerciseChart" width="400" height="200"></canvas>
+      </div>
 
-  <script>
-    // Felhasználó törlése
-    async function deleteUser() {
-      const userId = document.getElementById('deleteUserId').value;
-      if (!userId) {
-        alert('Kérlek add meg a felhasználó ID-t!');
-        return;
+      <!-- Achievements Statistics -->
+      <div>
+        <h3>Felhasználói Achievementek</h3>
+        <canvas id="achievementChart"></canvas>
+      </div>
+    </div>
+
+    <script>
+      let exerciseChart; // Global variable to store the chart instance
+      let achievementChart; // Global variable to store the chart instance
+
+      // Felhasználó törlése
+      async function deleteUser() {
+        const userId = document.getElementById("deleteUserId").value;
+        if (!userId) {
+          alert("Kérlek add meg a felhasználó ID-t!");
+          return;
+        }
+
+        try {
+          const response = await fetch(`/users/delete/${userId}`, {
+            method: "DELETE",
+          });
+          if (response.ok) {
+            const data = await response.json();
+            alert(data.üzenet || "Felhasználó törölve!");
+          } else {
+            const errorData = await response.json();
+            alert(errorData.üzenet || "Hiba történt a törlés során.");
+          }
+        } catch (error) {
+          console.error("Hiba a törlés során:", error);
+          alert("Hiba történt a törlés során.");
+        }
       }
 
-      try {
-        const response = await fetch(`/api/admin/deleteUser/${userId}`, {
-          method: 'DELETE',
-        });
-        const data = await response.json();
-        alert(data.message || 'Felhasználó törölve!');
-      } catch (error) {
-        console.error('Hiba a törlés során:', error);
-        alert('Hiba történt a törlés során.');
+      // Achievement hozzáadása
+      async function addAchievement() {
+        const name = document.getElementById("achievementName").value;
+        const description = document.getElementById(
+          "achievementDescription"
+        ).value;
+
+        if (!name || !description) {
+          alert("Kérlek töltsd ki az összes mezőt!");
+          return;
+        }
+
+        try {
+          const response = await fetch("/achievements", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, description }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            alert(data.üzenet || "Achievement hozzáadva!");
+          } else {
+            const errorData = await response.json();
+            alert(
+              errorData.üzenet ||
+                "Hiba történt az achievement hozzáadása során."
+            );
+          }
+        } catch (error) {
+          console.error("Hiba a hozzáadás során:", error);
+          alert("Hiba történt az achievement hozzáadása során.");
+        }
       }
+
+      // Admin kijelentkezés
+      async function logoutAdmin() {
+        try {
+          const response = await fetch("/admin/logout", { method: "POST" });
+          if (response.ok) {
+            alert("Kijelentkeztél!");
+            window.location.href = "/login";
+          } else {
+            alert("Hiba történt a kijelentkezés során.");
+          }
+        } catch (error) {
+          console.error("Hiba a kijelentkezés során:", error);
+          alert("Hiba történt a kijelentkezés során.");
+        }
+      }
+
+      async function fetchExerciseStats() {
+        try {
+          // Fetch total exercise sums from backend
+          const response = await fetch("/exercises/stats/sum");
+          if (!response.ok) throw new Error("Failed to fetch data.");
+
+          const totals = await response.json();
+
+          // Verify response structure
+          if (typeof totals !== "object") {
+            throw new Error("Expected an object but got something else.");
+          }
+
+          // Prepare data for the chart
+          const labels = [
+            "Push Ups",
+            "Pull Ups",
+            "Sit Ups",
+            "Squats",
+            "Running",
+          ];
+          const data = [
+            totals.totalPushUps || 0,
+            totals.totalPullUps || 0,
+            totals.totalSitUps || 0,
+            totals.totalSquats || 0,
+            totals.totalRunning || 0,
+          ];
+
+          // Destroy the existing chart instance if it exists
+          if (exerciseChart) {
+            exerciseChart.destroy();
+          }
+
+          // Render Chart
+          const ctx = document.getElementById("exerciseChart").getContext("2d");
+          exerciseChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels, // X-axis labels
+              datasets: [
+                {
+                  label: "Total Exercises",
+                  data,
+                  backgroundColor: [
+                    "rgba(255, 99, 132, 0.5)",
+                    "rgba(54, 162, 235, 0.5)",
+                    "rgba(75, 192, 192, 0.5)",
+                    "rgba(153, 102, 255, 0.5)",
+                    "rgba(255, 159, 64, 0.5)",
+                  ],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { position: "top" },
+              },
+              scales: {
+                y: { beginAtZero: true },
+              },
+            },
+          });
+        } catch (error) {
+          console.error("Error fetching exercise stats:", error);
+          alert("Error fetching exercise statistics.");
+        }
+      }
+
+      async function fetchAchievementStats() {
+  try {
+    const response = await fetch("/userAchivements/stats/sum");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    // Achievement hozzáadása
-    async function addAchievement() {
-      const name = document.getElementById('achievementName').value;
-      const description = document.getElementById('achievementDescription').value;
+    const responseData = await response.json();
+    console.log(responseData); // Debugging: Check the API response
 
-      if (!name || !description) {
-        alert('Kérlek töltsd ki az összes mezőt!');
-        return;
-      }
+    // Extract titles and user counts from the API response
+    const data = responseData.data; // Adjust this based on actual API response
+    if (!Array.isArray(data)) {
+      throw new Error("API response is not an array.");
+    }
 
-      try {
-        const response = await fetch('/api/admin/addAchievement', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+    const labels = data.map(item => item.title); // Achievement titles
+    const values = data.map(item => item.totalUsers); // Number of users who achieved each title
+
+    // Destroy the existing chart instance if it exists
+    if (achievementChart) {
+      achievementChart.destroy();
+    }
+
+    // Render the bar chart
+    const ctx = document.getElementById("achievementChart").getContext("2d");
+    achievementChart = new Chart(ctx, {
+      type: "bar", // Bar chart
+      data: {
+        labels, // X-axis: Achievement titles
+        datasets: [
+          {
+            label: "Users Who Achieved",
+            data: values, // Y-axis: Number of users
+            backgroundColor: "rgba(54, 162, 235, 0.5)", // Bar color
+            borderColor: "rgba(54, 162, 235, 1)", // Border color
+            borderWidth: 1,
           },
-          body: JSON.stringify({ name, description }),
-        });
-        const data = await response.json();
-        alert(data.message || 'Achievement hozzáadva!');
-      } catch (error) {
-        console.error('Hiba a hozzáadás során:', error);
-        alert('Hiba történt az achievement hozzáadása során.');
-      }
-    }
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: "top" },
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Achievement Titles", // Label for X-axis
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Number of Users", // Label for Y-axis
+            },
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching achievement stats:", error);
+  }
+}
+      
+      
+      async function fetchUsers() {
+        try {
+          // Fetch user count
+          const userResponse = await fetch("/users/stats");
+          const userData = await userResponse.json();
+          document.getElementById("userCount").textContent = userData.userCount;
 
-    // Admin kijelentkezés
-    function logoutAdmin() {
-      fetch('/api/admin/logout', {
-        method: 'POST',
-      })
-        .then(() => {
-          alert('Kijelentkeztél!');
-          window.location.href = '/login'; // Átirányítás a bejelentkezési oldalra
-        })
-        .catch((error) => {
-          console.error('Hiba a kijelentkezés során:', error);
-          alert('Hiba történt a kijelentkezés során.');
-        });
-    }
-  </script>
-</body>
+          // Fetch token count
+          const tokenResponse = await fetch("/tokens/count");
+          const tokenData = await tokenResponse.json();
+          document.getElementById("tokenCount").textContent =
+            tokenData.tokenCount;
+        } catch (error) {
+          console.error("Error fetching counts:", error);
+          alert("Hiba történt a statisztikák lekérése során.");
+        }
+      }
+
+      // Initialize statistics on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchExerciseStats();
+        fetchAchievementStats();
+        fetchUsers();
+      });
+    </script>
+  </body>
 </html>

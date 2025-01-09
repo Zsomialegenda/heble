@@ -112,8 +112,28 @@ const checkAndDeleteExpiredTokens = async () => {
 // Run the cleanup function every hour
 setInterval(checkAndDeleteExpiredTokens, 3600000);
 
+const countToken = async (req, res) => {
+    try {
+        const tokenCount = await Token.count();
+        res.status(200).json({
+            status: 200,
+            message: 'Token count fetched successfully.',
+            üzenet: 'Tokenek száma sikeresen lekérve.',
+            tokenCount,
+        });
+    } catch (error) {
+        console.error('Error fetching token count:', error);
+        res.status(500).json({
+            status: 500,
+            message: 'Error fetching token count.',
+            üzenet: 'Hiba történt a tokenek számának lekérése közben.',
+        });
+    }
+};
+
 module.exports = {
     fetchAllTokens,
     fetchTokenById,
     fetchTokenByUserId,
+    countToken
 };
