@@ -136,45 +136,62 @@ const assignAchievements = async (userId) => {
 };
 
 
-const statsAchievements = async (req, res) => {
+const getAchievementStats = async (req, res) => {
   try {
-    const achievements = await UserAchievement.findAll({
+    // Count the number of users per achievement
+    const stats = await UserAchievement.findAll({
       attributes: [
-        [sequelize.col('Achievement.name'), 'name'], // Include achievement title
-        [sequelize.fn('COUNT', sequelize.col('userId')), 'totalUsers'], // Count users who achieved
+        'achievementId',
+        [sequelize.fn('COUNT', sequelize.col('userId')), 'totalUsers'],
       ],
       include: [
         {
-          model: Achievement, // Assuming there's a related Achievement model
-          attributes: [], // Exclude additional fields
+          model: Achievement,
+          attributes: ['name'], // Get the name of the achievement
         },
       ],
-      group: ['Achievement.title'],
-      order: [[sequelize.literal('totalUsers'), 'DESC']], // Order by total users
+      group: ['achievementId', 'Achievement.id'], // Group by achievement
     });
 
-    res.status(200).json({
-      status: 200,
-      message: 'Achievements statistics fetched successfully.',
-      data: achievements,
-    });
+    // Format the data for the frontend
+    const data = stats.map((stat) => ({
+      title: stat.Achievement.name,
+      totalUsers: stat.dataValues.totalUsers,
+    }));
+
+    res.json({ data });
   } catch (error) {
-    console.error('Error fetching achievements statistics:', error);
-    res.status(500).json({
-      status: 500,
-      message: 'Error fetching achievements statistics.',
-      error: error.message,
-    });
+    console.error('Error fetching achievement stats:', error);
+    res.status(500).json({ error: 'Failed to fetch achievement statistics' });
   }
 };
 
+const getLeaderboardByAchievements = async (req, res) => {
+  try {
+    const leaderboard = await UserAchievement.findAll({
+      attributes: ['userId', [sequelize.fn('COUNT', sequelize.col('achievementId')), 'achievementCount']],
+      include: {
+        model: User,
+        attributes: ['username'],
+      },
+      group: ['userId'],
+      order: [[sequelize.fn('COUNT', sequelize.col('achievementId')), 'DESC']],
+      limit: 10,
+    });
 
+    res.json(leaderboard);
+  } catch (error) {
+    console.error('Error fetching achievement leaderboard:', error);
+    res.status(500).json({ error: 'Failed to fetch achievement leaderboard.' });
+  }
+};
   
   
   module.exports = {
     getAllAchievements,
     getUserAchievements,
     assignAchievements,
-    statsAchievements
+    getAchievementStats,
+    getLeaderboardByAchievements
   };
   

@@ -14,10 +14,6 @@ const {
     countUsers,
 } = require('../controllers/userController');
 
-// Test Routes
-router.get('/testUserRoute', testUserRoute);
-router.get('/testUserRouteID/:id', testUserRouteID);
-
 // GET Methods
 router.get('/', getAllUsers);
 router.get('/stats', countUsers);

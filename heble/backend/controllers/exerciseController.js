@@ -221,6 +221,7 @@ const statsExercises = async (req, res) => {
 };
 
 
+
 module.exports = {
   getAllExercises,
   getUserExercises,

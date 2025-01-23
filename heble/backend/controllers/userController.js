@@ -5,27 +5,10 @@ const { User, Exercise, Achievements, UserAchievements, UserExperience, Token } 
 
 const SECRET_KEY = 'Kicsicsirke_1298';
 
-const testUserRoute = (req, res) => {
-    res.status(200).json({
-        status: 200,
-        message: "Hello from the user route"
-    });
-    console.log(User);
-};
-
-const testUserRouteID = (req, res) => {
-    console.log('Request reached /user/:id');
-    const userId = req.params.userId;
-    res.status(200).json({
-        status: 200,
-        message: `User ID: ${userId}`
-    });
-};
-
 // Fetch all users
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll({ include: [Exercise, UserExperience] });
+        const users = await User.findAll({ include: [Exercise, UserExperience, UserAchievements] });
         res.status(200).json(users);
     } catch (error) {
         console.error(error);
@@ -528,8 +511,6 @@ const deleteUser = async (req, res) => {
 
 
 module.exports = {
-    testUserRoute,
-    testUserRouteID,
     getAllUsers,
     countUsers,
     getUserByID,

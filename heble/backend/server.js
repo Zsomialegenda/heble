@@ -10,6 +10,7 @@ const exerciseRoute = require('./routes/exerciseRoute');
 const achievementRoute = require('./routes/achivementRoute');
 const userAchievementRoute = require('./routes/userAchievementRoute');
 const tokenRoute = require('./routes/tokenRoute');
+const leaderboardRoute = require('./routes/leaderboardRoute')
 
 const sequelize = require('./connection/sequelize');
 
@@ -41,6 +42,7 @@ app.use('/exercises', exerciseRoute);
 app.use('/achievements', achievementRoute);
 app.use('/userAchivements', userAchievementRoute);
 app.use('/tokens', tokenRoute);
+app.use('/leaderboard', leaderboardRoute)
 
 app.get('/', (req, res) => {
   res.sendFile("C:/Users/sedla/Desktop/projekt/heble/heble/backend/public/index.html")

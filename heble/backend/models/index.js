@@ -20,6 +20,9 @@ Achievement.belongsToMany(User, { through: UserAchievement, foreignKey: 'achieve
 User.hasOne(UserExperience, { foreignKey: 'userId', onDelete: 'CASCADE' });
 UserExperience.belongsTo(User, { foreignKey: 'userId' });
 
+Achievement.hasMany(UserAchievement, { foreignKey: 'achievementId' });
+UserAchievement.belongsTo(Achievement, { foreignKey: 'achievementId' });
+
 module.exports = {
   sequelize,
   User,
