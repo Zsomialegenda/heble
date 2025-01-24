@@ -1,6 +1,7 @@
 # Project Plan - HeBLE
 
-**Project work by János Bence Dakos, Gergő Fodor, and Patrik András Sedlák.**
+- **The title of the project work: Healthy Body Lifestyle Entertainment.**
+- **Project work by János Bence Dakos, Gergő Fodor, and Patrik András Sedlák.**
 
 ---
 
@@ -15,35 +16,37 @@
 
 ## Roles in Use  
 
-[blank]
+- **János Bence Dakos: Frontend, database**
+- **Gergő Fodor: Frontend, database**
+- **Patrik András Sedlák: Backend, database**  
 
 ---
 
 ## Application Features  
 
-- **Registering users**  
-- **Tracking the users' workout**  
-- **Suggestions for a better lifestyle (meals, workout advice...)**  
-- **Claiming points based on the workout**  
+- **User registration and login**  
+- **Tracking user workouts**  
+- **Suggestions for a healthier lifestyle (diet, workout tips, etc.)**  
+- **Earning points based on workouts**  
 
 ---
 
 ## Frontend Plan  
 
 - **Header = navigation bar**  
-  - **Landing page icon**  
-  - **Coach**  
-  - **Store**  
-  - **Free Content (articles, guides...)**  
+  - **Home icon**  
+  - **Coaching**  
+  - **News - Free Content (articles, guides, etc.)**  
+  - **Login**  
 
-- **Body = main content**  
-  1. [blank]  
+- **Content = main section:**  
+  - **Image**  
+  - **Feedbacks cards** 
 
 - **Footer = branding**  
-  - **Copyright**  
-  - **Social media**  
-  - **About**  
-  - **Support**  
+  - **About us**  
+  - **Banner**  
+  - **Contact**  
 
 ---
 
@@ -57,22 +60,37 @@ Each endpoint begins with `/api/vx.x.x`, where `x.x.x` is the version number of 
 
 ### Endpoints Overview  
 
-| Endpoint URL            | HTTP Method | Operation Description                                   | Status Code / Response Data |  
-|--------------------------|-------------|---------------------------------------------------------|-----------------------------|  
-| **/server - Parent Route** |             |                                                         |                             |  
-| `/testRun`               | GET         | **Test method**: checks whether the server is running. | [blank]                    | 
-| `/testRunByID/id`        | GET         | **Test method**: checks if receiving parameters works.  | [blank]                    | 
-| **/user - Parent Route** |             |                                                         |                             |
-| `/testUserRoute`         | GET         | **Test method**: tests if the route is reachable.       | [blank]                    | 
-| `/testUserRouteID/{userID}` | GET       | **Test method**: tests if the parameters work in this route. | [blank] |  
-| `/getAllUsers`           | GET         | Returns all users' information without passwords.       | [blank] |  
-| `/getUserByID/{userID}`  | GET         | Queries the data of a user with the given ID (userID).  | [blank] |  
-| `/getUserByEmail`        | GET         | Queries a registered user based on email.               | [blank] |  
-| `/signup`                | POST        | Inserts a user into the database.                       | [blank] |  
-| `/login`                 | POST        | Manages user logins.                                    | [blank] |  
-| `/logout`                | POST        | Manages user logouts.                                   | [blank] (method still missing) |  
-| `/updateUserByID/{userID}` | PATCH     | Updates user data with the given ID.                    | [blank] |  
-| `/updateUserByEmail`     | PATCH       | Updates user data with the given email.                 | [blank] |  
-| `/deleteUserByID/{userID}` | DELETE   | Deletes a user with the given ID.                       | [blank] |  
-| `/deleteUserByEmail`     | DELETE      | Deletes a user with the given email.                    | [blank] |  
-| `/gain-xp/{userID}`      | POST        | Adds experience points to a user with the given ID.     | [blank] |  
+| Endpoint URL                 | HTTP Method | Operation Description                                               | Status Code / Response Data |  
+|------------------------------|-------------|-----------------------------------------------------------------------|-----------------------------|  
+| **/users - Parent Route**     |             |                                                                       |                             |  
+| `/`               | GET         | Returns all users' information without passwords.                    | [blank]                    |  
+| `/{userID}`      | GET         | Queries the data of a user with the given ID (userID).               | [blank]                    |  
+| `/getUserByEmail`            | GET         | Queries a registered user based on email.                           | [blank]                    |  
+| `/signup`                    | POST        | Inserts a user into the database.                                    | [blank]                    |  
+| `/login`                     | POST        | Manages user logins.                                                 | [blank]                    |  
+| `/logout`                    | POST        | Manages user logouts.                                                | [blank]                    |  
+| `/updateUserByID/{userID}`   | PATCH       | Updates user data with the given ID.                                 | [blank]                    |  
+| `/updateUserByEmail`         | PATCH       | Updates user data with the given email.                              | [blank]                    |  
+| `/deleteUserByID/{userID}`   | DELETE      | Deletes a user with the given ID.                                    | [blank]                    |  
+| `/deleteUserByEmail`         | DELETE      | Deletes a user with the given email.                                 | [blank]                    |  
+| **/achievements - Parent Route** |         |                                                                       |                             |  
+| `/`                          | GET         | Retrieves all achievements.                                          | [blank]                    |  
+| `/`                          | PUT         | Adds a new achievement.                                              | [blank]                    |  
+| `/user/{userId}`             | GET         | Lists achievements for a specific user by userId.                   | [blank]                    |  
+| `/{id}`                      | POST        | Updates an achievement by ID.                                        | [blank]                    |  
+| **/exercises - Parent Route** |            |                                                                       |                             |  
+| `/`                          | GET         | Retrieves all exercises.                                             | [blank]                    |  
+| `/{id}`                      | GET         | Retrieves exercises for a specific user by user ID.                 | [blank]                    |  
+| `/stats/sum`                 | GET         | Retrieves summarized exercise statistics.                            | [blank]                    |  
+| `/log`                       | POST        | Logs exercise data and gains experience points.                      | [blank]                    |  
+| **/leaderboard - Parent Route** |          |                                                                       |                             |  
+| `/xp`                        | GET         | Retrieves leaderboard based on experience points.                    | [blank]                    |  
+| `/achievements`              | GET         | Retrieves leaderboard based on achievements.                         | [blank]                    |  
+| `/exercise/{type}`           | GET         | Retrieves leaderboard based on exercise type.                        | [blank]                    |  
+| **/tokens - Parent Route**   |             |                                                                       |                             |  
+| `/`                          | GET         | Retrieves all tokens.                                                | [blank]                    |  
+| `/count`                     | GET         | Retrieves the count of all tokens.                                   | [blank]                    |  
+| `/{id}`                      | GET         | Retrieves a token by its ID.                                         | [blank]                    |  
+| `/user/{id}`                 | GET         | Retrieves tokens associated with a specific user by user ID.         | [blank]                    |  
+| **/xp - Parent Route**       |             |                                                                       |                             |  
+| `/xp`                        | GET         | Retrieves all experience points.                                     | [blank]                    |  
