@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
-import { SignupComponent } from './signup/signup.component';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'signup', pathMatch: 'full' },
-  { path: 'signup', component: SignupComponent}
+    {path: "home", component:HomeComponent},
+    {path: "**", component: HomeComponent}
 ];

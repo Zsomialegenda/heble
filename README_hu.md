@@ -1,6 +1,7 @@
 # Projekt Terv - HeBLE
 
-**Projektmunka: János Bence Dakos, Gergő Fodor és Patrik András Sedlák.**
+- **Cím: HeBLE - Healthy Body Lifestyle Entertainment.**
+- **Projektmunka: Dakos János Bence, Fodor Gergő és Sedlák Patrik András.**
 
 ---
 
@@ -15,13 +16,15 @@
 
 ## Használt szerepek
 
-[üres]  
+- **Dakos János Bence: Frontend, adatbázis**
+- **Fodor Gergő: Frontned, adatbázis**
+- **Sedlák Patrik András: Banckend, adatbázis**
 
 ---
 
 ## Alkalmazás funkciói
 
-- **Felhasználók regisztrálása**  
+- **Felhasználók regisztrálása, bejelentkezése**  
 - **Felhasználók edzésének nyomon követése**  
 - **Javaslatok egy egészségesebb életmódhoz (étkezés, edzés tippek...)**  
 - **Pontok gyűjtése az edzések alapján**  
@@ -32,18 +35,18 @@
 
 - **Fejléc = navigációs sáv**  
   - **Nyitólap ikon**  
-  - **Edző**  
-  - **Bolt**  
-  - **Ingyenes Tartalom (cikkek, útmutatók...)**  
+  - **Coaching**  
+  - **Hírek - Ingyenes Tartalom (cikkek, útmutatók...)**  
+  - **Bejelentkezés**  
 
 - **Tartalom = fő rész:**  
-  1. [üres]  
+  - **Kép**  
+  - **Vélemények kártyák** 
 
 - **Lábléc = branding**  
-  - **Szerzői jogok**  
-  - **Közösségi média**  
   - **Rólunk**  
-  - **Támogatás**  
+  - **Banner**  
+  - **Kapcsolat**  
 
 ---
 
@@ -57,22 +60,37 @@ Minden végpont `/api/vx.x.x`-el kezdődik, ahol `x.x.x` az API verziószáma.
 
 ### Végpontok áttekintése  
 
-| Végpont URL            | HTTP Metódus | Művelet Leírása                                    | Állapotkód / Válasz Adat |  
-|-------------------------|--------------|----------------------------------------------------|--------------------------|  
-| **/server - Szülő Útvonal** |              |                                                    |                          |  
-| `/testRun`              | GET          | **Teszt metódus:** Ellenőrzi, hogy a szerver fut-e. | [üres]                   |  
-| `/testRunByID/id`       | GET          | **Teszt metódus:** Ellenőrzi, hogy a paraméterek átvitele működik-e. | [üres] |  
-| **/user - Szülő Útvonal** |              |                                                    |                          |  
-| `/testUserRoute`        | GET          | **Teszt metódus:** Ellenőrzi, hogy az útvonal elérhető-e. | [üres] |  
-| `/testUserRouteID/{userID}` | GET       | **Teszt metódus:** Ellenőrzi, hogy a paraméterek működnek-e ezen az útvonalon. | [üres] |  
-| `/getAllUsers`          | GET          | Visszaadja az összes felhasználó adatait jelszó nélkül. | [üres] |  
-| `/getUserByID/{userID}` | GET          | Lekérdezi a megadott ID-hez (userID) tartozó felhasználó adatait. | [üres] |  
-| `/getUserByEmail`       | GET          | Regisztrált felhasználó lekérdezése e-mail alapján. | [üres] |  
-| `/signup`               | POST         | Felhasználó hozzáadása az adatbázishoz. | [üres] |  
-| `/login`                | POST         | Felhasználói bejelentkezés kezelése. | [üres] |  
-| `/logout`               | POST         | Felhasználói kijelentkezés kezelése. | [üres] (metódus még hiányzik) |  
-| `/updateUserByID/{userID}` | PATCH     | A felhasználó adatainak módosítása a megadott ID alapján. | [üres] |  
-| `/updateUserByEmail`    | PATCH        | A felhasználó adatainak módosítása a megadott e-mail alapján. | [üres] |  
-| `/deleteUserByID/{userID}` | DELETE   | Felhasználó törlése a megadott ID alapján. | [üres] |  
-| `/deleteUserByEmail`    | DELETE       | Felhasználó törlése a megadott e-mail alapján. | [üres] |  
-| `/gain-xp/{userID}`     | POST         | Tapasztalati pontok hozzáadása a megadott ID-hez tartozó felhasználónak. | [üres] |  
+| Végpont URL                 | HTTP Módszer | Művelet Leírása                                               | Státusz kód / Válasz Adat |  
+|------------------------------|-------------|-----------------------------------------------------------------------|-----------------------------|  
+| **/users - Szülő Útvonal**    |             |                                                                       |                             |  
+| `/`                          | GET         | Minden felhasználó adatainak lekérése jelszó nélkül.                    | [üres]                    |  
+| `/{userID}`                  | GET         | A megadott felhasználó (userID) adatainak lekérése.              | [üres]                    |  
+| `/getUserByEmail`            | GET         | Regisztrált felhasználó lekérése email alapján.                         | [üres]                    |  
+| `/signup`                    | POST        | Felhasználó hozzáadása az adatbázishoz.                                    | [üres]                    |  
+| `/login`                     | POST        | Felhasználó bejelentkezésének kezelése.                                                | [üres]                    |  
+| `/logout`                    | POST        | Felhasználó kijelentkezésének kezelése.                                            | [üres]                    |  
+| `/updateUserByID/{userID}`   | PATCH       | Felhasználói adatok frissítése a megadott ID alapján.                                | [üres]                    |  
+| `/updateUserByEmail`         | PATCH       | Felhasználói adatok frissítése a megadott email alapján.                             | [üres]                    |  
+| `/deleteUserByID/{userID}`   | DELETE      | Felhasználó törlése a megadott ID alapján.                                  | [üres]                    |  
+| `/deleteUserByEmail`         | DELETE      | Felhasználó törlése a megadott email alapján.                               | [üres]                    |  
+| **/achievements - Szülő Útvonal** |         |                                                                       |                             |  
+| `/`                          | GET         | Minden eredmény lekérése.                                          | [üres]                    |  
+| `/`                          | PUT         | Új eredmény hozzáadása.                                              | [üres]                    |  
+| `/user/{userId}`             | GET         | Egy adott felhasználó eredményeinek listázása a userId alapján.                   | [üres]                    |  
+| `/{id}`                      | POST        | Eredmény frissítése ID alapján.                                       | [üres]                    |  
+| **/exercises - Szülő Útvonal** |            |                                                                       |                             |  
+| `/`                          | GET         | Minden gyakorlat lekérése.	                                             | [üres]                    |  
+| `/{id}`                      | GET         | Gyakorlatok lekérése egy adott felhasználó számára userID alapján.                 | [üres]                    |  
+| `/stats/sum`                 | GET         | Gyakorlatok összesített statisztikáinak lekérése.	                            | [üres]                    |  
+| `/log`                       | POST        | Gyakorlat adatainak naplózása és tapasztalati pontok szerzése.                      | [üres]                    |  
+| **/leaderboard - Szülő Útvonal** |          |                                                                       |                             |  
+| `/xp`                        | GET         | Ranglista tapasztalati pontok alapján.	                    | [üres]                    |  
+| `/achievements`              | GET         | Ranglista eredmények alapján.	                         | [üres]                    |  
+| `/exercise/{type}`           | GET         | Ranglista gyakorlat típus alapján.	                        | [üres]                    |  
+| **/tokens - Szülő Útvonal**   |             |                                                                       |                             |  
+| `/`                          | GET         | Minden token lekérése.	                                               | [üres]                    |  
+| `/count`                     | GET         | Az összes token számlálása.	                                   | [üres]                    |  
+| `/{id}`                      | GET         | Token lekérése az ID alapján.                                        | [üres]                    |  
+| `/user/{id}`                 | GET         | Tokenek lekérése egy adott felhasználó számára userID alapján.         | [üres]                    |  
+| **/xp - Szülő Útvonal**       |             |                                                                       |                             |  
+| `/xp`                        | GET         | Az összes tapasztalati pont lekérése.                                     | [üres]                    |   
