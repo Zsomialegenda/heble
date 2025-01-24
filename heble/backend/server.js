@@ -24,7 +24,7 @@ app.use(cors({
 }));
 app.use(
   session({
-    secret: 'your-secret-key',
+    secret: 'Kicsicsirke_1298',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false },

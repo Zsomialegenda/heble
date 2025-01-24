@@ -10,7 +10,6 @@ const {
 // Define routes
 router.get('/', getAllAchievements);
 router.put('/', addAchievement);
-router.get('/user/:userId', listAchievement);
 router.post('/:id', updateAchievement);
 
 module.exports = router;

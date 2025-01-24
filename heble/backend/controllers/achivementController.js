@@ -1,7 +1,16 @@
+/**
+ * 
+ */
+
+
 const { Sequelize } = require('sequelize');
 const { Users, Exercise, Achievement, UserAchievement, sequelize } = require('../models');
 
-// Fetch all achievements
+/** getAllAchievements -- vissza ad minden teljesítményt
+ * 
+ * @param {*} req Nincs
+ * @param {*} res Lekérdez minden generált teljesíményt | különben szerver hiba 
+ */
 const getAllAchievements = async (req, res) => {
   try {
     const achievements = await Achievement.findAll();
@@ -19,31 +28,11 @@ const getAllAchievements = async (req, res) => {
   }
 };
 
-// List user achievements
-const listAchievement = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    const userAchievements = await UserAchievement.findAll({
-      where: { userId: userId },
-      include: [Achievement],
-    });
-
-    res.status(200).json({
-      message: 'User achievements fetched successfully.',
-      üzenet: 'A felhasználó eredményei sikeresen lekérve.',
-      data: userAchievements,
-    });
-  } catch (error) {
-    console.error('Error fetching user achievements:', error);
-    res.status(500).json({
-      message: 'Failed to fetch user achievements.',
-      üzenet: 'Hiba merült fel a felhasználó eredményeinek lekérése közben.',
-    });
-  }
-};
-
-// Add a new achievement
+/** addAchievement -- teljesítmény hozzáadás
+ * 
+ * @param {*} req Üzenetben elvártak
+ * @param {*} res 
+ */
 const addAchievement = async (req, res) => {
   const { name, description, pushUpsRequired, pullUpsRequired, squatsRequired, runningRequired } = req.body;
 
@@ -73,6 +62,13 @@ const addAchievement = async (req, res) => {
 
 
 // Update an achievement
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const updateAchievement = async (req, res) => {
   const achievementId = req.params.id;
   const { name, description, pushUpsRequired, pullUpsRequired, squatsRequired, runningRequired } = req.body;
@@ -173,8 +169,11 @@ const updateAchievement = async (req, res) => {
  */
 
 module.exports = {
-  listAchievement,
   getAllAchievements,
   addAchievement,
   updateAchievement,
 };
+
+/**
+ * 
+ */

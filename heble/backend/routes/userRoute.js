@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {
-    testUserRoute,
-    testUserRouteID,
     getAllUsers,
     getUserByEmail,
     getUserByID,
@@ -14,23 +12,23 @@ const {
     countUsers,
 } = require('../controllers/userController');
 
-// GET Methods
+// GET metódusojk
 router.get('/', getAllUsers);
-router.get('/stats', countUsers);
+router.get('/count', countUsers);
 router.get('/email', getUserByEmail);
 router.get('/:userId', getUserByID);
 
-// POST Methods
+// POST metódusojk
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
 
-// PUT Methods
+// PUT metódusojk
 router.put('/signup', signupUser);
 
-// PATCH Methods
+// PATCH metódusojk
 router.patch('/patch/:userId', updateUser);
 
-// DELETE Method
+// DELETE metódusojk
 router.delete('/delete/:id?', deleteUser);
 
 module.exports = router;

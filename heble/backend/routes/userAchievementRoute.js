@@ -3,15 +3,12 @@ const router = express.Router();
 const {
     getAllAchievements,
     getUserAchievements,
-    getAchievementStats,
-    getLeaderboardByAchievements
+    getAchievementStats
 } = require('../controllers/userAchivementController');
 
-// GET Methods
+// GET metódusok
 router.get('/', getAllAchievements);
 router.get('/:userId', getUserAchievements);
-router.get('/leaderboard/achivements', getLeaderboardByAchievements);
-// router.get('/assign/:userId', );
 router.get('/stats/sum', getAchievementStats)
 
 module.exports = router;

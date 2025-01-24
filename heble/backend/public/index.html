@@ -373,7 +373,7 @@
       async function fetchUsers() {
         try {
           // Fetch user count
-          const userResponse = await fetch("/users/stats");
+          const userResponse = await fetch("/users/count");
           const userData = await userResponse.json();
           document.getElementById("userCount").textContent = userData.userCount;
 

@@ -1,3 +1,8 @@
+/** 
+ * 
+ * 
+ */
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sequelize = require('../connection/sequelize');
@@ -5,7 +10,11 @@ const { User, Exercise, Achievements, UserAchievements, UserExperience, Token } 
 
 const SECRET_KEY = 'Kicsicsirke_1298';
 
-// Fetch all users
+/** getAllUsers -- az összes felhasználó lekérdezése
+ * 
+ * @param {*} req Nincs
+ * @param {*} res Vissza adja az összes felhasználó adatát | különben szerver hiba
+ */
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll({ include: [Exercise, UserExperience, UserAchievements] });
@@ -20,7 +29,12 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// Fetch all users without passwords
+/** countUsers -- felhasználók megszámlálása
+ * 
+ * @param {*} req Nem kér vissza semmit
+ * @param {*} res Vissza küldi a felhasználók számát statisztikai célokra //
+ *                Hibaként pedig szerverhibát ad vissza
+ */
 const countUsers = async (req, res) => {
     try {
         const userCount = await User.count();
@@ -40,7 +54,12 @@ const countUsers = async (req, res) => {
     }
 };
 
-// Fetch a user by ID
+/** getUserByID -- ID alapú lekérdezés egy felhasználóra
+ * 
+ * @param {*} req ID-t kér be az üzenet törzsébe
+ * @param {*} res Vissza küld egy felhasználó összes adatát a jelszón kívűl | különben szerver hiba
+ * @returns Hibát ad vissza ha nem egy szám az ID vagy ha nem található
+ */
 const getUserByID = async (req, res) => {
     const userId = parseInt(req.params.userId, 10);
 
@@ -77,7 +96,12 @@ const getUserByID = async (req, res) => {
     }
 };
 
-// Fetch a user by email
+/** getUserByEmail -- e-mail alapú lekérdezés egy felhasználóra
+ * 
+ * @param {*} req Egy e-mail az üzenet törzsébe
+ * @param {*} res Vissza adja egy felhasználó minden adatát a jelszó kivételvel | különben szerver hiba
+ * @returns Hibát ad vissza ha nincs megadva e-mail/nem található felhasználó
+ */
 const getUserByEmail = async (req, res) => {
     const { email } = req.body;
 
@@ -114,7 +138,14 @@ const getUserByEmail = async (req, res) => {
     }
 };
 
-
+/** signupUser -- felhasználó regisztrálása
+ * 
+ * @param {*} req Az üzenetbe kerül a név, e-mail és jelszó
+ * @param {*} res Válaszként vissza küldi hogy a felhasználó létre lett hozva | különben szerver hiba
+ * @returns Hibákat küld vissza:
+ *              1. nincs minden mező kitöltve
+ *              2. az e-mail használatban van
+ */
 const signupUser = async (req, res) => {
     const transaction = await sequelize.transaction();
 
@@ -129,7 +160,6 @@ const signupUser = async (req, res) => {
             });
         }
 
-        console.log("Checking for existing user...");
         const existingUser = await User.findOne({ where: { email }, transaction });
         if (existingUser) {
             return res.status(409).json({
@@ -139,10 +169,8 @@ const signupUser = async (req, res) => {
             });
         }
 
-        console.log("Hashing password...");
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log("Creating new user...");
         const newUser = await User.create(
             {
                 firstName,
@@ -153,9 +181,6 @@ const signupUser = async (req, res) => {
             { transaction }
         );
 
-        console.log("New user created with ID:", newUser.id);
-
-        console.log("Creating default exercises for user...");
         await Exercise.create(
             {
                 userId: newUser.id,
@@ -167,7 +192,6 @@ const signupUser = async (req, res) => {
             { transaction }
         );
 
-        console.log("Creating UserExperience entry for user...");
         await UserExperience.create(
             {
                 userId: newUser.id,
@@ -180,7 +204,6 @@ const signupUser = async (req, res) => {
 
         await transaction.commit();
 
-        console.log("Transaction committed successfully.");
         res.status(201).json({
             status: 201,
             userId: newUser.id,
@@ -188,7 +211,6 @@ const signupUser = async (req, res) => {
             üzenet: 'Felhasználó sikeresen regisztrálva!',
         });
     } catch (error) {
-        console.error("Error occurred:", error);
         if (transaction) await transaction.rollback();
         res.status(500).json({
             status: 500,
@@ -198,14 +220,28 @@ const signupUser = async (req, res) => {
     }
 };
 
+/** loginUser -- felhasználó bejelentkezés
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const loginUser = async (req, res) => {
-    const { email, password, username, adminPassword } = req.body;
+    const { email, password } = req.body;
 
-    const ADMIN_USERNAME = 'admin';
-    const ADMIN_PASSWORD = 'Kicsicsirke_1298';
+    const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Kicsicsirke_1298';
 
-    if (username && adminPassword) {
-        if (username === ADMIN_USERNAME && adminPassword === ADMIN_PASSWORD) {
+    if (!email || !password) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Both email and password are required for login.',
+            üzenet: 'E-mail és jelszó szükséges a bejelentkezéshez.',
+        });
+    }
+
+    if (email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        try {
             const loginTimestamp = new Date().toISOString();
             const adminToken = jwt.sign(
                 {
@@ -227,26 +263,18 @@ const loginUser = async (req, res) => {
                 message: 'Admin login successful!',
                 üzenet: 'Sikeres admin bejelentkezés!',
             });
+        } catch (error) {
+            console.error('Error generating admin token:', error);
+            return res.status(500).json({
+                status: 500,
+                message: 'An error occurred during admin login. Please try again.',
+                üzenet: 'Hiba történt az admin bejelentkezés során. Kérjük, próbálja újra.',
+            });
         }
-
-        return res.status(401).json({
-            status: 401,
-            message: 'Invalid admin credentials.',
-            üzenet: 'Érvénytelen admin belépési adatok.',
-        });
-    }
-
-    // Regular user login
-    if (!email || !password) {
-        return res.status(400).json({
-            status: 400,
-            message: 'Both email and password are required for login.',
-            üzenet: 'E-mail és jelszó szükséges a bejelentkezéshez.',
-        });
     }
 
     try {
-        const user = await User.findOne({ where: { email: email } });
+        const user = await User.findOne({ where: { email } });
 
         if (!user) {
             return res.status(401).json({
@@ -257,7 +285,6 @@ const loginUser = async (req, res) => {
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
-
         if (!isPasswordValid) {
             return res.status(401).json({
                 status: 401,
@@ -277,6 +304,7 @@ const loginUser = async (req, res) => {
             { expiresIn: '8h' }
         );
 
+        // Save the token in the database with an expiration time
         const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
         await Token.create({
             userId: user.id,
@@ -285,6 +313,7 @@ const loginUser = async (req, res) => {
             expiresAt,
         });
 
+        console.log('User Login Successful');
         console.log('Generated User JWT Token:', userToken);
 
         return res.status(200).json({
@@ -305,6 +334,15 @@ const loginUser = async (req, res) => {
     }
 };
 
+/** logoutUser -- felhasználó kijelentkezés
+ * 
+ * @param {*} req Üzenetbe tokent kér
+ * @param {*} res Kitörli a táblából a tokent és kijelentkeztet | különben szerver hiba
+ * @returns Hibákat ad vissza ha:
+ *          1. Nincs token
+ *          2. Nem található a token
+ *          3. Már törölve van
+ */
 const logoutUser = async (req, res) => {
     const { token } = req.body;
 
@@ -344,9 +382,13 @@ const logoutUser = async (req, res) => {
     }
 };
 
-
-
-const updateUser = async (req, res) => {
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+const updateUser = async (req, res) => { //TODO jobbra megcsinálni az update-et
     const { email, password, newEmail, newPassword } = req.body;
     const userId = parseInt(req.params.userId, 10); // user id from URL params
 
@@ -447,15 +489,14 @@ const updateUser = async (req, res) => {
     }
 };
 
-const deleteUser = async (req, res) => {
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+const deleteUser = async (req, res) => { //TODO tokenből kinyerni a szükséges adatokat
     try {
-        // if (!isAdmin(req)) {
-        //     return res.status(403).json({
-        //         status: 403,
-        //         message: 'Unauthorized. Admin credentials required.',
-        //         üzenet: 'Hozzáférés megtagadva. Admin jogosultság szükséges.'
-        //     });
-        // }
 
         const { id, email } = req.body; // For payload-based delete
         const userId = req.params.id; // For URL-based delete
