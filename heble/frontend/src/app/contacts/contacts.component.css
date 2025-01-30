@@ -1,0 +1,36 @@
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+    color: #fff;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.container div {
+    font-size: 20px;
+    margin: 40px;
+}
+
+.gym {
+   max-width: 420px;
+   border: 3px solid #fff;
+   border-radius: 10px;
+}
+
+.email {
+    border: 5px solid #650707;
+    border-radius: 20px;
+    background-color: #91182b;
+    color: white;
+}
+
+hr {
+    color:  #ed3636;
+}
+
