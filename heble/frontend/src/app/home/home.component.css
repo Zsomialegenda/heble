@@ -1,7 +1,26 @@
+.home {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+    color: #fff;
+}
+
 .card {
+    min-height: 400px;
+    max-height: 400px;
+    margin: 20px;
     border: 5px solid #650707;
     background-color: #91182b;
     color: white;
-    margin-bottom: 10px;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
+.card-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
