@@ -7,10 +7,17 @@
 
 ## Használt technológiák
 
+Kódíráshoz használt:
+
 - **Frontend**: Angular 19  
 - **Backend**: Node.JS  
   - Csomagok: argon2, bcrypt, bcryptjs, cors, dotenv, express, express-validator, mysql2, nodemon, sequelize  
 - **Adatbázis**: MySQL (MariaDB) [XAMPP]  
+
+Egyéb fejlesztői eszközök:
+
+- **Csoportmunkát segítő szoftverek**: Trello, GitHub
+- **Képtervezéshez és szerkesztéshez használt szoftverek**: Adobe Photoshop, Canva
 
 ---
 
@@ -24,10 +31,11 @@
 
 ## Alkalmazás funkciói
 
-- **Felhasználók regisztrálása, bejelentkezése**  
-- **Felhasználók edzésének nyomon követése**  
-- **Javaslatok egy egészségesebb életmódhoz (étkezés, edzés tippek...)**  
-- **Pontok gyűjtése az edzések alapján**  
+- **Felhasználók regisztrálása és bejelentkezése.**  
+- **Felhasználók edzésének nyomon követése.**  
+- **Javaslatok és tanácsok egy egészségesebb életmódhoz (étkezés, edzés tippek...).**  
+- **Pontok gyűjtése az edzések alapján.**
+- **Ezzel fejlődést elérni, amelyekkel különböző jutalmakhoz juthatunk és teljesítményeket elérni.**    
 
 ---
 
@@ -35,8 +43,8 @@
 
 - **Fejléc = navigációs sáv**  
   - **Nyitólap ikon**  
-  - **Coaching**  
-  - **Hírek - Ingyenes Tartalom (cikkek, útmutatók...)**  
+  - **Edzés**  
+  - **Ingyenes tartalmak (cikkek, útmutatók...)**  
   - **Bejelentkezés**  
 
 - **Tartalom = fő rész:**  

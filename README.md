@@ -7,11 +7,18 @@
 
 ## Technologies Used
 
+Used for coding:
+
 - **Frontend**: Angular 19  
 - **Backend**: Node.JS  
   - Packages: argon2, bcrypt, bcryptjs, cors, dotenv, express, express-validator, mysql2, nodemon, sequelize  
 - **Database**: MySQL (MariaDB) [XAMPP]  
 
+Other development tools:
+
+- **Teamwork software**: Trello, GitHub  
+- **Image design and editing software**: Adobe Photoshop, Canva  
+  
 ---
 
 ## Roles in Use  
@@ -28,6 +35,7 @@
 - **Tracking user workouts**  
 - **Suggestions for a healthier lifestyle (diet, workout tips, etc.)**  
 - **Earning points based on workouts**  
+- **This allows you to progress, which allows you to get various rewards and achieve achievements.** 
 
 ---
 
@@ -35,8 +43,8 @@
 
 - **Header = navigation bar**  
   - **Home icon**  
-  - **Coaching**  
-  - **News - Free Content (articles, guides, etc.)**  
+  - **Training**  
+  - **Free Contents (articles, guides, etc.)**  
   - **Login**  
 
 - **Content = main section:**  
