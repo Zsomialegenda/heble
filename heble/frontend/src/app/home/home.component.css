@@ -20,7 +20,21 @@
 
 .card-text {
     display: flex;
+    text-align: justify;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.markright, .markleft {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.markright {
+    float: right;
+}
+
+.markleft {
+    float: left;
 }

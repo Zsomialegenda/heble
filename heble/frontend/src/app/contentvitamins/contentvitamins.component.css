@@ -1,4 +1,4 @@
-.about {
+.vitamins {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,22 +7,19 @@
     color: #fff;
 }
 
+.vitaminsimg {
+    max-width: 400px;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
 .container {
-    max-width: 800px;
+    max-width: 850px;
     width: 100%;
 }
 
 .container div {
     font-size: 20px;
     margin: 40px;
-}
-
-.gym {
-   max-width: 420px;
-   border: 3px solid #fff;
-   border-radius: 10px;
-}
-
-h3 {
-    color: #91182b;
 }
