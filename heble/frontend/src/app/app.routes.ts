@@ -3,9 +3,11 @@ import { HomeComponent } from './home/home.component';
 import { CoachingComponent } from './coaching/coaching.component';
 import { SigninComponent } from './signin/signin.component';
 import { FreecontentComponent } from './freecontent/freecontent.component';
+import { ContentvitaminsComponent } from './contentvitamins/contentvitamins.component';
+import { ContentsleepingComponent } from './contentsleeping/contentsleeping.component';
 import { AboutComponent } from './about/about.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { ContentvitaminsComponent } from './contentvitamins/contentvitamins.component';
+import { ContentworkoutComponent } from './contentworkout/contentworkout.component';
 
 
 export const routes: Routes = [
@@ -14,6 +16,8 @@ export const routes: Routes = [
     {path: "coaching", component: CoachingComponent},
     {path: "freecontent", component: FreecontentComponent},
     {path: "contentvitamins", component: ContentvitaminsComponent},
+    {path: "contentsleeping", component: ContentsleepingComponent},
+    {path: "contentworkout", component: ContentworkoutComponent},
     {path: "signin", component: SigninComponent},
     {path: "about", component: AboutComponent},
     {path: "contacts", component: ContactsComponent},

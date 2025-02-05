@@ -4,16 +4,6 @@
     padding: 20px;
 }
 
-.card-body a.btn {
-    border: 4px solid #650707;
-    background-color: #91182b;
-    color: white;
-    border-radius: 20px;
-    font-size: 22px;
-    font-weight: 500;
-    max-width: 200px;
-}
-
 .card-body img {
     max-height: 75px;
     margin: 0 15px;
@@ -25,4 +15,17 @@
     font-weight: 600;
     border-radius: 20px;
     border: 5px solid #91182b;
+}
+
+.buttonstyle {
+    border: 4px solid #650707;
+    background-color: #91182b;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    max-width: 200px;
+    text-decoration: none;
 }
