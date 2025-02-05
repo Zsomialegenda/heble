@@ -29,6 +29,11 @@
     flex-direction: column;
 }
 
+.card:hover {
+    box-shadow: 0 10px 22px #650707;
+    transform: translateY(-12px);
+}
+
 .buttonstyle {
     border: 4px solid #650707;
     background-color: #91182b;

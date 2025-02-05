@@ -1,12 +1,17 @@
-.nav-link {
-    color: #fff;
-    transition: 0.3s;
+img {
+    transition: transform .7s ease-in-out;
+}
+  
+img:hover {
+    transform: rotate(360deg);
 }
 
-.nav-link:hover {
-    color: #91182b;
+.navbar-toggler {
+    background-color: rgb(113, 121, 129);
 }
 
-.nav-link-active {
-    color: #91182b;
+li:hover{
+  background-color: rgb(113, 121, 129);
+  border-radius: 20px;
 }
+

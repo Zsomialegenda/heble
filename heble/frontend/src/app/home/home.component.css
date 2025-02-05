@@ -26,6 +26,11 @@
     flex-direction: column;
 }
 
+.card:hover {
+    box-shadow: 0 10px 22px #650707;
+    transform: translateY(-12px);
+}
+
 .markright, .markleft {
     max-width: 40px;
     max-height: 40px;
