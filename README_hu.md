@@ -23,9 +23,9 @@ Egyéb fejlesztői eszközök:
 
 ## Használt szerepek
 
-- **Dakos János Bence: Frontend, adatbázis**
-- **Fodor Gergő: Frontned, adatbázis**
-- **Sedlák Patrik András: Banckend, adatbázis**
+- **Dakos János Bence: Frontend**
+- **Fodor Gergő: Frontend**
+- **Sedlák Patrik András: Backend**
 
 ---
 
@@ -35,7 +35,7 @@ Egyéb fejlesztői eszközök:
 - **Felhasználók edzésének nyomon követése.**  
 - **Javaslatok és tanácsok egy egészségesebb életmódhoz (étkezés, edzés tippek...).**  
 - **Pontok gyűjtése az edzések alapján.**
-- **Ezzel fejlődést elérni, amelyekkel különböző jutalmakhoz juthatunk és teljesítményeket elérni.**    
+- **Ezzel fejlődhetnek a felhasználók, amelyek után különböző jutalmakhoz juthatnak és teljesítményeket érhetnek el.**    
 
 ---
 
