@@ -23,9 +23,9 @@ Other development tools:
 
 ## Roles in Use  
 
-- **János Bence Dakos: Frontend, database**
-- **Gergő Fodor: Frontend, database**
-- **Patrik András Sedlák: Backend, database**  
+- **János Bence Dakos: Frontend**
+- **Gergő Fodor: Frontend**
+- **Patrik András Sedlák: Backend**  
 
 ---
 
@@ -35,7 +35,7 @@ Other development tools:
 - **Tracking user workouts**  
 - **Suggestions for a healthier lifestyle (diet, workout tips, etc.)**  
 - **Earning points based on workouts**  
-- **This allows you to progress, which allows you to get various rewards and achieve achievements.** 
+- **This way you can make progress, which allows you to get various rewards and achieve different achievements.** 
 
 ---
 
