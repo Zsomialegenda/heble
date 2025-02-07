@@ -18,22 +18,22 @@
     overflow: auto;
 }
 
+.card:hover {
+    box-shadow: 0 10px 22px #650707;
+    transform: translateY(-20px);
+}
+
 .card-text {
-    display: flex;
-    text-align: justify;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.card:hover {
-    box-shadow: 0 10px 22px #650707;
-    transform: translateY(-12px);
+    
 }
 
 .markright, .markleft {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 35px;
+    max-height: 35px;
 }
 
 .markright {

@@ -5,9 +5,11 @@ import { SigninComponent } from './signin/signin.component';
 import { FreecontentComponent } from './freecontent/freecontent.component';
 import { ContentvitaminsComponent } from './contentvitamins/contentvitamins.component';
 import { ContentsleepingComponent } from './contentsleeping/contentsleeping.component';
+import { ContentworkoutComponent } from './contentworkout/contentworkout.component';
+import { ContentdrinksComponent } from './contentdrinks/contentdrinks.component';
 import { AboutComponent } from './about/about.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { ContentworkoutComponent } from './contentworkout/contentworkout.component';
+
 
 
 export const routes: Routes = [
@@ -18,6 +20,7 @@ export const routes: Routes = [
     {path: "contentvitamins", component: ContentvitaminsComponent},
     {path: "contentsleeping", component: ContentsleepingComponent},
     {path: "contentworkout", component: ContentworkoutComponent},
+    {path: "contentdrinks", component: ContentdrinksComponent},
     {path: "signin", component: SigninComponent},
     {path: "about", component: AboutComponent},
     {path: "contacts", component: ContactsComponent},
