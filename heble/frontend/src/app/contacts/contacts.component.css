@@ -13,12 +13,13 @@
 }
 
 .container div {
-    font-size: 20px;
+    font-size: 22px;
     margin: 40px;
 }
 
 .gym {
-   max-width: 420px;
+   max-width: 550px;
+   width: 100%;
    border: 3px solid #fff;
    border-radius: 10px;
 }
@@ -26,13 +27,17 @@
 .email {
     border: 5px solid #650707;
     border-radius: 20px;
+    padding: 10px;
     background-color: #91182b;
     color: #fff;
 }
 
-h3 {
+h1 {
     color: #91182b;
 }
 
+svg:hover{
+   color: #91182b;
+}
 
 

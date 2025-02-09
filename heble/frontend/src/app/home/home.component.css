@@ -3,19 +3,26 @@
     flex-direction: row;
     align-items: center;
     text-align: center;
-    padding: 50px 20px;
+    padding: 80px;
     color: #fff;
+    font-size: 18px;
 }
 
 .card {
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 420px;
+    max-height: 420px;
+    min-width: 335px;
+    max-width: 335px;
     margin: 20px;
     border: 5px solid #650707;
     background-color: #91182b;
     color: white;
     box-sizing: border-box;
     overflow: auto;
+}
+
+.card-title {
+   padding-bottom: 20px;
 }
 
 .card:hover {

@@ -5,6 +5,7 @@
     text-align: center;
     padding: 50px 20px;
     color: #fff;
+    font-size: 18px;
 }
 
 .customimg {
@@ -15,13 +16,8 @@
 }
 
 .container {
-    max-width: 850px;
+    max-width: 1200px;
     width: 100%;
-}
-
-.container div {
-    font-size: 20px;
-    margin: 40px;
 }
 
 .buttonstyle {
