@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../connection/sequelize');
+const sequelize = require('../utils/sequelize');
 
 const UserAchievement = sequelize.define('UserAchievement', {
   id: {
@@ -11,7 +11,7 @@ const UserAchievement = sequelize.define('UserAchievement', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id',
     },
     onDelete: 'CASCADE',
@@ -20,7 +20,7 @@ const UserAchievement = sequelize.define('UserAchievement', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Achievements',
+      model: 'achievements',
       key: 'id',
     },
     onDelete: 'CASCADE',
@@ -31,7 +31,7 @@ const UserAchievement = sequelize.define('UserAchievement', {
   },
 }, {
   timestamps: false,
-  tableName: 'UserAchievements',
+  tableName: 'UserAchievements'
 });
 
 module.exports = UserAchievement;

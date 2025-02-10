@@ -1,0 +1,100 @@
+[
+  {
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin",
+    "password": "$2b$10$6llgZl24AX5GifoxBgDdA.T8bD.H3FzO4dpTyMrwZqxOUBIHxNHOm",
+    "isAdmin": true,
+    "plainPassword": "Nagycsirke_1298"
+  },
+  {
+    "firstName": "Lionel",
+    "lastName": "Haley",
+    "email": "Marley46@gmail.com",
+    "password": "$2b$10$ij65BPl6MfMUcRpvHwZzluGdc7E6OXDZgPY7dtC86foBubiONYM8y",
+    "plainPassword": "BXwvDreQqc3Pnc9",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Zelda",
+    "lastName": "Luettgen",
+    "email": "Kirstin_Mitchell@gmail.com",
+    "password": "$2b$10$CYQcaJiih6VOypsDolMpV.fXRLo30QUHBdw7Vigk1JyAXwfy9pwLu",
+    "plainPassword": "pUGyQkPLYVxLeZ7",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Eloise",
+    "lastName": "Wilkinson",
+    "email": "Arlene.Balistreri44@yahoo.com",
+    "password": "$2b$10$HoTpbiPr1jRF1uYxWIgfpeTgibO829Xu56TYC16A9UBbhRYx/Mx6u",
+    "plainPassword": "cuo8itcWtL2cvBa",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Jaqueline",
+    "lastName": "Walter",
+    "email": "Delbert_Runolfsdottir@hotmail.com",
+    "password": "$2b$10$HYefytDGB1.dlCPGCrjyj.F0u01ES8H51FKzaIDE3gTdky/CZRACa",
+    "plainPassword": "lvWTzH1Z2l0AeVJ",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Cordell",
+    "lastName": "Hudson",
+    "email": "Kaia31@yahoo.com",
+    "password": "$2b$10$TjxmYuR2TU1Pu1HAFGym0.2bfFp0wGwhD39A4HCEwcaUUpoxksZTe",
+    "plainPassword": "Y4oiu824gD_ua7Z",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Maxie",
+    "lastName": "Koepp",
+    "email": "Garrett_Green@yahoo.com",
+    "password": "$2b$10$b66azXu0T8lEUyo48AAhae/Ecl3YVAPOa.P5i8wHngWpiWTjRUZLO",
+    "plainPassword": "crkaAzl4twb0k0O",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Jean",
+    "lastName": "Connelly",
+    "email": "Macy41@yahoo.com",
+    "password": "$2b$10$K3bqip/rgBT9VTrHoG2KX.ks98NJuUBB5SCXbQcWxjYOnb87Nonq.",
+    "plainPassword": "SD9lrQLZXYw8Aip",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Forest",
+    "lastName": "Rutherford",
+    "email": "Vada_Wisozk59@hotmail.com",
+    "password": "$2b$10$VB9E4fX/Bv8u55LVFxBQ3OeFHKpCs9vTWDg5v6HbJjFW9fZBvV61G",
+    "plainPassword": "AC5jFCfpcTxhcjT",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Aliza",
+    "lastName": "Reynolds",
+    "email": "Adan_Medhurst@hotmail.com",
+    "password": "$2b$10$1.AqHEmFMreees0RkIq0R.uVbEmZ4Wx0K7v8a0S2Gnvio4Zv2x7vy",
+    "plainPassword": "b5srcgxgDYpcApc",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  },
+  {
+    "firstName": "Raymundo",
+    "lastName": "Zulauf",
+    "email": "Fiona.Mayer15@yahoo.com",
+    "password": "$2b$10$vDjvbfW44RHZE6Vfw2lt5eTaDXbr9Pf2roykNJiDoTpeg2ae/dNdi",
+    "plainPassword": "pGIE08CeAXP53IK",
+    "secureAnswer": "heble",
+    "isAdmin": false
+  }
+]

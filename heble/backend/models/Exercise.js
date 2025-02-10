@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../connection/sequelize');
+const sequelize = require('../utils/sequelize');
 
 const Exercise = sequelize.define('Exercise', {
   id: {
@@ -45,7 +45,7 @@ const Exercise = sequelize.define('Exercise', {
   },
 }, {
   tableName: 'Exercises',
-  timestamps: true, // Keeps track of createdAt and updatedAt
+  timestamps: true
 });
 
 module.exports = Exercise;

@@ -2,17 +2,19 @@ const express = require('express');
 const router = express.Router();
 const {
     getAllExercises,
-    getExerciseByUserID,
+    getUserExercises,
+    getExercise,
     logExerciseAndGainXP,
     statsExercises
 } = require('../controllers/exerciseController');
 
-// GET Methods
+// GET metódusok
 router.get('/', getAllExercises);
-router.get('/:id', getExerciseByUserID);
+router.get('/:id', getUserExercises);
 router.get('/stats/sum', statsExercises);
+router.get('/stats/:name', getExercise);
 
-// POST Methods
+// POST metódusok
 router.post('/log', logExerciseAndGainXP);
 
 module.exports = router;

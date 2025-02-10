@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../connection/sequelize');
+const sequelize = require('../utils/sequelize');
 
 const UserExperience = sequelize.define('UserExperience', {
     id: {
@@ -33,6 +33,7 @@ const UserExperience = sequelize.define('UserExperience', {
     },
 }, {
     timestamps: true,
+    tableName: 'UserExperience'
 });
 
 module.exports = UserExperience;

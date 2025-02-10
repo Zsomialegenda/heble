@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const config = require('../config');
+const config = require('./config');
 
 const sequelize = new Sequelize(
   config.db.name,
@@ -14,10 +14,10 @@ const sequelize = new Sequelize(
 
 sequelize.authenticate()
 .then(() => {
-  console.log('Successfully connected to the database:', config.db.name);
+  console.log('Success/Siker:', config.db.name);
 })
 .catch(err => {
-  console.error('Failed to connect to the database:', err.message);
+  console.error('Connection failed/Kapcsolat nem sikerült:', err.message);
 });
 
 

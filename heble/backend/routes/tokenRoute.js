@@ -7,7 +7,7 @@ const {
     countToken,
 } = require('../controllers/tokenController');
 
-// GET Methods
+// GET metódusok
 router.get('/', fetchAllTokens);
 router.get('/count', countToken);
 router.get('/:id', fetchTokenById);

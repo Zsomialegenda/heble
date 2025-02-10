@@ -8,7 +8,7 @@ const {
 
 // GET metódusok
 router.get('/', getAllAchievements);
-router.get('/:userId', getUserAchievements);
+router.get('/:id', getUserAchievements);
 router.get('/stats/sum', getAchievementStats)
 
 module.exports = router;

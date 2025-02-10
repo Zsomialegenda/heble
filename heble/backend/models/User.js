@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../connection/sequelize');
+const sequelize = require('../utils/sequelize');
 
 const User = sequelize.define('User', {
   id: {
@@ -26,6 +26,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  secureAnswer: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 }, {
   timestamps: true,
   tableName: 'Users',

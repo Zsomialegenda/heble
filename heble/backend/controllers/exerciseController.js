@@ -1,14 +1,31 @@
 const {
   sequelize,
-  Users,
+  User,
   Exercise,
   Achievement,
   UserExperience,
-  UserAchievement
+  Token,
+  DeletedOrBannedUser,
+  UserAchievement,
 } = require("../models");
+const {
+  Code400,
+  Code401,
+  Code403,
+  Code404,
+  Code409,
+  Code500,
+} = require("./statusCodeController");
+let reason = []; // Hiba leezeésre
 
-const { assignAchievements} = require('./userAchivementController')
+const { assignAchievements } = require("./userAchivementController");
 
+/** getAllExercises -- Az összes gyakorlat lekérdezése
+ *
+ * @param {*} req Nem tartalmaz paramétereket.
+ * @param {*} res Válaszként visszaadja az összes gyakorlatot - 200
+ * @returns Hibát küld vissza szerverhiba - 500
+ */
 const getAllExercises = async (req, res) => {
   try {
     const exercises = await Exercise.findAll();
@@ -18,31 +35,74 @@ const getAllExercises = async (req, res) => {
       data: exercises,
     });
   } catch (error) {
-    console.error("Error fetching exercises:", error);
-    res.status(500).json({
-      message: "Failed to fetch exercises.",
-      üzenet: "Hiba merült fel a gyakorlatok lekérése közben.",
-    });
+    reason = [
+      "Failed to fetch exercises.",
+      "Hiba merült fel a gyakorlatok lekérése közben.",
+    ];
+    return Code500(error, null, res, null, reason);
   }
 };
 
+/** getExercise -- visssza adja  az összesitett számát egy gyakorlatnak.
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const getExercise = async (req, res) => {
+  try {
+    const name = req.params.name;
+
+    const validFields = ["pushUps", "pullUps", "sitUps", "squats", "running"];
+
+    if (!validFields.includes(name)) {
+      reason = ["Invalid exercise type.", "Nem megfelelő gyakorlat típus."];
+      return Code400(null, null, res, null, reason);
+    }
+
+    const total = await Exercise.sum(name);
+
+    return res.status(200).json({
+      status: 200,
+      exerciseName: name,
+      total,
+      message: `Total ${name} performed: ${total}`,
+      üzenet: `Összes ${name}: ${total}`,
+    });
+  } catch (error) {
+    reason = [
+      "Error retrieving exercise data.",
+      "Hiba történt a gyakorlatok lekérésekor.",
+    ];
+    return Code500(error, null, res, null, reason);
+  }
+};
+
+/** getUserExercises -- Egy felhasználó gyakorlatai
+ *
+ * @param {*} req Az üzenet tartalmazza a `userId` paramétert az URL-ben.
+ * @param {*} res Válaszként visszaadja a felhasználó gyakorlatait - 200
+ * @returns Hibákat küld vissza:
+ *              1. Ha a userId érvénytelen - 400
+ *              2. Ha nincs találat - 404
+ *              3. Szerverhiba - 500
+ */
 const getUserExercises = async (req, res) => {
   const userId = parseInt(req.params.id, 10);
 
   if (isNaN(userId)) {
-    return res.status(400).json({
-      message: "Invalid user ID.",
-      üzenet: "Érvénytelen felhasználói azonosító.",
-    });
+    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+    return Code400(null, null, res, null, reason);
   }
 
   try {
     const exercises = await Exercise.findAll({ where: { userId } });
     if (exercises.length === 0) {
-      return res.status(404).json({
-        message: "No exercises found for this user.",
-        üzenet: "Nincsenek gyakorlatok ehhez a felhasználóhoz.",
-      });
+      reason = [
+        "No exercises found for this user.",
+        "Nincsenek gyakorlatok ehhez a felhasználóhoz.",
+      ];
+      return Code404(null, null, res, null, reason);
     }
     res.status(200).json({
       message: "User exercises fetched successfully.",
@@ -50,59 +110,63 @@ const getUserExercises = async (req, res) => {
       data: exercises,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "An error occurred while fetching exercises.",
-      üzenet: "Hiba történt a gyakorlatok lekérése közben.",
-    });
+    reason = [
+      "An error occurred while fetching exercises.",
+      "Hiba történt a gyakorlatok lekérése közben.",
+    ];
+    return Code500(error, null, res, null, reason);
   }
 };
 
-const getExerciseByUserID = async (req, res) => {
-  const userId = req.params.id;
-
-  try {
-    const exercise = await Exercise.findOne({ where: { userId: userId } });
-    if (!exercise) {
-      return res.status(404).json({
-        message: "Exercises not found for this user.",
-        üzenet: "A felhasználóhoz nem találhatóak gyakorlatok.",
-      });
-    }
-    res.status(200).json({
-      message: "Exercise data fetched successfully for the user.",
-      üzenet: "A felhasználó gyakorlatai sikeresen lekérve.",
-      data: exercise,
-    });
-  } catch (error) {
-    console.error("Error fetching exercise:", error);
-    res.status(500).json({
-      message: "Failed to fetch exercise.",
-      üzenet: "Hiba merült fel a gyakorlatok lekérése közben.",
-    });
-  }
-};
-
+/** logExerciseAndGainXP -- Gyakorlat rögzítése és XP növelése
+ *
+ * @param {*} req userId, pushUps, pullUps, sitUps, squats, running - szzámok
+ * @param {*} res Válaszként visszaadja a frissített adatokat és az újonnan szerzett achievementeket - 200
+ * @returns Hibákat küld vissza:
+ *              1. Ha nincs a token - 401
+ *              2. Nem megfelelő az ID - 400
+ *              3. Nem saját táblára töltünk fel adatot - 403
+ *              4. Nem meggfelelő az adat(formátum) - 400
+ *              5. Nem megfelelő a token - 401
+ *              6. Belső szerver hiba - 5000
+ */
 const logExerciseAndGainXP = async (req, res) => {
-  const { userId, pushUps, pullUps, sitUps, squats, running } = req.body;
+  const { pushUps, pullUps, sitUps, squats, running } = req.body;
 
-  // Validate input
-  if (
-    !userId ||
-    (pushUps === undefined &&
-      pullUps === undefined &&
-      sitUps === undefined &&
-      squats === undefined &&
-      running === undefined)
-  ) {
-    return res.status(400).json({
-      message: "Invalid input data.",
-      üzenet: "Nem megfelelő bemenő adat.",
-    });
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    reason = [
+      "Authorization token required.",
+      "Engedélyezési token szükséges.",
+    ];
+    return Code401(null, null, res, null, reason);
   }
 
   try {
-    // Fetch or create exercise record
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const requestUserId = decoded.userId;
+    const isAdmin = decoded.isAdmin || false;
+
+    const userId = parseInt(req.params.userId || req.body.userId, 10);
+
+    if (isNaN(userId)) {
+      reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+      return Code400(null, null, res, null, reason);
+    }
+
+    if (!isAdmin && requestUserId !== userId) {
+      reason = [
+        "You can only log exercises for your own account.",
+        "Csak a saját fiókjára rögzítheti a gyakorlatokat.",
+      ];
+      return Code403(null, null, res, null, reason);
+    }
+
+    if (!pushUps && !pullUps && !sitUps && !squats && !running) {
+      return Code404(null, null, res, null);
+    } // !!!!!!!!!!!!!!!!!!!!!!!
+
     const exercise = await Exercise.findOrCreate({
       where: { userId },
       defaults: {
@@ -115,18 +179,11 @@ const logExerciseAndGainXP = async (req, res) => {
       },
     }).then(([record]) => record);
 
-    // Fetch or create UserExperience record
     const userExperience = await UserExperience.findOrCreate({
       where: { userId },
-      defaults: {
-        userId,
-        level: 1,
-        xp: 0,
-        xpToNextLevel: 100,
-      },
+      defaults: { userId, level: 1, xp: 0, xpToNextLevel: 100 },
     }).then(([record]) => record);
 
-    // Define XP multipliers
     const xpMultipliers = {
       pushUps: 10,
       pullUps: 15,
@@ -135,15 +192,13 @@ const logExerciseAndGainXP = async (req, res) => {
       running: 50,
     };
 
-    // Calculate XP from exercises
-    const totalXpGained = 
+    const totalXpGained =
       (pushUps || 0) * xpMultipliers.pushUps +
       (pullUps || 0) * xpMultipliers.pullUps +
       (sitUps || 0) * xpMultipliers.sitUps +
       (squats || 0) * xpMultipliers.squats +
       (running || 0) * xpMultipliers.running;
 
-    // Update exercise data
     Object.assign(exercise, {
       pushUps: exercise.pushUps + (pushUps || 0),
       pullUps: exercise.pullUps + (pullUps || 0),
@@ -153,32 +208,23 @@ const logExerciseAndGainXP = async (req, res) => {
     });
     await exercise.save();
 
-    // Update XP and level
     let { xp, level, xpToNextLevel } = userExperience;
     xp += totalXpGained;
 
     while (xp >= xpToNextLevel) {
       xp -= xpToNextLevel;
       level++;
-      xpToNextLevel = Math.floor(xpToNextLevel * 1.1); // 10% increase per level
+      xpToNextLevel = Math.floor(xpToNextLevel * 1.3);
     }
 
     await userExperience.update({ xp, level, xpToNextLevel });
 
-    // Assign achievements and fetch only new achievements
     const newAchievements = await assignAchievements(userId);
 
-    // Send response
     res.status(200).json({
       message: "Exercise logged and XP gained successfully.",
       üzenet: "Gyakorlat rögzítve és XP sikeresen hozzáadva.",
-      exerciseData: {
-        pushUps: exercise.pushUps,
-        pullUps: exercise.pullUps,
-        sitUps: exercise.sitUps,
-        squats: exercise.squats,
-        running: exercise.running,
-      },
+      exerciseData: { ...exercise.get() },
       xpData: {
         currentLevel: level,
         currentXp: xp,
@@ -192,40 +238,54 @@ const logExerciseAndGainXP = async (req, res) => {
       })),
     });
   } catch (error) {
-    console.error("Error logging exercise and gaining XP:", error);
-    res.status(500).json({
-      message: "An error occurred while logging exercise and gaining XP.",
-      üzenet: "Hiba történt a gyakorlat rögzítése és az XP hozzáadása közben.",
-    });
+    if (error.name === "JsonWebTokenError") {
+      reason = [
+        "Invalid token. Please log in again.",
+        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
+      ];
+      return Code401(error, null, res, null, reason);
+    }
+
+    reason = [
+      "An error occurred while logging exercise and gaining XP.",
+      "Hiba történt a gyakorlat rögzítése és az XP hozzáadása közben.",
+    ];
+    return Code500(error, null, res, null, reason);
   }
 };
 
-
+/** statsExercises -- Összesített statisztikák
+ *
+ * @param {*} req Nem tartalmaz paramétereket
+ * @param {*} res Válaszként visszaadja az összesített edzési adatokat - 200
+ * @returns Hibákat küld vissza szerverhiba esetén - 500
+ */
 const statsExercises = async (req, res) => {
   try {
     const totals = await Exercise.findAll({
       attributes: [
-        [sequelize.fn('SUM', sequelize.col('pushUps')), 'totalPushUps'],
-        [sequelize.fn('SUM', sequelize.col('pullUps')), 'totalPullUps'],
-        [sequelize.fn('SUM', sequelize.col('sitUps')), 'totalSitUps'],
-        [sequelize.fn('SUM', sequelize.col('squats')), 'totalSquats'],
-        [sequelize.fn('SUM', sequelize.col('running')), 'totalRunning'],
+        [sequelize.fn("SUM", sequelize.col("pushUps")), "totalPushUps"],
+        [sequelize.fn("SUM", sequelize.col("pullUps")), "totalPullUps"],
+        [sequelize.fn("SUM", sequelize.col("sitUps")), "totalSitUps"],
+        [sequelize.fn("SUM", sequelize.col("squats")), "totalSquats"],
+        [sequelize.fn("SUM", sequelize.col("running")), "totalRunning"],
       ],
     });
 
     res.json(totals[0].dataValues);
   } catch (error) {
-    console.error('Error fetching exercise sums:', error);
-    res.status(500).json({ message: 'Failed to fetch exercise sums.' });
+    reason = [
+      "Failed to fetch exercise sums.",
+      "Nem sikerült az összesitett gyakorlatok lekérdezése.",
+    ];
+    return Code500(error, null, res, null, reason);
   }
 };
 
-
-
 module.exports = {
   getAllExercises,
+  getExercise,
   getUserExercises,
-  getExerciseByUserID,
   logExerciseAndGainXP,
-  statsExercises
+  statsExercises,
 };

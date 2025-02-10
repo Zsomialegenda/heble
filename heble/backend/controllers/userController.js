@@ -1,564 +1,594 @@
-/** 
- * 
- * 
- */
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const sequelize = require('../connection/sequelize');
-const { User, Exercise, Achievements, UserAchievements, UserExperience, Token } = require('../models');
+const {
+  sequelize,
+  User,
+  Exercise,
+  Achievement,
+  UserExperience,
+  Token,
+  DeletedOrBannedUser,
+  UserAchievement,
+} = require("../models");
+const {
+  Code400,
+  Code401,
+  Code403,
+  Code404,
+  Code409,
+  Code500,
+} = require("./statusCodeController");
+let reason = []; // Hiba leezeésre
 
-const SECRET_KEY = 'Kicsicsirke_1298';
+// TOKENHEZ
+const SECRET_KEY = process.env.SECRET_KEY || "admin";
 
 /** getAllUsers -- az összes felhasználó lekérdezése
- * 
- * @param {*} req Nincs
- * @param {*} res Vissza adja az összes felhasználó adatát | különben szerver hiba
+ *
+ * @param {*} req Nincs bemenet
+ * @param {*} res Vissza adja az összes felhasználó adatát - 200
+ * @returns Hibát küld vissza ha szerverhiba - 500
  */
 const getAllUsers = async (req, res) => {
-    try {
-        const users = await User.findAll({ include: [Exercise, UserExperience, UserAchievements] });
-        res.status(200).json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred while fetching users.',
-            üzenet: 'Hiba merült fel az adatok lekérése közben.'
-        });
-    }
-};
+  try {
+    const users = await User.findAll({
+      include: [
+        { model: Exercise },
+        { model: UserExperience },
+        UserAchievement,
+      ],
+    });
 
-/** countUsers -- felhasználók megszámlálása
- * 
- * @param {*} req Nem kér vissza semmit
- * @param {*} res Vissza küldi a felhasználók számát statisztikai célokra //
- *                Hibaként pedig szerverhibát ad vissza
- */
-const countUsers = async (req, res) => {
-    try {
-        const userCount = await User.count();
-        res.status(200).json({
-            status: 200,
-            message: 'User count fetched successfully.',
-            üzenet: 'Felhasználók száma sikeresen lekérve.',
-            userCount,
-        });
-    } catch (error) {
-        console.error('Error fetching user count:', error);
-        res.status(500).json({
-            status: 500,
-            message: 'Error fetching user count.',
-            üzenet: 'Hiba történt a felhasználók számának lekérése közben.',
-        });
-    }
+    return res.status(200).json(users);
+  } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /** getUserByID -- ID alapú lekérdezés egy felhasználóra
- * 
- * @param {*} req ID-t kér be az üzenet törzsébe
- * @param {*} res Vissza küld egy felhasználó összes adatát a jelszón kívűl | különben szerver hiba
- * @returns Hibát ad vissza ha nem egy szám az ID vagy ha nem található
+ *
+ * @param {*} req userId
+ * @param {*} res Válaszként visszaadja a felhasználó adatait | különben hibát küld vissza.
+ * @returns Hibákat küld vissza:
+ *              1. Az ID érvénytelen vagy nem szám - 400
+ *              2. A felhasználó nem található - 404
+ *              3. Szerverhiba - 500
  */
 const getUserByID = async (req, res) => {
-    const userId = parseInt(req.params.userId, 10);
+  const userId = parseInt(req.params.id, 10);
 
-    if (isNaN(userId)) {
-        return res.status(400).json({
-            message: 'Invalid user ID.',
-            üzenet: 'Érvénytelen felhasználói azonosító.'
-        });
+  if (isNaN(userId)) {
+    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+    return Code400(null, null, res, null, reason);
+  }
+
+  try {
+    const user = await User.findOne({
+      where: { id: userId },
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "createdAt",
+        "updatedAt",
+      ],
+      include: [Exercise, UserExperience],
+    });
+
+    if (!user) {
+      reason = ["User not found.", "A felhasználó nem található."];
+      return Code404(null, null, res, null, reason);
     }
 
-    try {
-        const user = await User.findOne({
-            where: { id: userId },
-            attributes: ['id', 'firstName', 'lastName', 'email', 'createdAt', 'updatedAt'],
-            include: [Exercise, UserExperience]
-        });
-
-        if (!user) {
-            return res.status(404).json({
-                status: 404,
-                message: 'User not found.',
-                üzenet: 'A felhasználó nem található.'
-            });
-        }
-
-        res.status(200).json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred while fetching the user.',
-            üzenet: 'Hiba merült fel a felhasználó lekérése közben.'
-        });
-    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /** getUserByEmail -- e-mail alapú lekérdezés egy felhasználóra
- * 
- * @param {*} req Egy e-mail az üzenet törzsébe
- * @param {*} res Vissza adja egy felhasználó minden adatát a jelszó kivételvel | különben szerver hiba
- * @returns Hibát ad vissza ha nincs megadva e-mail/nem található felhasználó
+ *
+ * @param {*} req email
+ * @param {*} res Válaszként visszaadja a felhasználó adatait | különben hibát küld vissza.
+ * @returns Hibákat küld vissza:
+ *              1. Az e-mail nincs megadva - 400
+ *              2. A felhasználó nem található - 404
+ *              3. Szerverhiba - 500
  */
 const getUserByEmail = async (req, res) => {
-    const { email } = req.body;
+  const { email } = req.body;
 
-    if (!email) {
-        return res.status(400).json({
-            message: 'Email is required.',
-            üzenet: 'Az email megadása kötelező.'
-        });
+  if (!email) {
+    reason = ["Email is required.", "Az email megadása kötelező."];
+    return Code400(null, null, res, null, reason);
+  }
+
+  try {
+    const user = await User.findOne({
+      where: { email },
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "createdAt",
+        "updatedAt",
+      ],
+      include: [Exercise, UserExperience],
+    });
+
+    if (!user) {
+      reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, null, res, null, reason);
     }
 
-    try {
-        const user = await User.findOne({
-            where: { email },
-            attributes: ['id', 'firstName', 'lastName', 'email', 'createdAt', 'updatedAt'],
-            include: [Exercise, UserExperience]
-        });
-
-        if (!user) {
-            return res.status(404).json({
-                status: 404,
-                message: 'User not found.',
-                üzenet: 'A felhasználó nem található.'
-            });
-        }
-
-        res.status(200).json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred while fetching the user.',
-            üzenet: 'Hiba merült fel a felhasználó lekérése közben.'
-        });
-    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /** signupUser -- felhasználó regisztrálása
- * 
+ *
  * @param {*} req Az üzenetbe kerül a név, e-mail és jelszó
  * @param {*} res Válaszként vissza küldi hogy a felhasználó létre lett hozva | különben szerver hiba
- * @returns Hibákat küld vissza:
- *              1. nincs minden mező kitöltve
- *              2. az e-mail használatban van
+ * @returns Hibákat küld vissza ha:
+ *              1. nincs minden mező kitöltve - 400
+ *              2. ki lett tiltva/törölve lett a fiók - 403
+ *              3. az e-mail használatban van - 409
+ *              4. szerver probléma - 500
  */
 const signupUser = async (req, res) => {
-    const transaction = await sequelize.transaction();
+  const transaction = await sequelize.transaction();
 
-    try {
-        const { firstName, lastName, email, password } = req.body;
+  try {
+    const { firstName, lastName, email, password, secureAnswer } = req.body;
 
-        if (!firstName || !lastName || !email || !password) {
-            return res.status(400).json({
-                status: 400,
-                message: 'All fields are required.',
-                üzenet: 'Minden mező kitöltése kötelező.',
-            });
-        }
-
-        const existingUser = await User.findOne({ where: { email }, transaction });
-        if (existingUser) {
-            return res.status(409).json({
-                status: 409,
-                message: 'E-mail already in use.',
-                üzenet: 'E-mail már használatban van.',
-            });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = await User.create(
-            {
-                firstName,
-                lastName,
-                email,
-                password: hashedPassword,
-            },
-            { transaction }
-        );
-
-        await Exercise.create(
-            {
-                userId: newUser.id,
-                pushUps: 0,
-                pullUps: 0,
-                squats: 0,
-                running: 0,
-            },
-            { transaction }
-        );
-
-        await UserExperience.create(
-            {
-                userId: newUser.id,
-                level: 1,
-                xp: 0,
-                xpToNextLevel: 100,
-            },
-            { transaction }
-        );
-
-        await transaction.commit();
-
-        res.status(201).json({
-            status: 201,
-            userId: newUser.id,
-            message: 'User registered successfully!',
-            üzenet: 'Felhasználó sikeresen regisztrálva!',
-        });
-    } catch (error) {
-        if (transaction) await transaction.rollback();
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred. Please try again later.',
-            üzenet: 'Hiba merült fel. Kérjük, próbálja újra később.',
-        });
+    if (!firstName || !lastName || !email || !password || !secureAnswer) {
+      reason = ["All fields are required.", "Minden mező kitöltése kötelező."];
+      return Code400(null, null, res, null, reason);
     }
+
+    const bannedOrDeletedUser = await DeletedOrBannedUser.findOne({
+      where: { email },
+    });
+
+    if (bannedOrDeletedUser) {
+      reason = [
+        "You are banned or your account has been deleted.",
+        "Ön ki lett tiltva vagy a fiókja törlésre került.",
+      ];
+      return Code403(null, null, res, null, reason);
+    }
+
+    const existingUser = await User.findOne({ where: { email }, transaction });
+
+    if (existingUser) {
+      reason = ["E-mail already in use.", "E-mail már használatban van."];
+      return Code409(null, null, res, null, reason);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedSecureAnswer = await bcrypt.hash(secureAnswer, 10);
+
+    const newUser = await User.create(
+      {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        secureAnswer: hashedSecureAnswer,
+      },
+      { transaction }
+    );
+
+    await Exercise.create(
+      {
+        userId: newUser.id,
+        pushUps: 0,
+        pullUps: 0,
+        squats: 0,
+        running: 0,
+      },
+      { transaction }
+    );
+
+    await UserExperience.create(
+      {
+        userId: newUser.id,
+        level: 1,
+        xp: 0,
+        xpToNextLevel: 100,
+      },
+      { transaction }
+    );
+
+    await transaction.commit();
+
+    res.status(201).json({
+      status: 201,
+      userId: newUser.id,
+      message: "User registered successfully!",
+      üzenet: "Felhasználó sikeresen regisztrálva!",
+    });
+  } catch (error) {
+    if (transaction) await transaction.rollback();
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /** loginUser -- felhasználó bejelentkezés
- * 
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ *
+ * @param {*} req email, password
+ * @param {*} res Válaszként visszaadja a hitelesítési tokent és a bejelentkezés időpontját
+ * @returns Hibákat küld vissza:
+ *              1. az e-mail vagy jelszó nincs megadva - 400
+ *              2. admin hitelesítési hiba - 500
+ *              3. hibás e-mail vagy jelszó - 401
+ *              4. sszerverhiba - 500
  */
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Kicsicsirke_1298';
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
-    if (!email || !password) {
-        return res.status(400).json({
-            status: 400,
-            message: 'Both email and password are required for login.',
-            üzenet: 'E-mail és jelszó szükséges a bejelentkezéshez.',
-        });
-    }
+  if (!email || !password) {
+    reason = [
+      "Both email and password are required for login.",
+      "E-mail és jelszó szükséges a bejelentkezéshez.",
+    ];
+    return Code400(null, null, res, null, reason);
+  }
 
-    if (email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        try {
-            const loginTimestamp = new Date().toISOString();
-            const adminToken = jwt.sign(
-                {
-                    username: ADMIN_USERNAME,
-                    role: 'admin',
-                    loginAt: loginTimestamp,
-                },
-                SECRET_KEY,
-                { expiresIn: '8h' }
-            );
-
-            console.log('Admin Login Successful');
-            console.log('Generated Admin JWT Token:', adminToken);
-
-            return res.status(200).json({
-                status: 200,
-                token: adminToken,
-                loginAt: loginTimestamp,
-                message: 'Admin login successful!',
-                üzenet: 'Sikeres admin bejelentkezés!',
-            });
-        } catch (error) {
-            console.error('Error generating admin token:', error);
-            return res.status(500).json({
-                status: 500,
-                message: 'An error occurred during admin login. Please try again.',
-                üzenet: 'Hiba történt az admin bejelentkezés során. Kérjük, próbálja újra.',
-            });
-        }
-    }
-
+  if (email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     try {
-        const user = await User.findOne({ where: { email } });
+      const loginTimestamp = new Date().toISOString();
+      const adminToken = jwt.sign(
+        {
+          username: ADMIN_USERNAME,
+          role: "admin",
+          isAdmin: true,
+          loginAt: loginTimestamp,
+        },
+        SECRET_KEY,
+        { expiresIn: "8h" }
+      );
 
-        if (!user) {
-            return res.status(401).json({
-                status: 401,
-                message: 'Invalid email or password.',
-                üzenet: 'Nem megfelelő E-mail vagy jelszó.',
-            });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(401).json({
-                status: 401,
-                message: 'Invalid email or password.',
-                üzenet: 'Nem megfelelő E-mail vagy jelszó.',
-            });
-        }
-
-        const loginTimestamp = new Date().toISOString();
-        const userToken = jwt.sign(
-            {
-                userId: user.id,
-                email: user.email,
-                loginAt: loginTimestamp,
-            },
-            SECRET_KEY,
-            { expiresIn: '8h' }
-        );
-
-        // Save the token in the database with an expiration time
-        const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
-        await Token.create({
-            userId: user.id,
-            token: userToken,
-            loginAt: loginTimestamp,
-            expiresAt,
-        });
-
-        console.log('User Login Successful');
-        console.log('Generated User JWT Token:', userToken);
-
-        return res.status(200).json({
-            status: 200,
-            userId: user.id,
-            token: userToken,
-            loginAt: loginTimestamp,
-            message: 'Login successful!',
-            üzenet: 'Sikeres bejelentkezés!',
-        });
+      return res.status(200).json({
+        status: 200,
+        token: adminToken,
+        isAdmin: true,
+        loginAt: loginTimestamp,
+        message: "Admin login successful!",
+        üzenet: "Sikeres admin bejelentkezés!",
+      });
     } catch (error) {
-        console.error('Login error:', error);
-        return res.status(500).json({
-            status: 500,
-            message: 'An error occurred. Please try again later.',
-            üzenet: 'Hiba merült fel. Kérjük, próbálja újra később.',
-        });
+      reason = [
+        "An error occurred during admin login. Please try again.",
+        "Hiba történt az admin bejelentkezés során. Kérjük, próbálja újra.",
+      ];
+      return Code500(error, null, res, null, reason);
     }
+  }
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      reason = [
+        "Invalid email or password.",
+        "Nem megfelelő E-mail vagy jelszó.",
+      ];
+      return Code401(null, null, res, null, reason);
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      reason = [
+        "Invalid email or password.",
+        "Nem megfelelő E-mail vagy jelszó.",
+      ];
+      return Code401(null, null, res, null, reason);
+    }
+
+    await Token.destroy({ where: { userId: user.id } });
+
+    const loginTimestamp = new Date().toISOString();
+    const userToken = jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        isAdmin: user.isAdmin || false,
+        loginAt: loginTimestamp,
+      },
+      SECRET_KEY,
+      { expiresIn: "8h" }
+    );
+
+    const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
+    await Token.create({
+      userId: user.id,
+      token: userToken,
+      loginAt: loginTimestamp,
+      expiresAt,
+    });
+
+    console.log("User Login Successful");
+    console.log("Generated User JWT Token:", userToken);
+
+    return res.status(200).json({
+      status: 200,
+      userId: user.id,
+      token: userToken,
+      isAdmin: user.isAdmin || false,
+      loginAt: loginTimestamp,
+      message: "Login successful!",
+      üzenet: "Sikeres bejelentkezés!",
+    });
+  } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /** logoutUser -- felhasználó kijelentkezés
- * 
- * @param {*} req Üzenetbe tokent kér
+ *
+ * @param {*} req token
  * @param {*} res Kitörli a táblából a tokent és kijelentkeztet | különben szerver hiba
  * @returns Hibákat ad vissza ha:
- *          1. Nincs token
- *          2. Nem található a token
- *          3. Már törölve van
+ *          1. nincs token - 400
+ *          2. nem található a token - 404
+ *          3. szerver hiba - 500
  */
 const logoutUser = async (req, res) => {
-    const { token } = req.body;
+  const { token } = req.body;
 
-    if (!token) {
-        return res.status(400).json({
-            status: 400,
-            message: 'Token is required for logout.',
-            üzenet: 'A kijelentkezéshez token szükséges.'
-        });
+  if (!token) {
+    reason = [
+      "Token is required for logout.",
+      "A kijelentkezéshez token szükséges.",
+    ];
+    return Code400(null, null, res, null, reason);
+  }
+
+  try {
+    const tokenRecord = await Token.findOne({ where: { token } });
+
+    if (!tokenRecord) {
+      return Code404(null, null, res, null);
     }
 
-    try {
-        const tokenRecord = await Token.findOne({ where: { token } });
+    await tokenRecord.destroy();
 
-        if (!tokenRecord) {
-            return res.status(404).json({
-                status: 404,
-                message: 'Token not found or already invalidated.',
-                üzenet: 'A token nem található vagy már érvénytelenítve lett.'
-            });
-        }
-
-        await tokenRecord.destroy();
-
-        res.status(200).json({
-            status: 200,
-            message: 'Logout successful.',
-            üzenet: 'Sikeres kijelentkezés.'
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred. Please try again later.',
-            üzenet: 'Hiba merült fel. Kérjük, próbálja újra később.'
-        });
-    }
+    return res.status(200).json({
+      status: 200,
+      message: "Logout successful.",
+      üzenet: "Sikeres kijelentkezés.",
+    });
+  } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
-const updateUser = async (req, res) => { //TODO jobbra megcsinálni az update-et
-    const { email, password, newEmail, newPassword } = req.body;
-    const userId = parseInt(req.params.userId, 10); // user id from URL params
+const updateUser = async (req, res) => {
+  const { newEmail, newPassword, secureAnswer } = req.body;
 
-    if (isNaN(userId)) {
-        return res.status(400).json({
-            message: 'Invalid user ID.',
-            üzenet: 'Érvénytelen felhasználói azonosító.'
-        });
-    }  
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    reason = [
+      "Authorization token required.",
+      "Engedélyezési token szükséges.",
+    ];
+    return Code401(null, null, res, null, reason);
+  }
 
-    try {
-        if (isAdmin(req)) {
-            // Admin can modify any user's account using userId or email
-            if (!email && !userId) {
-                return res.status(400).json({
-                    status: 400,
-                    message: 'Provide either user ID or email.',
-                    üzenet: 'Adjon meg azonosítót vagy e-mailt.'
-                });
-            }
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const requestUserId = decoded.userId;
+    const isAdmin = decoded.isAdmin || false;
 
-            let user;
-            if (email) {
-                user = await User.findOne({ where: { email } });
-            } else if (userId) {
-                user = await User.findOne({ where: { id: userId } });
-            }
+    let user = await User.findOne({ where: { id: requestUserId } });
 
-            if (!user) {
-                return res.status(404).json({
-                    status: 404,
-                    message: 'User not found.',
-                    üzenet: 'A felhasználó nem található.'
-                });
-            }
-
-            // Update the email if newEmail is provided
-            if (newEmail) {
-                user.email = newEmail;
-            }
-
-            // Update the password if newPassword is provided
-            if (newPassword) {
-                const hashedPassword = await bcrypt.hash(newPassword, 10);
-                user.password = hashedPassword;
-            }
-
-            await user.save();
-
-            return res.status(200).json({
-                status: 200,
-                message: 'User account updated successfully.',
-                üzenet: 'Felhasználói fiók sikeresen frissítve.'
-            });
-        } else {
-            // Non-admin users can only modify their own account
-            const user = await User.findOne({ where: { id: userId } });
-            if (!user) {
-                return res.status(404).json({
-                    status: 404,
-                    message: 'User not found.',
-                    üzenet: 'A felhasználó nem található.'
-                });
-            }
-
-            if (user.id !== userId) {
-                return res.status(403).json({
-                    status: 403,
-                    message: 'Forbidden. You can only update your own account.',
-                    üzenet: 'Tilos. Csak a saját fiókját módosíthatja.'
-                });
-            }
-
-            if (newEmail) {
-                user.email = newEmail;
-            }
-
-            if (newPassword) {
-                const hashedPassword = await bcrypt.hash(newPassword, 10);
-                user.password = hashedPassword;
-            }
-
-            await user.save();
-
-            return res.status(200).json({
-                status: 200,
-                message: 'User account updated successfully.',
-                üzenet: 'Felhasználói fiók sikeresen frissítve.'
-            });
-        }
-    } catch (error) {
-        console.error('Error updating user account:', error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred while updating the user account.',
-            üzenet: 'Hiba történt a felhasználói fiók frissítésekor.'
-        });
+    if (!user) {
+      reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, null, res, null, reason);
     }
+
+    // *Admin can update any user
+    if (isAdmin) {
+      console.log("Admin updating user:", user.id);
+    } else {
+      if (requestUserId !== user.id) {
+        reason = [
+          "You can only update your own account.",
+          "Csak a saját fiókját módosíthatja.",
+        ];
+        return Code403(null, null, res, null, reason);
+      }
+
+      if (!secureAnswer || secureAnswer !== user.secureAnswer) {
+        reason = ["Invalid security answer.", "Érvénytelen biztonsági válasz."];
+        return Code403(null, null, res, null, reason);
+      }
+    }
+
+    if (newEmail) {
+      user.email = newEmail;
+    }
+
+    if (newPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      status: 200,
+      message: "User account updated successfully.",
+      üzenet: "Felhasználói fiók sikeresen frissítve.",
+    });
+  } catch (error) {
+    if (error.name === "JsonWebTokenError") {
+      reason = [
+        "Invalid token. Please log in again.",
+        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
+      ];
+      return Code401(null, null, res, null, reason);
+    }
+
+    reason = [
+      "An error occurred while updating the user account.",
+      "Hiba történt a felhasználói fiók frissítésekor.",
+    ];
+    return Code500(error, null, res, null, reason);
+  }
 };
 
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
-const deleteUser = async (req, res) => { //TODO tokenből kinyerni a szükséges adatokat
-    try {
+const deleteUser = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    reason = [
+      "Authorization token required.",
+      "Engedélyezési token szükséges.",
+    ];
+    return Code401(null, null, res, null, reason);
+  }
 
-        const { id, email } = req.body; // For payload-based delete
-        const userId = req.params.id; // For URL-based delete
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const userId = decoded.userId;
+    const isAdmin = decoded.isAdmin || false;
 
-        if (email) {
-            const user = await User.findOne({ where: { email } });
-            if (!user) {
-                return res.status(404).json({
-                    status: 404,
-                    message: 'User not found by email.',
-                    üzenet: 'Felhasználó nem található email alapján.'
-                });
-            }
+    const { email } = req.body;
 
-            await user.destroy();
-            return res.status(200).json({
-                status: 200,
-                message: 'User deleted successfully by email.',
-                üzenet: 'Felhasználó sikeresen törölve email alapján.'
-            });
-        } else if (id || userId) {
-            const user = await User.findOne({ where: { id: id || userId } });
-            if (!user) {
-                return res.status(404).json({
-                    status: 404,
-                    message: 'User not found by ID.',
-                    üzenet: 'Felhasználó nem található azonosító alapján.'
-                });
-            }
-
-            await user.destroy();
-            return res.status(200).json({
-                status: 200,
-                message: 'User deleted successfully by ID.',
-                üzenet: 'Felhasználó sikeresen törölve azonosító alapján.'
-            });
-        } else {
-            return res.status(400).json({
-                status: 400,
-                message: 'Provide either user ID or email.',
-                üzenet: 'Adjon meg azonosítót vagy e-mailt.'
-            });
-        }
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).json({
-            status: 500,
-            message: 'An error occurred while deleting the user.',
-            üzenet: 'Hiba merült fel a felhasználó törlése közben.'
-        });
+    if (!email && !isAdmin) {
+      reason = [
+        "Only admins can delete users by email.",
+        "Csak az adminok törölhetnek felhasználókat e-mail alapján.",
+      ];
+      return Code403(null, null, res, null, reason);
     }
+
+    let user;
+    if (isAdmin && email) {
+      user = await User.findOne({ where: { email } });
+    } else {
+      user = await User.findOne({ where: { id: userId } });
+    }
+
+    if (!user) {
+      reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, null, res, null, reason);
+    }
+
+    await user.destroy();
+
+    return res.status(200).json({
+      status: 200,
+      message: isAdmin
+        ? "User deleted successfully."
+        : "Your account has been deleted.",
+      üzenet: isAdmin
+        ? "Felhasználó sikeresen törölve."
+        : "Fiókja törölve lett.",
+    });
+  } catch (error) {
+    if (error.name === "JsonWebTokenError") {
+      reason = [
+        "Invalid token. Please log in again.",
+        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
+      ];
+      return Code401(error, null, res, null, reason);
+    }
+
+    reason = [
+      "An error occurred while deleting the user.",
+      "Hiba merült fel a felhasználó törlése közben.",
+    ];
+    return Code500(error, null, res, null, reason);
+  }
 };
 
+/** countUsers -- felhasználók megszámlálása
+ *
+ * @param {*} req Nem vár bemenetet
+ * @param {*} res Vissza küldi a felhasználók számát statisztikai célokra - 200
+ * @returns Hibát küld vissza (szerverhiba) - 500
+ */
+const countUsers = async (req, res) => {
+  try {
+    const userCount = await User.count();
+    return res.status(200).json({
+      status: 200,
+      message: "User count fetched successfully.",
+      üzenet: "Felhasználók száma sikeresen lekérve.",
+      userCount,
+    });
+  } catch (error) {
+    reason = [
+      "Error fetching user count.",
+      "Hiba történt a felhasználók számának lekérése közben.",
+    ];
+    return Code500(error, null, res, null, reason);
+  }
+};
+
+// const request = require("supertest");
+// const app = require("../server"); // Import your Express app
+
+// describe("Update User API", () => {
+//   it("should update user successfully", async () => {
+//     const res = await request(app)
+//       .put("/users/update/1")
+//       .set("Authorization", "Bearer VALID_USER_TOKEN")
+//       .send({
+//         newEmail: "test@example.com",
+//         newPassword: "StrongPass123!",
+//         secureAnswer: "my first pet",
+//       });
+
+//     expect(res.status).toBe(200);
+//     expect(res.body.message).toBe("User account updated successfully.");
+//   });
+
+//   it("should return 403 if secure answer is incorrect", async () => {
+//     const res = await request(app)
+//       .put("/users/update/1")
+//       .set("Authorization", "Bearer VALID_USER_TOKEN")
+//       .send({
+//         newEmail: "test@example.com",
+//         newPassword: "StrongPass123!",
+//         secureAnswer: "wrong answer",
+//       });
+
+//     expect(res.status).toBe(403);
+//     expect(res.body.error).toBe("Invalid security answer.");
+//   });
+// });
 
 module.exports = {
-    getAllUsers,
-    countUsers,
-    getUserByID,
-    getUserByEmail,
-    signupUser,
-    loginUser,
-    logoutUser,
-    updateUser,
-    deleteUser
+  getAllUsers,
+  countUsers,
+  getUserByID,
+  getUserByEmail,
+  signupUser,
+  loginUser,
+  logoutUser,
+  updateUser,
+  deleteUser,
 };
