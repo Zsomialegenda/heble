@@ -27,3 +27,7 @@
 h1 {
     color: #91182b;
 }
+
+img:hover {
+    transform: translateY(-5px);
+}

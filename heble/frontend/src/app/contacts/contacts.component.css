@@ -24,12 +24,20 @@
    border-radius: 10px;
 }
 
+img:hover {
+    transform: translateY(-5px);
+}
+
 .email {
     border: 5px solid #650707;
     border-radius: 20px;
     padding: 10px;
     background-color: #91182b;
     color: #fff;
+}
+
+.email:hover {
+    transform: translateY(-5px);
 }
 
 h1 {
@@ -39,5 +47,3 @@ h1 {
 svg:hover{
    color: #91182b;
 }
-
-

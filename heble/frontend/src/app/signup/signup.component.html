@@ -1,0 +1,46 @@
+<img src="redlights.jpg" class="img-fluid" style="width: 100%; max-height: 55vh;" alt="LED fények">
+
+<div class="signup" style="background-color: #1f1f23; color: white; min-height: 50vh; display: flex; flex-direction: column;">
+    <div>
+        <h1>Regisztráció</h1>
+        <hr>
+        <p>Jelentkezzen be az oldalunkon, hogy elérje azokat a tartalmakat, amelyekhez <strong>kizárólagosan csak</strong> regisztrált és bejelentkezett felhasználók férhetnek hozzá!</p>
+    </div>
+
+    <div>
+        <form class="form" #registerForm="ngForm" (ngSubmit)="signup()">
+        <h4>Hozd létre a saját fiókod még ma!</h4>
+             <div class="form-group">
+                <label>Keresztnév</label><br>
+                <input #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field"><br>
+                <small style="color: red" *ngIf="firstName.touched && firstName.invalid">Helytelen keresztnév!</small>
+             </div>
+             <div class="form-group">
+                <label>Vezeteknév</label><br>
+                <input #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field"><br>
+                <small style="color: red" *ngIf="lastName.touched && lastName.invalid">Helytelen vezetéknév!</small>
+             </div>
+             <div class="form-group">
+                <label>Email cím</label><br>
+                <input #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field"><br>
+                <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
+             </div>
+             <div class="form-group">
+                <label>Jelszó</label><br>
+                <input #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field"><br>
+                <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
+             </div>
+             <div class="form-group">
+                <label>Biztonsági válasz</label><br>
+                <input #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="text" name="secureAnswer" class="form-field"><br>
+                <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
+             </div>
+             <input type="submit" value="Regisztráció" class="buttonstyle" [disabled]="registerForm.invalid">
+        </form>
+
+    </div>
+
+    <div>
+        <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Van már fiókod? Lépj be!</a>
+    </div>
+</div>

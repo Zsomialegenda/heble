@@ -1,25 +1,48 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #3c3c44; padding: 10px 30px;">
 
-      <a class="navbar-brand" routerLink="/home" routerLinkActive="true" style="margin-right: 20px;">
-        <img src="PROJECTLOGO.png" alt="Logo" style="height: 75px; margin-right: 40px;">
-      </a>
+    <a class="navbar-brand" routerLink="/home" routerLinkActive="true" style="margin-right: 20px;">
+      <img src="PROJECTLOGO.png" alt="Logo" style="height: 75px; margin-right: 40px;">
+    </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/coaching" routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Coaching</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/freecontent"  routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Ingyenes tartalmak</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/signin"  routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Bejelentkezés</a>
-          </li>
-        </ul>
-      </div>
-      
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+
+          <ul *ngIf="!userService.loggedIn()" class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/coachingoff" routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Edzés</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/freecontent"  routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Ingyenes tartalmak</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login"  routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Bejelentkezés</a>
+            </li>
+
+          </ul>
+
+          <ul *ngIf="userService.loggedIn()" class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/coaching" routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Edzés</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/freecontent"  routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Ingyenes tartalmak</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" (click)="SignOut()" style="margin: 10px; font-size: 22px; font-weight: 600; color: white; cursor: pointer;">Kijelentkezés</a>
+            </li>
+            
+          </ul>
+      </ul>
+    </div> 
+
 </nav>

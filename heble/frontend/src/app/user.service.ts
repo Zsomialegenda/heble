@@ -7,11 +7,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/signup';
+  
+  private baseURL = "http://localhost:3000/users/";
+
+  signupEnd = "signup";
+  loginEnd = "login";
 
   constructor(private http: HttpClient) {}
 
-  signup(user: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl, user);
+  signup(users:any) {
+    return this.http.put(this.baseURL + this.signupEnd, users);
+  }
+
+  login(users:any) {
+    return this.http.post(this.baseURL + this.loginEnd, users);
+  }
+
+  loggedIn():boolean {
+    return !!localStorage.getItem("token");
   }
 }

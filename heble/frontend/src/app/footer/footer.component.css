@@ -4,11 +4,18 @@
     padding: 20px;
 }
 
+.card-body {
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+}
+
 .card-body img {
     background-color: rgb(113, 121, 129);
     border-radius: 10px;
     max-height: 75px;
-    margin: 15px;
+    margin: 10px;
 }
 
 .card-body img:hover {
