@@ -11,12 +11,12 @@
         <form class="form" #loginForm="ngForm" (ngSubmit)="login()">
             <div class="form-group">
                 <label>Email cím</label><br>
-                <input #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field"><br>
+                <input style="color: white" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
             </div>
             <div class="form-group">
                 <label>Jelszó</label><br>
-                <input #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field"><br>
+                <input style="color: white" #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
             </div>
             <button type="submit" value="Belépés" class="buttonstyle" [disabled]="loginForm.invalid">Belépés</button>
