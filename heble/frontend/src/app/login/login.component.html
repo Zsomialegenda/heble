@@ -11,20 +11,61 @@
         <form class="form" #loginForm="ngForm" (ngSubmit)="login()">
             <div class="form-group">
                 <label>Email cím</label><br>
-                <input style="color: white" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
+                <input placeholder="Email cím" style="color: white" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
             </div>
             <div class="form-group">
                 <label>Jelszó</label><br>
-                <input style="color: white" #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
+                <input placeholder="Jelszó" style="color: white" #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
             </div>
             <button type="submit" value="Belépés" class="buttonstyle" [disabled]="loginForm.invalid">Belépés</button>
         </form>
         
     </div>
-
+    <div style="margin-bottom: 50px;">
+        <a routerLink="/recoverlogin" routerLinkActive="true" class="buttonstyle">Elfejtettem a jelszavam!</a>
+    </div>
     <div>
         <a routerLink="/signup" routerLinkActive="true" class="buttonstyle">Nincs még fiókod? Regisztrálj!</a>
     </div>
+</div>
+
+<!-- Bootstrap Toast értesítések: sikeres bejelentkezéshez, hiányzó adatokhoz, jogosulatlan kéréshez, hiba fellépése esetén.-->
+<div class="toast-container">
+  <div id="SuccessfulLogin" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Sikeres belépés!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="missingdataatLogin" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Hiányzó adatok!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="unauthorizedLogin" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Jogosulatlan kérés!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="erroratLogin" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Valami hiba történt a belépés során!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
 </div>
