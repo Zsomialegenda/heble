@@ -16,7 +16,7 @@ const {
   Code404,
   Code409,
   Code500,
-} = require("./statusCodeController");
+} = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
 // Allowed exercise namess
@@ -48,7 +48,7 @@ const getLeaderboardByXP = async (req, res) => {
       xp: entry.xp,
     }));
 
-    return res.status(200).json({
+    res.status(200).json({
       message: "XP leaderboard fetched successfully.",
       üzenet: "XP ranglista sikeresen lekérve.",
       users: formattedLeaderboard,
@@ -95,7 +95,7 @@ const getLeaderboardByAchievements = async (req, res) => {
       achievementCount: entry.dataValues.achievementCount,
     }));
 
-    return res.status(200).json({
+    res.status(200).json({
       message: "Achievement leaderboard fetched successfully.",
       üzenet: "Eredmény ranglista sikeresen lekérve.",
       users: formattedLeaderboard,
@@ -147,7 +147,7 @@ const getLeaderboardByExercise = async (req, res) => {
       exerciseCount: entry.dataValues.exerciseCount,
     }));
 
-    return res.status(200).json({
+    res.status(200).json({
       message: `Leaderboard for ${name} fetched successfully.`,
       üzenet: `${name} ranglista sikeresen lekérve.`,
       users: formattedLeaderboard,

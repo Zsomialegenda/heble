@@ -15,7 +15,7 @@ const {
   Code404,
   Code409,
   Code500,
-} = require("./statusCodeController");
+} = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
 const { assignAchievements } = require("./userAchivementController");
@@ -45,13 +45,15 @@ const getAllExercises = async (req, res) => {
 
 /** getExercise -- visssza adja  az összesitett számát egy gyakorlatnak.
  *
- * @param {*} req
- * @param {*} res
- * @returns
+ * @param {*} req BBevitelnek a gyakorlat tipusa
+ * @param {*} res Vissza adja a megadott gyakorlat összesitett számát - 200
+ * @returns Hibákat küld vissza:
+ *              1. Ha a gyakorlat érvénytelen - 400
+ *              2. Szerverhiba - 500
  */
 const getExercise = async (req, res) => {
   try {
-    const name = req.params.name;
+    const name = req.params.type;
 
     const validFields = ["pushUps", "pullUps", "sitUps", "squats", "running"];
 
@@ -62,7 +64,7 @@ const getExercise = async (req, res) => {
 
     const total = await Exercise.sum(name);
 
-    return res.status(200).json({
+    res.status(200).json({
       status: 200,
       exerciseName: name,
       total,
@@ -96,7 +98,7 @@ const getUserExercises = async (req, res) => {
   }
 
   try {
-    const exercises = await Exercise.findAll({ where: { userId } });
+    const exercises = await Exercise.findOne({ where: { userId } });
     if (exercises.length === 0) {
       reason = [
         "No exercises found for this user.",
@@ -163,9 +165,13 @@ const logExerciseAndGainXP = async (req, res) => {
       return Code403(null, null, res, null, reason);
     }
 
-    if (!pushUps && !pullUps && !sitUps && !squats && !running) {
-      return Code404(null, null, res, null);
-    } // !!!!!!!!!!!!!!!!!!!!!!!
+    if (!pushUps || !pullUps || !sitUps || !squats || !running) {
+      reason = [
+        "Exercise not found for this user!",
+        "Gyakorlat nem található ehhez a felhasználóhoz!",
+      ];
+      return Code404(null, null, res, null, reason);
+    }
 
     const exercise = await Exercise.findOrCreate({
       where: { userId },

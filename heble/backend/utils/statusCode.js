@@ -9,7 +9,7 @@ const handleError = (status, massage, üzenet) => {
     }
 
     if (!reason || !Array.isArray(reason) || reason.length < 2) {
-      return res.status(status).json({
+      res.status(status).json({
         status,
         message: massage,
         üzenet: üzenet,

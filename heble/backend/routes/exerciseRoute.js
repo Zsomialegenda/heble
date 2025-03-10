@@ -12,7 +12,7 @@ const {
 router.get('/', getAllExercises);
 router.get('/:id', getUserExercises);
 router.get('/stats/sum', statsExercises);
-router.get('/stats/:name', getExercise);
+router.get('/stats/:type', getExercise);
 
 // POST metódusok
 router.post('/log', logExerciseAndGainXP);

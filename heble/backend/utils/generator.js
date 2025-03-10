@@ -17,9 +17,10 @@ const {
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
-/**
- * 
- * @returns 
+/** generateUsers -- felhasználók generálása
+ *
+ * @returns Feltölt random generált felhasználókat a Users táblába és 
+ *          egy 'generated_users.json' nevü fájlba leirja el is menti azokat
  */
 const generateUsers = async (req, res) => {
   try {
@@ -72,9 +73,6 @@ const generateUsers = async (req, res) => {
     }
 
     console.log("sUCCES!/sIKER!");
-    return res.status(200).JSON(
-      
-    )
   } catch (error) {
     console.error("Error/Hiba:", error);
   }
@@ -82,7 +80,9 @@ const generateUsers = async (req, res) => {
 
 
 
-/**
+/** generateAchievements - teljesitmény generálás
+ * 
+ * Előre meghatározott teljesitményeket generál a szerver elinditása után
  * 
  */
 const generateAchievements = async () => {

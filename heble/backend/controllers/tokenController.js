@@ -17,7 +17,7 @@ const {
   Code404,
   Code409,
   Code500,
-  } = require("./statusCodeController");
+  } = require("../utils/statusCode");
   let reason = []; // Hiba leezeésre
 
 

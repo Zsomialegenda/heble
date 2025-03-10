@@ -7,6 +7,7 @@ const userRoute = require("./routes/userRoute");
 const exerciseRoute = require("./routes/exerciseRoute");
 const achievementRoute = require("./routes/achivementRoute");
 const userAchievementRoute = require("./routes/userAchievementRoute");
+const experienceRoute = require("./routes/experienceRoute");
 const tokenRoute = require("./routes/tokenRoute");
 const leaderboardRoute = require("./routes/leaderboardRoute");
 
@@ -17,7 +18,7 @@ const { generateAchievements, generateUsers } = require("./utils/generator");
 const app = express();
 
 sequelize
-  .sync({ alter: false })
+  .sync({ alter: true })
   .then(() => {
     console.log("Tables created successfully!\nTáblák sikeresen leggyártva!");
   })
@@ -65,6 +66,7 @@ app.use("/users", userRoute);
 app.use("/exercises", exerciseRoute);
 app.use("/achievements", achievementRoute);
 app.use("/userAchivements", userAchievementRoute);
+app.use("/experiences", experienceRoute);
 app.use("/tokens", tokenRoute);
 app.use("/leaderboard", leaderboardRoute);
 

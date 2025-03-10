@@ -16,14 +16,9 @@ const {
   Code404,
   Code409,
   Code500,
-} = require("./statusCodeController");
+} = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
-/** getAllAchievements -- vissza ad minden teljesítményt
- *
- * @param {*} req Nincs
- * @param {*} res Lekérdez minden generált teljesíményt | különben szerver hiba
- */
 /** getAllAchievements -- Az összes teljesítmény lekérdezése
  *
  * @param {*} req Nem tartalmaz paramétereket
@@ -69,7 +64,7 @@ const getAchievementById = async (req, res) => {
       return Code404(null, null, res, null, reason);
     }
 
-    return res.status(200).json(achievement);
+    res.status(200).json(achievement);
   } catch (error) {
     reason = ["Failed to fetch achievement.", "Nem sikerült lekérni a teljesitményt."]
     return Code500(error, null, res, null, reason);
@@ -164,68 +159,6 @@ const updateAchievement = async (req, res) => {
     return Code500(error, null, res, null, reason);
   }
 };
-
-/**
- [
-  {
-    "name": "Push-Up Master",
-    "description": "Complete 50 push-ups in total.",
-    "pushUpsRequired": 50,
-    "pullUpsRequired": 0,
-    "squatsRequired": 0,
-    "runningRequired": 0
-  },
-  {
-    "name": "Pull-Up Pro",
-    "description": "Complete 20 pull-ups in total.",
-    "pushUpsRequired": 0,
-    "pullUpsRequired": 20,
-    "squatsRequired": 0,
-    "runningRequired": 0
-  },
-  {
-    "name": "Squat Specialist",
-    "description": "Perform 100 squats in total.",
-    "pushUpsRequired": 0,
-    "pullUpsRequired": 0,
-    "squatsRequired": 100,
-    "runningRequired": 0
-  },
-  {
-    "name": "Running Rookie",
-    "description": "Run 5 kilometers in total.",
-    "pushUpsRequired": 0,
-    "pullUpsRequired": 0,
-    "squatsRequired": 0,
-    "runningRequired": 5000
-  },
-  {
-    "name": "Fitness All-Rounder",
-    "description": "Complete 20 push-ups, 10 pull-ups, 30 squats, and run 1 kilometer.",
-    "pushUpsRequired": 20,
-    "pullUpsRequired": 10,
-    "squatsRequired": 30,
-    "runningRequired": 1
-  },
-  {
-    "name": "Advanced Athlete",
-    "description": "Achieve 100 push-ups, 50 pull-ups, 150 squats, and run 10 kilometers.",
-    "pushUpsRequired": 100,
-    "pullUpsRequired": 50,
-    "squatsRequired": 150,
-    "runningRequired": 10
-  },
-  {
-    "name": "Marathon Runner",
-    "description": "Run a total of 42 kilometers.",
-    "pushUpsRequired": 0,
-    "pullUpsRequired": 0,
-    "squatsRequired": 0,
-    "runningRequired": 42
-  }
-]
-
- */
 
 module.exports = {
   getAllAchievements,
