@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
@@ -9,13 +9,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent {
+export class NavComponent implements OnInit{
 
   constructor(public userService:UserService, private router:Router) {}
 
   SignOut() {
     localStorage.removeItem("token");
-    localStorage.removeItem("uid");
     this.router.navigate(["/login"]);
   }
+
+  role: any
+  ngOnInit(): void {
+    this.role = this.userService.getRole();
+    if (this.role=="admin") this.isAdmin = true
+  }
+
+  isAdmin:boolean=false;
 }

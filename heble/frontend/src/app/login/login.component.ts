@@ -27,14 +27,13 @@ export class LoginComponent {
          this.userService.login(this.loginUserData).subscribe({
            next: (res:any) =>{            
             localStorage.setItem("token", res.token);
-            localStorage.setItem("userId", res.userId);
 
             this.showToast('SuccessfulLogin');
 
             setTimeout(() => {
               this.router.navigate(["/coaching"]);
             }, 3500);
-           }, 
+          }, 
            error: (err:HttpErrorResponse) => {
               if(err.status === 404) {
                 this.showToast('missingdataatLogin');
