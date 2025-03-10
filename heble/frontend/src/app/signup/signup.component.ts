@@ -24,6 +24,7 @@ export class SignupComponent {
   }
 
   validEmail = false;
+  toasts: { message: string, type: string }[] = [];
 
   signup() {
     const email_ = this.registerUserData.email.split("");
@@ -45,19 +46,19 @@ export class SignupComponent {
 
     this.userService.signup(this.registerUserData).subscribe({
       next: (res:any) => {
-        alert("Sikeres regisztráció " + 201);
+        alert("Sikeres regisztráció! ");
         this.router.navigate(["/login"]);
       }, 
       error: (err:HttpErrorResponse) => {
         if(err.status === 404) {
-          alert("Hiányzó adatok " + 404)
+          alert("Hiányzó adatok! ")
         }else if(err.status === 401 || err.status === 403) {
-          alert("Jogosulatlan kérés " + 401)
+          alert("Jogosulatlan kérés! ")
         }else if(err.status === 400) {
-          alert("A felhasználónév vagy az email foglalt!" + 400)
+          alert("A felhasználónév vagy az email foglalt!")
         }
         else if(err.status === 500) {
-          alert("Valami hiba történt a regisztráció során!" + 500)
+          alert("Valami hiba történt a regisztráció során!")
         }
         console.log(err);
       }

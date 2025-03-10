@@ -42,6 +42,14 @@
             </li>
             
           </ul>
+
+          <ul *ngIf="userService.getRole() == 'admin'" class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/adminpanel" routerLinkActive="true" style="margin: 10px; font-size: 22px; font-weight: 600; color: white;">Admin panel</a>
+            </li>
+  
+          </ul>
       </ul>
     </div> 
 

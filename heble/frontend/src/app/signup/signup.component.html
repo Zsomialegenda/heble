@@ -12,35 +12,42 @@
         <h4>Hozd létre a saját fiókod még ma!</h4>
              <div class="form-group">
                 <label>Keresztnév</label><br>
-                <input #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field"><br>
+                <input placeholder="Keresztnév" style="color: white" #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="firstName.touched && firstName.invalid">Helytelen keresztnév!</small>
              </div>
              <div class="form-group">
                 <label>Vezeteknév</label><br>
-                <input #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field"><br>
+                <input placeholder="Vezeteknév" style="color: white" #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="lastName.touched && lastName.invalid">Helytelen vezetéknév!</small>
              </div>
              <div class="form-group">
                 <label>Email cím</label><br>
-                <input #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field"><br>
+                <input placeholder="Email cím" style="color: white" #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
              </div>
              <div class="form-group">
                 <label>Jelszó</label><br>
-                <input #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field"><br>
+                <input placeholder="Jelszó" style="color: white" #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
              </div>
              <div class="form-group">
-                <label>Biztonsági válasz</label><br>
-                <input #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="text" name="secureAnswer" class="form-field"><br>
+                <label>Biztonsági jelszó</label><br>
+                <input placeholder="Biztonsági jelszó" style="color: white" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="text" name="secureAnswer" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
              </div>
-             <input type="submit" value="Regisztráció" class="buttonstyle" [disabled]="registerForm.invalid">
+             <button type="submit" class="buttonstyle" [disabled]="registerForm.invalid">Regisztráció</button>
         </form>
 
     </div>
 
     <div>
+      <hr style="color: red;">
+      <p><strong style="color: #91182b">Mi a biztonsági jelszó? </strong><br> A biztonsági jelszó arra az esetre van kitalálva, ha elfelejtetted a jelszavad és nem tudsz bejelentkezni,<br> akkor a biztonsági jelszó és az email címed segítségével helyre tudod állítani a fiókod.<br> Tehát a biztonsági jelszó esetében kérjük, ezért egy személyedhez közel álló egyszerű jelszószerű szöveget adj meg.<br> <i>Például a háziállatod nevét vagy akár a kedvenc országod.</i></p><br>
+   </div>
+
+    <div>
         <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Van már fiókod? Lépj be!</a>
     </div>
 </div>
+
+<!-- Bootstrap Toast értesítések: sikeres bejelentkezéshez, hiányzó adatokhoz, jogosulatlan kéréshez, hiba fellépése esetén.-->

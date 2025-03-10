@@ -26,4 +26,42 @@ export class UserService {
   loggedIn():boolean {
     return !!localStorage.getItem("token");
   }
+
+  getToken() {
+    return localStorage.getItem("token");
+  }
+
+  decodeToken(token: string): any {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+            .join('')
+        );
+        return JSON.parse(jsonPayload);
+      } catch (error) {
+        console.error('Invalid token:', error);
+        return null;
+      }
+    }
+
+  token:any 
+  payload:any
+
+  getRole(): any {
+      this.token = localStorage.getItem("token");
+      if (this.token) {
+        this.payload = this.decodeToken(this.token);
+        console.log(this.payload.role);
+        
+        return this.payload.role;
+    }
+  }
+
+  isAdmin() :boolean {
+    return this.payload.role == "admin" ? true : false
+  }
 }
