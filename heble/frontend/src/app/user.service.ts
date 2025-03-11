@@ -61,6 +61,18 @@ export class UserService {
     }
   }
 
+  getUserID(): any {
+    this.token = localStorage.getItem("token");
+    if (this.token) {
+      this.payload = this.decodeToken(this.token);
+      console.log("a felhasználói id "+this.payload.userId);
+      
+      return this.payload.userId;
+  }
+}
+
+  
+
   isAdmin() :boolean {
     return this.payload.role == "admin" ? true : false
   }
