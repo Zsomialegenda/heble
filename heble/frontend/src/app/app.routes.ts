@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CoachingComponent } from './coaching/coaching.component';
 import { CoachingoffComponent } from './coachingoff/coachingoff.component';
+import { AchievementsComponent } from './achievements/achievements.component';
+import { AchievementsoffComponent } from './achievementsoff/achievementsoff.component';
 import { FreecontentComponent } from './freecontent/freecontent.component';
 import { ContentvitaminsComponent } from './contentvitamins/contentvitamins.component';
 import { ContentsupplementsComponent } from './contentsupplements/contentsupplements.component';
@@ -18,11 +20,14 @@ import { ContactsComponent } from './contacts/contacts.component';
 
 
 
+
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full' },
     {path: "home", component: HomeComponent},
     {path: "coaching", component: CoachingComponent},
     {path: "coachingoff", component: CoachingoffComponent},
+    {path: "achievements", component: AchievementsComponent},
+    {path: "achievementsoff", component: AchievementsoffComponent},
     {path: "freecontent", component: FreecontentComponent},
     {path: "contentvitamins", component: ContentvitaminsComponent},
     {path: "contentsupplements", component: ContentsupplementsComponent},

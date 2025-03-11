@@ -32,7 +32,7 @@ export class LoginComponent {
 
             setTimeout(() => {
               this.router.navigate(["/coaching"]);
-            }, 3500);
+            }, 2000);
           }, 
            error: (err:HttpErrorResponse) => {
               if(err.status === 404) {

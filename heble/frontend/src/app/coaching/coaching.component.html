@@ -1,22 +1,30 @@
+<img src="redlights.jpg" class="img-fluid" style="width: 100%; max-height: 55vh;" alt="LED fények">
+
 <div class="coaching" style="background-color: #1f1f23; color: white; min-height: 100vh; display: flex; flex-direction: column;">
    <div>
       <h1 style="color: #91182b">HeBLE Edzés</h1>
       <hr>
-      <p>Próbáld még ki ma a HeBLE szórakoztató, újszerű és játékos megoldását az edzésre!</p>
+      <p>Próbáld ki még ma a HeBLE szórakoztató, újszerű és játékos megoldását az edzésre!</p>
       <p>Teljesítsd feladatokat, majd a feladatok elvégzése után gyűjtsd be a tapasztalatpontokat és lépj szintet!</p>
       <p>Érj el különböző teljesítményeket és jutalmakat!</p>
-      <hr>
+      <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
+      <p>Az alábbiakban megtekintheted az előrehaládásod! Láthatod, hogy épp hanyas szintű vagy, mennyi az aktuális tapasztalatpontod és mennyi kell a következő szintig.</p>
   </div>
 
   <div>
    <div class="card" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Előrehaladás</h5>
+        <hr>
         <p class="card-text">Tapasztalatpont: {{experience.xp}} pont</p>
-        <p class="card-text">Szint:</p>
-        <p class="card-text">Szükséges tapasztalatpont a következő szintig: </p>
+        <p class="card-text">Szint: {{experience.level}}</p>
+        <p class="card-text">Szükséges tapasztalatpont a következő szintig: {{experience.xpToNextLevel}} pont</p>
       </div>
     </div>
+  </div>
+
+  <div>
+
   </div>
 
 </div>

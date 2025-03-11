@@ -45,3 +45,16 @@ input {
 .buttonstyle:hover {
     border: 4px solid #fff;
 }
+
+button:disabled{
+    cursor: not-allowed;
+    transition: none;
+}
+
+.toast-container{
+    position: fixed;
+    top: 5%; 
+    left: 50%;
+    width: 20%;
+    transform: translateX(-50%); 
+}
