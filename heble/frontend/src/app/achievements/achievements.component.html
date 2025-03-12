@@ -78,4 +78,12 @@
 
   </div>
 
+  <div>
+    <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
+    <h2>Elért teljesítmények</h2>
+    <ul style="display: flex; justify-content: center; text-align: center; gap:10px; flex-wrap: wrap;">
+      <li *ngFor="let achievement of achievements"><h4>Név:</h4> <br>{{achievement.Achievement.name}}  <hr> <h4>Leírás:</h4> <br> {{achievement.Achievement.description}}</li>
+    </ul>
+  </div>
+
 </div>

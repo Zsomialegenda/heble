@@ -1,31 +1,43 @@
 .achievements {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    padding: 50px 20px;
-    color: #fff;
-    font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+  color: #fff;
+  font-size: 18px;
 }
 
 .card {
-    background-color: #3c3c44;
-    color: #fff;
-    margin: 20px;
-    border: 5px solid #fff; 
-    box-sizing: border-box;
-    overflow: auto;
+  background-color: #3c3c44;
+  color: #fff;
+  margin: 20px;
+  border: 5px solid #fff;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .card img {
-    min-height: 180px;
-    max-height: 180px;
-    min-width: 120px;
-    max-width: 120px;
-    align-self: center;
-
+  min-height: 180px;
+  max-height: 180px;
+  min-width: 120px;
+  max-width: 120px;
+  align-self: center;
 }
 
 .card:hover {
-    outline: 2mm solid #91182b;
+  outline: 2mm solid #91182b;
+}
+
+li {
+  list-style-type: none;
+  background-color: #3c3c44;
+  border: 5px solid #fff;
+  margin: 10px;
+  padding: 10px;
+  width: 400px;
+}
+
+li:hover {
+  outline: 2mm solid #91182b;
 }

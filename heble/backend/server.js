@@ -17,27 +17,31 @@ const { generateAchievements, generateUsers } = require("./utils/generator");
 
 const app = express();
 
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("Tables created successfully!\nTáblák sikeresen leggyártva!");
-  })
-  .catch((err) => {
-    console.error("Failed/Sikertelen:", err.message);
-  });
+async function seedData() {
+  sequelize
+    .sync({ force: true })
+    .then(() => {
+      console.log("Tables created successfully!\nTáblák sikeresen leggyártva!");
+    })
+    .catch((err) => {
+      console.error("Failed/Sikertelen:", err.message);
+    });
 
-(async () => {
-  try {
-    await sequelize.authenticate();
+  (async () => {
+    try {
+      await sequelize.authenticate();
 
-    await sequelize.sync({ alter: true });
+      await sequelize.sync({ force: true });
 
-    await generateAchievements();
-    await generateUsers();
-  } catch (error) {
-    console.error("Model sync failed/Model sync sikertelen:", error);
-  }
-})();
+      await generateAchievements();
+      await generateUsers();
+    } catch (error) {
+      console.error("Model sync failed/Model sync sikertelen:", error);
+    }
+  })();
+}
+
+//seedData();
 
 // Middleware
 app.use(
