@@ -12,6 +12,7 @@ export class UserService {
 
   signupEnd = "signup";
   loginEnd = "login";
+  forgotPasswordEnd = "forgot";
 
   constructor(private http: HttpClient) {}
 
@@ -70,6 +71,13 @@ export class UserService {
       return this.payload.userId;
   }
 }
+
+  forgotPassword(userData:any){
+    return this.http.post(
+      this.baseURL + this.forgotPasswordEnd,
+      userData
+    )
+  }
 
   
 

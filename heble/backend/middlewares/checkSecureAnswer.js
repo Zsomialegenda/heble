@@ -12,6 +12,7 @@ const checkUserSecureAnswer = async (req, res, next) => {
         "Email and secure answer are required.",
         "Az email és a biztonsági válasz megadása kötelező.",
       ];
+      console.log("heble")
       return Code400(null, req, res, next, reason);
     }
 

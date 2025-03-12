@@ -13,6 +13,7 @@ import { ContentworkoutComponent } from './contentworkout/contentworkout.compone
 import { ContenthydrationComponent } from './contenthydration/contenthydration.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverloginComponent } from './recoverlogin/recoverlogin.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { SignupComponent } from './signup/signup.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { AboutComponent } from './about/about.component';
@@ -37,6 +38,7 @@ export const routes: Routes = [
     {path: "contenthydration", component: ContenthydrationComponent},
     {path: "login", component: LoginComponent},
     {path: "recoverlogin", component: RecoverloginComponent},
+    {path: "changePassword", component: ChangePasswordComponent},
     {path: "signup", component: SignupComponent},
     {path: "adminpanel", component: AdminpanelComponent},
     {path: "about", component: AboutComponent},
