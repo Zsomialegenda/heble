@@ -19,7 +19,6 @@ const {
   Code409,
   Code500,
 } = require("../utils/statusCode");
-const checkUserSecureAnswer = require("../middlewares/checkSecureAnswer");
 
 let reason = []; // Hiba leezeésre
 
@@ -42,7 +41,7 @@ const getAllUsers = async (req, res) => {
       ],
     });
 
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (error) {
     return Code500(error, null, res, null, reason);
   }
@@ -76,7 +75,7 @@ const getUserByID = async (req, res) => {
       return Code404(null, null, res, null, reason);
     }
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
     return Code500(error, null, res, null, reason);
   }
@@ -118,7 +117,7 @@ const getUserByEmail = async (req, res) => {
       return Code404(null, null, res, null, reason);
     }
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
     return Code500(error, null, res, null, reason);
   }
@@ -251,7 +250,7 @@ const loginUser = async (req, res) => {
         { expiresIn: "8h" }
       );
 
-      res.status(200).json({
+      return res.status(200).json({
         status: 200,
         token: adminToken,
         isAdmin: true,
@@ -313,7 +312,7 @@ const loginUser = async (req, res) => {
     console.log("User Login Successful");
     console.log("Generated User JWT Token:", userToken);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       userId: user.id,
       token: userToken,
@@ -356,7 +355,7 @@ const logoutUser = async (req, res) => {
 
     await tokenRecord.destroy();
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: "Logout successful.",
       üzenet: "Sikeres kijelentkezés.",
@@ -430,7 +429,7 @@ const updateAccount = async (req, res) => {
     user.secureAnswer = await bcrypt.hash(secureAnswer, 10);
     await user.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: "User account updated successfully.",
       üzenet: "Felhasználói fiók sikeresen frissítve.",
@@ -452,29 +451,109 @@ const updateAccount = async (req, res) => {
   }
 };
 
-const forgotPassword = async (req, res, next) => {
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+const verifySecureAnswer = async (req, res, next) => {
   try {
-    const { newPassword } = req.body;
+    const { email, secureAnswer } = req.body;
 
-    if (!newPassword) {
-      reason = ["New password is required.", "Az új jelszó megadása kötelező."];
+    if (!email || !secureAnswer) {
+      const reason = [
+        "Email and secure answer are required.",
+        "Az email és a biztonsági válasz megadása kötelező.",
+      ];
       return Code400(null, req, res, next, reason);
     }
 
-    const user = req.user;
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      const reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, req, res, next, reason);
+    }
+
+    const isMatch = await bcrypt.compare(secureAnswer, user.secureAnswer);
+    if (!isMatch) {
+      const reason = ["Incorrect secure answer.", "Hibás biztonsági válasz."];
+      return Code401(null, req, res, next, reason);
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: "Secure answer verified successfully.",
+      üzenet: "A biztonsági válasz ellenőrzése sikeres.",
+    });
+
+  } catch (error) {
+    const reason = [
+      "An error occurred while verifying the secure answer.",
+      "Hiba történt a biztonsági válasz ellenőrzése közben.",
+    ];
+    return Code500(error, req, res, next, reason);
+  }
+};
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+const resetPassword = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      const reason = ["No token provided.", "Nincs megadva token."];
+      return Code401(null, req, res, next, reason);
+    }
+
+    const token = req.headers.authorization?.split(" ")[1];
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, SECRET_KEY);
+    } catch (error) {
+      const reason = ["Invalid token.", "Érvénytelen token."];
+      return Code401(null, req, res, next, reason);
+    }
+
+    const { userId } = decoded;
+
+    const { newPassword } = req.body;
+
+    if (!newPassword) {
+      const reason = [
+        "New password is required.",
+        "Az új jelszó megadása kötelező.",
+      ];
+      return Code400(null, req, res, next, reason);
+    }
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+      const reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, req, res, next, reason);
+    }
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
     user.password = hashedNewPassword;
     await user.save();
 
     return res.status(200).json({
-      success: true,
+      status: 200,
       message: "Password updated successfully.",
       üzenet: "Jelszó sikeresen frissítve.",
     });
+
   } catch (error) {
-    reason = [
+    const reason = [
       "An error occurred while updating the password.",
       "Hiba történt a jelszó frissítése közben.",
     ];
@@ -487,10 +566,10 @@ const forgotPassword = async (req, res, next) => {
  * @param {*} req Tartalmazza az Authorization tokent a fejlécben | Admin esetén az e-mail cím is megadható a törlendő felhasználó azonosításához
  * @param {*} res Visszajelzést ad a törlés sikerességéről - 200
  * @returns Hibbákat ad vissza ha:
- *          Hiányzó vagy érvénytelen token - 401
- *          Nem admin próbál másik felhasználót törölni e-mail alapján - 403
- *          A felhasználó nem található - 404
- *          Szerverhiba - 500
+ *          1. Hiányzó vagy érvénytelen token - 401
+ *          2. Nem admin próbál másik felhasználót törölni e-mail alapján - 403
+ *          3. A felhasználó nem található - 404
+ *          4. Szerverhiba - 500
  */
 const deleteUser = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -534,7 +613,7 @@ const deleteUser = async (req, res) => {
 
     await user.destroy();
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: isAdmin
         ? "User deleted successfully."
@@ -569,7 +648,7 @@ const deleteUser = async (req, res) => {
 const countUsers = async (req, res) => {
   try {
     const userCount = await User.count();
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: "User count fetched successfully.",
       üzenet: "Felhasználók száma sikeresen lekérve.",
@@ -593,6 +672,7 @@ module.exports = {
   loginUser,
   logoutUser,
   updateAccount,
-  forgotPassword,
+  verifySecureAnswer,
+  resetPassword,
   deleteUser,
 };

@@ -30,7 +30,7 @@ const {
 const fetchAllTokens = async (req, res) => {
     try {
         const tokens = await Token.findAll();
-        res.status(200).json({
+        return res.status(200).json({
             status: 200,
             message: 'Tokens fetched successfully.',
             üzenet: 'Tokenek sikeresen lekérve.',
@@ -58,7 +58,7 @@ const fetchTokenById = async (req, res) => {
             return Code404(null, res);
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             status: 200,
             message: 'Token fetched successfully.',
             üzenet: 'Token sikeresen lekérve.',
@@ -94,7 +94,7 @@ const fetchTokenByUserId = async (req, res) => {
             return Code404(null, res);
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             status: 200,
             message: 'Token fetched successfully.',
             üzenet: 'Token sikeresen lekérve.',
@@ -117,7 +117,7 @@ const fetchTokenByUserId = async (req, res) => {
 const countToken = async (req, res) => {
     try {
         const tokenCount = await Token.count();
-        res.status(200).json({
+        return res.status(200).json({
             status: 200,
             message: 'Token count fetched successfully.',
             üzenet: 'Tokenek száma sikeresen lekérve.',

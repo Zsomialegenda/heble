@@ -8,11 +8,11 @@ const {
   loginUser,
   logoutUser,
   deleteUser,
-  forgotPassword,
   countUsers,
   updateAccount,
+  verifySecureAnswer,
+  resetPassword,
 } = require("../controllers/userController");
-const checkUserSecureAnswer = require("../middlewares/checkSecureAnswer");
 
 
 const { generateUsers } = require("../utils/generator");
@@ -30,7 +30,8 @@ router.put("/generate", generateUsers);
 // POST metódusojk
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.post("/forgot",checkUserSecureAnswer, forgotPassword);
+router.post("/forgot", verifySecureAnswer);
+router.post("/forgot/reset", resetPassword);
 
 // PATCH metódusojk
 router.patch("/update", updateAccount);

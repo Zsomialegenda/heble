@@ -39,7 +39,7 @@ const getAllAchievements = async (req, res) => {
       ],
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Achievements fetched successfully.",
       üzenet: "Az eredmények sikeresen lekérve.",
       data: achievements,
@@ -90,7 +90,7 @@ const getUserAchievements = async (req, res) => {
       return Code404(null, null, res, null, reason);
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "User achievements fetched successfully.",
       üzenet: "A felhasználó eredményei sikeresen lekérve.",
       data: userAchievements,

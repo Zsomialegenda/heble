@@ -32,7 +32,7 @@ const { assignAchievements } = require("./userAchivementController");
 const getAllExercises = async (req, res) => {
   try {
     const exercises = await Exercise.findAll();
-    res.status(200).json({
+    return res.status(200).json({
       message: "All exercises fetched successfully.",
       üzenet: "Az összes gyakorlat sikeresen lekérve.",
       data: exercises,
@@ -67,7 +67,7 @@ const getExercise = async (req, res) => {
 
     const total = await Exercise.sum(name);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       exerciseName: name,
       total,
@@ -109,7 +109,7 @@ const getUserExercises = async (req, res) => {
       ];
       return Code404(null, null, res, null, reason);
     }
-    res.status(200).json({
+    return res.status(200).json({
       message: "User exercises fetched successfully.",
       üzenet: "A felhasználó gyakorlatai sikeresen lekérve.",
       data: exercises,
@@ -230,7 +230,7 @@ const logExerciseAndGainXP = async (req, res) => {
 
     const newAchievements = await assignAchievements(userId);
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Exercise logged and XP gained successfully.",
       üzenet: "Gyakorlat rögzítve és XP sikeresen hozzáadva.",
       exerciseData: { ...exercise.get() },

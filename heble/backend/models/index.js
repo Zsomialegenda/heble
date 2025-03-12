@@ -5,7 +5,7 @@ const Achievement = require('./Achivement');
 const Exercise = require('./Exercise');
 const Token = require('./Token');
 const UserAchievement = require('./UserAchivement');
-const UserExperience = require('./UserExperience');
+const UserExperience = require('./UserExperience.js');
 const DeletedOrBannedUser = require('./DeletedOrBannedUsers');
 
 // User <-> Exercise (One-to-One)

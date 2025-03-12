@@ -28,7 +28,7 @@ let reason = []; // Hiba leezeésre
 const getAllAchievements = async (req, res) => {
   try {
     const achievements = await Achievement.findAll();
-    res.status(200).json({
+    return res.status(200).json({
       message: "Achievements fetched successfully.",
       üzenet: "Az eredmények sikeresen lekérve.",
       data: achievements,
@@ -64,7 +64,7 @@ const getAchievementById = async (req, res) => {
       return Code404(null, null, res, null, reason);
     }
 
-    res.status(200).json(achievement);
+    return res.status(200).json(achievement);
   } catch (error) {
     reason = ["Failed to fetch achievement.", "Nem sikerült lekérni a teljesitményt."]
     return Code500(error, null, res, null, reason);
@@ -146,7 +146,7 @@ const updateAchievement = async (req, res) => {
       runningRequired: runningRequired || achievement.runningRequired,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Achievement updated successfully.",
       üzenet: "Az eredmény sikeresen frissítve.",
       data: achievement,

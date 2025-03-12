@@ -27,7 +27,7 @@ let reason = []; // Hiba leezeésre
 const getAllExperiences = async (req, res) => {
   try {
     const experiences = await UserExperience.findAll();
-    res.status(200).json({
+    return res.status(200).json({
       message: "All experiences fetched successfully.",
       üzenet: "Az összes tapasztalat sikeresen lekérve.",
       data: experiences,
@@ -67,7 +67,7 @@ const getUserExperience = async (req, res) => {
       ];
       return Code404(null, null, res, null, reason);
     }
-    res.status(200).json({
+    return res.status(200).json({
       message: "User experiences fetched successfully.",
       üzenet: "A felhasználó tapasztalatai sikeresen lekérve.",
       data: experiences,
