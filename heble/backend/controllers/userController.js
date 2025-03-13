@@ -508,25 +508,7 @@ const verifySecureAnswer = async (req, res, next) => {
  */
 const resetPassword = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      const reason = ["No token provided.", "Nincs megadva token."];
-      return Code401(null, req, res, next, reason);
-    }
-
-    const token = req.headers.authorization?.split(" ")[1];
-
-    let decoded;
-    try {
-      decoded = jwt.verify(token, SECRET_KEY);
-    } catch (error) {
-      const reason = ["Invalid token.", "Érvénytelen token."];
-      return Code401(null, req, res, next, reason);
-    }
-
-    const { userId } = decoded;
-
-    const { newPassword } = req.body;
+    const { email ,newPassword } = req.body;
 
     if (!newPassword) {
       const reason = [
@@ -536,7 +518,7 @@ const resetPassword = async (req, res, next) => {
       return Code400(null, req, res, next, reason);
     }
 
-    const user = await User.findByPk(userId);
+    const user = await User.findOne({ where: {email} });
     if (!user) {
       const reason = ["User not found.", "Felhasználó nem található."];
       return Code404(null, req, res, next, reason);

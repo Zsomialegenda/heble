@@ -153,7 +153,7 @@ const logExerciseAndGainXP = async (req, res) => {
     const requestUserId = decoded.userId;
     const isAdmin = decoded.isAdmin || false;
 
-    const userId = parseInt(req.params.userId || req.body.userId, 10);
+    const userId = parseInt(decoded.userId, 10);
 
     if (isNaN(userId)) {
       reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];

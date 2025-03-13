@@ -32,7 +32,7 @@
              </div>
              <div class="form-group">
                 <label>Biztonsági jelszó</label><br>
-                <input placeholder="Biztonsági jelszó" style="color: white" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="text" name="secureAnswer" class="form-field" autocomplete="off"><br>
+                <input placeholder="Biztonsági jelszó" style="color: white" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="password" name="secureAnswer" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
              </div>
              <button type="submit" class="buttonstyle" [disabled]="registerForm.invalid">Regisztráció</button>

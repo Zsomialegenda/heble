@@ -30,6 +30,15 @@
   color: #fff;
 }
 
+li {
+  list-style-type: none;
+  background-color: #3c3c44;
+  border: 5px solid #fff;
+  margin: 10px;
+  padding: 10px;
+  width: 400px;
+}
+
 .accordion-item,
 .accordion-button {
   background-color: #3c3c44;

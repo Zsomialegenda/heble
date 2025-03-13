@@ -27,6 +27,7 @@ export class RecoverloginComponent {
       next:(res:any)=> {
         alert(res)
         this.router.navigate(["/changePassword"]);
+        localStorage.setItem("email", this.userData.email);
       },
       error:(err:HttpErrorResponse) => {
         alert(err.message);

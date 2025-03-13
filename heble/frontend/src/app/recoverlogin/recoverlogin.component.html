@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Biztonsági jelszó</label><br>
-              <input placeholder="Biztonsági jelszó" style="color: white" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="text" class="form-field" autocomplete="off">
+              <input placeholder="Biztonsági jelszó" style="color: white" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off">
             </div>
             <button type="submit" class="buttonstyle" [disabled]="recoverForm.invalid">Elküldés</button>
           </form>

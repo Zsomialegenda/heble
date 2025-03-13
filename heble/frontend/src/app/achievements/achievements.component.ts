@@ -26,7 +26,7 @@ export class AchievementsComponent {
         console.log(this.achievements);
       },
       error:(err:HttpErrorResponse)=> {
-        alert(err.message);
+        //alert(err.message);
       }
     })
   }

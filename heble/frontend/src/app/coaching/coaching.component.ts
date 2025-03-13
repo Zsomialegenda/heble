@@ -3,10 +3,11 @@ import { Experience } from '../experience';
 import { ExperienceService } from '../experience.service';
 import { UserService } from '../user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-coaching',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './coaching.component.html',
   styleUrl: './coaching.component.css'
 })
