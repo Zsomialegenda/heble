@@ -11,12 +11,12 @@
         <form class="form" #loginForm="ngForm" (ngSubmit)="login()">
             <div class="form-group">
                 <label>Email cím</label><br>
-                <input placeholder="Email cím" style="color: white" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
+                <input placeholder="Email cím" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
             </div>
             <div class="form-group">
                 <label>Jelszó</label><br>
-                <input placeholder="Jelszó" style="color: white" #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
+                <input placeholder="Jelszó" #password="ngModel" [(ngModel)]="loginUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
             </div>
             <button type="submit" value="Belépés" class="buttonstyle" [disabled]="loginForm.invalid">Belépés</button>
@@ -27,7 +27,7 @@
         <a routerLink="/recoverlogin" routerLinkActive="true" class="buttonstyle">Elfejtettem a jelszavam!</a>
     </div>
     <div>
-        <a routerLink="/signup" routerLinkActive="true" class="buttonstyle">Nincs még fiókod? Regisztrálj!</a>
+        <a routerLink="/signup" routerLinkActive="true" class="buttonstyle">Nincs fiókod? Regisztrálj!</a>
     </div>
 </div>
 

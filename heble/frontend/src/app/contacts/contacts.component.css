@@ -14,7 +14,7 @@
 
 .container div {
     font-size: 22px;
-    margin: 40px;
+    margin: 10px;
 }
 
 .gym {
@@ -31,6 +31,7 @@ img:hover {
 .email {
     border: 5px solid #650707;
     border-radius: 20px;
+    width: 100%;
     padding: 10px;
     background-color: #91182b;
     color: #fff;

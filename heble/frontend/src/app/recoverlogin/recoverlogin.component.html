@@ -12,11 +12,11 @@
         <form class="form" #recoverForm="ngForm" (ngSubmit)="submitData()">
             <div class="form-group">
               <label class="form-label">Email-cím</label><br>
-              <input placeholder="Email-cím" style="color: white" [(ngModel)]="userData.email" name="email" required type="email" class="form-field" autocomplete="off">
+              <input placeholder="Email-cím" [(ngModel)]="userData.email" name="email" required type="email" class="form-field" autocomplete="off"><br>
             </div>
             <div class="form-group">
               <label class="form-label">Biztonsági jelszó</label><br>
-              <input placeholder="Biztonsági jelszó" style="color: white" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off">
+              <input placeholder="Biztonsági jelszó" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off"><br>
             </div>
             <button type="submit" class="buttonstyle" [disabled]="recoverForm.invalid">Elküldés</button>
           </form>

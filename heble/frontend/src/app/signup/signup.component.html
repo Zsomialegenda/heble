@@ -12,27 +12,27 @@
         <h4>Hozd létre a saját fiókod még ma!</h4>
              <div class="form-group">
                 <label>Keresztnév</label><br>
-                <input placeholder="Keresztnév" style="color: white" #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field" autocomplete="off"><br>
+                <input placeholder="Keresztnév" #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="firstName.touched && firstName.invalid">Helytelen keresztnév!</small>
              </div>
              <div class="form-group">
                 <label>Vezeteknév</label><br>
-                <input placeholder="Vezeteknév" style="color: white" #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field" autocomplete="off"><br>
+                <input placeholder="Vezeteknév" #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="lastName.touched && lastName.invalid">Helytelen vezetéknév!</small>
              </div>
              <div class="form-group">
                 <label>Email cím</label><br>
-                <input placeholder="Email cím" style="color: white" #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
+                <input placeholder="Email cím" #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
              </div>
              <div class="form-group">
                 <label>Jelszó</label><br>
-                <input placeholder="Jelszó" style="color: white" #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
+                <input placeholder="Jelszó" #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
              </div>
              <div class="form-group">
                 <label>Biztonsági jelszó</label><br>
-                <input placeholder="Biztonsági jelszó" style="color: white" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="password" name="secureAnswer" class="form-field" autocomplete="off"><br>
+                <input placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="password" name="secureAnswer" class="form-field" autocomplete="off"><br>
                 <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
              </div>
              <button type="submit" class="buttonstyle" [disabled]="registerForm.invalid">Regisztráció</button>
