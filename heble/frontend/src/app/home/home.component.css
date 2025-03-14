@@ -1,52 +1,55 @@
 .home {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    padding: 40px;
-    color: #fff;
-    font-size: 18px;
+  background-color: #1f1f23;
+  color: #fff;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  color: #fff;
+  font-size: 18px;
 }
 
 .card {
-    min-height: 420px;
-    max-height: 420px;
-    min-width: 335px;
-    max-width: 335px;
-    margin: 20px;
-    border: 5px solid #650707;
-    background-color: #91182b;
-    color: white;
-    box-sizing: border-box;
-    overflow: auto;
+  min-height: 420px;
+  max-height: 420px;
+  min-width: 335px;
+  max-width: 335px;
+  margin: 20px;
+  border: 5px solid #650707;
+  background-color: #91182b;
+  color: white;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .card-title {
-   padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .card:hover {
-    box-shadow: 0 10px 22px #650707;
-    transform: translateY(-20px);
+  box-shadow: 0 10px 22px #650707;
+  transform: translateY(-20px);
 }
 
 .card-text {
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.markright, .markleft {
-    max-width: 35px;
-    max-height: 35px;
+.markright,
+.markleft {
+  max-width: 35px;
+  max-height: 35px;
 }
 
 .markright {
-    float: right;
+  float: right;
 }
 
 .markleft {
-    float: left;
+  float: left;
 }

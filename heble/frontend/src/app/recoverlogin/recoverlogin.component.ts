@@ -9,29 +9,28 @@ import { CommonModule } from '@angular/common';
   selector: 'app-recoverlogin',
   imports: [RouterLink, RouterLinkActive, FormsModule, CommonModule],
   templateUrl: './recoverlogin.component.html',
-  styleUrl: './recoverlogin.component.css'
+  styleUrl: './recoverlogin.component.css',
 })
 export class RecoverloginComponent {
+  constructor(private userService: UserService, private router: Router) {}
 
-  constructor(private userService:UserService, private router:Router){}
+  userData = {
+    email: '',
+    secureAnswer: '',
+  };
 
-  userData={
-    email:"",
-    secureAnswer:"",
-  }
-
-  submitData(){
-    console.log(this.userData)
+  submitData() {
+    console.log(this.userData);
 
     this.userService.forgotPassword(this.userData).subscribe({
-      next:(res:any)=> {
-        alert(res)
-        this.router.navigate(["/changePassword"]);
-        localStorage.setItem("email", this.userData.email);
+      next: (res: any) => {
+        alert(res);
+        this.router.navigate(['/changePassword']);
+        localStorage.setItem('email', this.userData.email);
       },
-      error:(err:HttpErrorResponse) => {
+      error: (err: HttpErrorResponse) => {
         alert(err.message);
-      }
-    })
+      },
+    });
   }
 }

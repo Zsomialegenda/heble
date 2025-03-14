@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './achievements.component.css'
 })
 export class AchievementsComponent {
-
   constructor(private achievementservice:AchievementService, private userService:UserService){}
   achievements:Achievement[]=[]
 

@@ -19,29 +19,26 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { AboutComponent } from './about/about.component';
 import { ContactsComponent } from './contacts/contacts.component';
 
-
-
-
 export const routes: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full' },
-    {path: "home", component: HomeComponent},
-    {path: "coaching", component: CoachingComponent},
-    {path: "coachingoff", component: CoachingoffComponent},
-    {path: "achievements", component: AchievementsComponent},
-    {path: "achievementsoff", component: AchievementsoffComponent},
-    {path: "freecontent", component: FreecontentComponent},
-    {path: "contentvitamins", component: ContentvitaminsComponent},
-    {path: "contentsupplements", component: ContentsupplementsComponent},
-    {path: "contentsleeping", component: ContentsleepingComponent},
-    {path: "contentworkouttypes", component: ContentworkouttypesComponent},
-    {path: "contentworkout", component: ContentworkoutComponent},
-    {path: "contenthydration", component: ContenthydrationComponent},
-    {path: "login", component: LoginComponent},
-    {path: "recoverlogin", component: RecoverloginComponent},
-    {path: "changePassword", component: ChangePasswordComponent},
-    {path: "signup", component: SignupComponent},
-    {path: "adminpanel", component: AdminpanelComponent},
-    {path: "about", component: AboutComponent},
-    {path: "contacts", component: ContactsComponent},
-    {path: "**", component: HomeComponent}
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'coaching', component: CoachingComponent },
+  { path: 'coachingoff', component: CoachingoffComponent },
+  { path: 'achievements', component: AchievementsComponent },
+  { path: 'achievementsoff', component: AchievementsoffComponent },
+  { path: 'freecontent', component: FreecontentComponent },
+  { path: 'contentvitamins', component: ContentvitaminsComponent },
+  { path: 'contentsupplements', component: ContentsupplementsComponent },
+  { path: 'contentsleeping', component: ContentsleepingComponent },
+  { path: 'contentworkouttypes', component: ContentworkouttypesComponent },
+  { path: 'contentworkout', component: ContentworkoutComponent },
+  { path: 'contenthydration', component: ContenthydrationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'recoverlogin', component: RecoverloginComponent },
+  { path: 'changePassword', component: ChangePasswordComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'adminpanel', component: AdminpanelComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contacts', component: ContactsComponent },
+  { path: '**', component: HomeComponent },
 ];

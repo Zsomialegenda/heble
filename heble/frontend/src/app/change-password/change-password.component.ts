@@ -15,7 +15,7 @@ export class ChangePasswordComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   userData = {
-    email: localStorage.getItem("email"),
+    email: localStorage.getItem('email'),
     newPassword: '',
   };
 

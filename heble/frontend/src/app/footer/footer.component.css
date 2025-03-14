@@ -1,47 +1,47 @@
 .card {
-    border: none;
-    background-color: #3c3c44;
-    padding: 20px;
+  border: none;
+  background-color: #3c3c44;
+  padding: 20px;
 }
 
 .card-body {
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    justify-content: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .card-body img {
-    background-color: rgb(113, 121, 129);
-    border-radius: 10px;
-    max-height: 75px;
-    margin: 20px;
+  background-color: rgb(113, 121, 129);
+  border-radius: 10px;
+  max-height: 75px;
+  margin: 20px;
 }
 
 .card-body img:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .card-footer {
-    background-color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    border-radius: 20px;
-    border: 5px solid #91182b;
+  background-color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 5px solid #91182b;
 }
 
 .buttonstyle {
-    border: 4px solid #650707;
-    background-color: #91182b;
-    color: #fff;
-    padding: 10px 30px;
-    border-radius: 20px;
-    font-size: 22px;
-    font-weight: 500;
-    max-width: 200px;
-    text-decoration: none;
+  border: 4px solid #650707;
+  background-color: #91182b;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 22px;
+  font-weight: 500;
+  max-width: 200px;
+  text-decoration: none;
 }
 
 .buttonstyle:hover {
-    border: 4px solid #fff;
+  border: 4px solid #fff;
 }

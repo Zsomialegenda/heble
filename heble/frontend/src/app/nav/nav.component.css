@@ -1,17 +1,16 @@
 img {
-    transition: transform .7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
 }
-  
+
 img:hover {
-    transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .navbar-toggler {
-    background-color: rgb(113, 121, 129);
+  background-color: rgb(113, 121, 129);
 }
 
-li:hover{
+li:hover {
   background-color: rgb(113, 121, 129);
   border-radius: 20px;
 }
-
