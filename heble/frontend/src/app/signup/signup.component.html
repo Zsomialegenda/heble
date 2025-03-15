@@ -50,4 +50,61 @@
     </div>
 </div>
 
-<!-- Bootstrap Toast értesítések: sikeres bejelentkezéshez, hiányzó adatokhoz, jogosulatlan kéréshez, hiba fellépése esetén.-->
+<!-- Bootstrap Toast értesítések: sikeres regisztráció, hiányzó adatok (404), jogosulatlan kérés (401 és 403), az email cím már foglalt (409), valami hiba fellépése esetén (500), érvénytelen email cím esetén.-->
+<div class="toast-container">
+
+   <div id="SuccessfulSignup" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+     <div class="d-flex">
+       <div class="toast-body">
+         Sikeres regisztráció!
+       </div>
+       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+     </div>
+   </div>
+ 
+   <div id="missingdataatSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+     <div class="d-flex">
+       <div class="toast-body">
+         Hiányzó adatok!
+       </div>
+       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+     </div>
+   </div>
+ 
+   <div id="unauthorizedSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+     <div class="d-flex">
+       <div class="toast-body">
+         Jogosulatlan kérés!
+       </div>
+       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+     </div>
+   </div>
+
+   <div id="EmailAlreadyInUse" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+         Az email cím már foglalt!
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+ 
+   <div id="erroratSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+     <div class="d-flex">
+       <div class="toast-body">
+         Valami hiba történt a regisztráció során!
+       </div>
+       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+     </div>
+   </div>
+
+   <div id="IncorrectEmail" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+         Érvénytelen email cím!
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+
+</div>

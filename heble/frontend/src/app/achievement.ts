@@ -1,8 +1,7 @@
 export interface Achievement {
-    Achievement:{
-        id:number,
-        name:string,
-        description:string,
-    }
-   
+  Achievement: {
+    id: number;
+    name: string;
+    description: string;
+  };
 }

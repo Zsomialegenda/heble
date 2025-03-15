@@ -24,12 +24,23 @@ export class ChangePasswordComponent {
 
     this.userService.changePassword(this.userData).subscribe({
       next: (res: any) => {
-        alert(res);
-        this.router.navigate(['/login']);
+        this.showToast('SuccessfulPasswordChange');
+        
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (err: HttpErrorResponse) => {
-        alert(err.message);
+        this.showToast('SomethingWentWrong');
       },
     });
+  }
+
+  private showToast(toastId: string) {
+    const toastElement = document.getElementById(toastId);
+    if (toastElement) {
+      const toast = new (window as any).bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
 }

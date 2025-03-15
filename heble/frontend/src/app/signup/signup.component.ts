@@ -45,24 +45,35 @@ export class SignupComponent {
 
       this.userService.signup(this.registerUserData).subscribe({
         next: (res: any) => {
-          alert('Sikeres regisztráció! ');
-          this.router.navigate(['/login']);
+          this.showToast('SuccessfulSignup');
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
         },
         error: (err: HttpErrorResponse) => {
           if (err.status === 404) {
-            alert('Hiányzó adatok! ');
+            this.showToast('missingdataatSignup');
           } else if (err.status === 401 || err.status === 403) {
-            alert('Jogosulatlan kérés! ');
-          } else if (err.status === 400) {
-            alert('A felhasználónév vagy az email foglalt!');
+            this.showToast('unauthorizedSignup');
+          } else if (err.status === 409) {
+            this.showToast('EmailAlreadyInUse');
           } else if (err.status === 500) {
-            alert('Valami hiba történt a regisztráció során!');
+            this.showToast('erroratSignup');
           }
           console.log(err);
         },
       });
     } else {
-      alert('Érvénytelen email cím!');
+      this.showToast('IncorrectEmail');
+    }
+  }
+
+  private showToast(toastId: string) {
+    const toastElement = document.getElementById(toastId);
+    if (toastElement) {
+      const toast = new (window as any).bootstrap.Toast(toastElement);
+      toast.show();
     }
   }
 }

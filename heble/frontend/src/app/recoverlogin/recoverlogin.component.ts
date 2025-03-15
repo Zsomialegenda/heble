@@ -24,13 +24,29 @@ export class RecoverloginComponent {
 
     this.userService.forgotPassword(this.userData).subscribe({
       next: (res: any) => {
-        alert(res);
-        this.router.navigate(['/changePassword']);
+        this.showToast('SuccessfulRecover');
+
         localStorage.setItem('email', this.userData.email);
+        setTimeout(() => {
+          this.router.navigate(['/changePassword']);
+        }, 2000);
       },
       error: (err: HttpErrorResponse) => {
-        alert(err.message);
+        if (err.status === 404) {
+          this.showToast('userNotFound');
+        } else if (err.status === 401 || err.status === 403) {
+          this.showToast('unauthorizedRecover');
+        }
+        console.log(err);
       },
     });
+  }
+
+  private showToast(toastId: string) {
+    const toastElement = document.getElementById(toastId);
+    if (toastElement) {
+      const toast = new (window as any).bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
 }
