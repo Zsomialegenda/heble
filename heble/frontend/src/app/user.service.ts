@@ -1,4 +1,3 @@
-// user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -69,6 +68,15 @@ export class UserService {
       console.log('a felhasználói id ' + this.payload.userId);
 
       return this.payload.userId;
+    }return 0;
+  }
+
+  getUserData() {
+    const userId = this.getUserID();
+    if (userId) {
+      return this.http.get(`${this.baseURL}${userId}`);
+    } else {
+      return null;
     }
   }
 

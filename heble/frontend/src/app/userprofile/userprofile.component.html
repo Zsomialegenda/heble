@@ -8,15 +8,15 @@
       <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
   </div>
 
-  <div>
-    <div class="card" style="width: 18rem;">
+  <div *ngIf="user">
+    <div class="card" style="width: 22rem;">
        <div class="card-body">
-         <h5 class="card-title">Profil adatok</h5>
+         <h5 class="card-title">Személyes adatok</h5>
          <hr>
-         <p class="card-text">Keresztnév:</p>
-         <p class="card-text">Vezetéknév:</p>
-         <p class="card-text">Email-cím:</p>
-         <p class="card-text">Létrehozva:</p>
+         <p class="card-text">Keresztnév: {{ user.firstName }} </p>
+         <p class="card-text">Vezetéknév: {{ user.lastName }} </p>
+         <p class="card-text">Email-cím: {{ user.email }} </p>
+         <p class="card-text">Létrehozva: {{ user.createdAt | date:'yyyy.MM.dd.' }} </p>
        </div>
      </div>
    </div>

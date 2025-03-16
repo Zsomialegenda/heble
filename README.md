@@ -23,7 +23,7 @@ Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerköve
 - Processzor: Intel Core 3 vagy AMD Ryzen 3
 - Memória: 4GB RAM
 - Videókártya: Integrált megfelel
-- Operációs rendszer: Windows 10/11
+- Operációs rendszer: Windows 10/11, Linux, macOS
 - Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
  **Ajánlott:**
@@ -92,7 +92,7 @@ Most ugyanígy külön nyissa meg a **frontend** könyvtárat. Itt is telepítse
 
 Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az *npm i* parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba!
 
-
+---
 
 ### Backend végpontok áttekintése
 
