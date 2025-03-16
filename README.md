@@ -1,108 +1,134 @@
-# Project Plan - HeBLE
+![image](https://github.com/user-attachments/assets/a44f1e3d-1144-4bab-afd5-1581a9a3c6d1)
 
-- **The title of the project work: Healthy Body Lifestyle Entertainment.**
-- **Project work by János Bence Dakos, Gergő Fodor, and Patrik András Sedlák.**
+# SZENT ISTVÁN KATOLIKUS TECHNIKUM ÉS GIMNÁZIUM
 
----
+## DAKOS JÁNOS BENCE, FODOR GERGŐ, SEDLÁK PATRIK ANDRÁS
 
-## Technologies Used
+## HeBLE - Healthy Body Lifestyle Entertainment
 
-Used for coding:
+**SZOFTVERFEJLESZTÉS ÉS -TESZTELÉS VIZSGAREMEK**
 
-- **Frontend**: Angular 19
-- **Backend**: Node.JS
-  - Packages: argon2, bcrypt, bcryptjs, cors, dotenv, express, express-validator, mysql2, nodemon, sequelize
-- **Database**: MySQL (MariaDB) [XAMPP]
+A mozgás életünk szerves része, így a projektünk erre épült, hogy egészséges életmódra ösztönözzük a felhasználóinkat. Azonban az emberek igényei átalakultak az elmúlt évek során, sokkal több időt töltünk az okoseszközeink előtt, így alkalmazkodtunk ehhez és megszületett a HeBLE, ami kombinálja a mozgást és a videójátékok egyes aspektusait. 
 
-Other development tools:
-
-- **Teamwork software**: Trello, GitHub
-- **Image design and editing software**: Adobe Photoshop, Canva
+Az oldalon különböző mozgásos gyakorlatok érhetőek el, amelyek elvégzésért a felhasználók tapasztalatpontot szerezhetnek és szintet is léphetnek egyaránt, mint egy videójátékban. Emellett különböző teljesítményeket érhetnek el, amelyeket maguk előtt tarthatnak, mint célkitűzés. Fontos kihangsúlyoznunk, hogy a HeBLE jelenleg becsület alapon működik, azaz a felhasználó saját kedve és becsülete szerint adhat hozzá elvégzettként különböző mozgásos feladatokat. Emellett az oldalon különböző témákban ingyenes tartalmak érhetőek el, amelyek lényegre törően és kezdőbarát módon összefoglalják az adott témát.
 
 ---
 
-## Roles in Use
+## Rendszerkövetelmények
 
-- **János Bence Dakos: Frontend**
-- **Gergő Fodor: Frontend**
-- **Patrik András Sedlák: Backend**
+Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerkövetelményeit, ezeket érdemes ellenőrizni a webalkalmazás elindítása előtt a legjobb felhasználói élményért. Fontos megjegyeznünk, hogy a projektünk elindításához aktív és stabil internetkapcsolatra lesz szükség. Illetve minimális szabad merevlemez-területre, optimális esetben 2GB minimum.
 
----
+ **Minimális:**
 
-## Application Features
+- Processzor: Intel Core 3 vagy AMD Ryzen 3
+- Memória: 4GB RAM
+- Videókártya: Integrált megfelel
+- Operációs rendszer: Windows 10/11
+- Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
-- **User registration and login**
-- **Tracking user workouts**
-- **Suggestions for a healthier lifestyle (diet, workout tips, etc.)**
-- **Earning points based on workouts**
-- **This way you can make progress, which allows you to get various rewards and achieve different achievements.**
+ **Ajánlott:**
 
----
-
-## Frontend Plan
-
-- **Header = navigation bar**
-
-  - **Home icon**
-  - **Training**
-  - **Free Contents (articles, guides, etc.)**
-  - **Login**
-
-- **Content = main section:**
-
-  - **Image**
-  - **Feedbacks cards**
-
-- **Footer = branding**
-  - **About us**
-  - **Banner**
-  - **Contact**
+- Processzor: Intel Core 3 vagy AMD Ryzen 3
+- Memória: 8GB RAM
+- Videókártya: GeForce GTX 1050 vagy AMD RX550
+- Operációs rendszer: Windows 10/11, Linux, macOS
+- Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
 ---
 
-## Backend Plan
+## Fejlesztéshez használt szoftverek és eszközök
 
-Each endpoint begins with `/api/vx.x.x`, where `x.x.x` is the version number of the API.
+A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt modern technológiákat és egyéb eszközöket használtunk.
 
-**REST API URL conventions:** [https://restfulapi.net/resource-naming/](https://restfulapi.net/resource-naming/)
+### Kódíráshoz használt:
+
+- **Fejleszői környezet**: Visual Studio Code (v1.98.2)
+- **Szerverfutattási környezet**: Node.js (v22.11.0)
+    - Csomagok: @faker-js/faker, bcrypt, bcryptjs, chart.js, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize
+- **Frontend keretrendszer**: Angular 19 (v19.0.4)
+- **Frontend technológiák**: HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. 
+- **Adatbázis**: MySQL (MariaDB (v10.4.32) [XAMPP]
+
+### Egyéb fejlesztői eszkökök:
+
+- **Csoportmunkát segítő szoftverek:** Trello és Github
+- **Dokumentációkészítéshez használt eszközök**: Microsoft Word (v16)
+- **Képtervezéshez és szerkesztéshez használt szoftverek:** Adobe Photoshop, Canva, Background Remover (remove.bg)
 
 ---
 
-### Endpoints Overview
+## Telepítés és beindítás menete
 
-| Endpoint URL                     | HTTP Method | Description                                            | Status Code / Response                                                                                                                                                                                                                                                                                |
-| -------------------------------- | ----------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **/users - Parent Route**        |             |                                                        |                                                                                                                                                                                                                                                                                                       |
-| `/`                              | GET         | Returns all user data without passwords.               | 200 OK - All user data retrieved <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                                            |
-| `/{id}`                          | GET         | Retrieves data for a specific user by ID.              | 200 OK - User found <br/> 404 Not Found - User does not exist <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                               |
-| `/email`                         | GET         | Retrieves user by email.                               | 200 OK - User found <br/> 404 Not Found - User does not exist <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                               |
-| `/count`                         | GET         | Returns the count of users.                            | 200 OK - User count <br/> 404 Not Found - No users found <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                    |
-| `/signup`                        | PUT         | Registers a new user.                                  | 201 Created - User registered <br/> 400 Bad Request - Invalid input data data <br/> 403 Forbidden - Account banned/deleted <br/> 409 Conflict - Email already in use <br/> 500 Internal Server Error - Failed to register                                                                             |
-| `/generate`                      | PUT         | Generates random users.                                | No response details provided                                                                                                                                                                                                                                                                          |
-| `/login`                         | POST        | Handles user login.                                    | 200 OK - Successful login <br/> 400 Bad Request - Invalid input data data <br/> 401 Unauthorized - Invalid email <br/> 401 Unauthorized - Invalid password <br/> 500 Internal Server Error - Failed to log in                                                                                         |
-| `/logout`                        | POST        | Handles user logout.                                   | 200 OK - Successful logout <br/> 400 Bad Request - Invalid input data data <br/> 500 Internal Server Error - Failed to log out                                                                                                                                                                        |
-| `/update`                        | PATCH       | Updates user data using a token.                       | 200 OK - Successful update <br/> 401 Unauthorized - Token required <br/> 401 Unauthorized - Invalid token <br/> 403 Forbidden - Only own data can be modified <br/> 403 Forbidden - Invalid security response <br/> 404 Not Found - User not found <br/> 500 Internal Server Error - Failed to update |
-| `/delete/:id?`                   | DELETE      | Deletes users (regular and admin users).               | 200 OK - Successful deletion <br/> 401 Unauthorized - Token required <br/> 403 Forbidden - Only admin can delete others <br/> 404 Not Found - User not found <br/> 500 Internal Server Error - Failed to delete                                                                                       |
-| **/achievements - Parent Route** |             |                                                        |                                                                                                                                                                                                                                                                                                       |
-| `/`                              | GET         | Retrieves all achievements.                            | 200 OK - All achievements retrieved <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                                         |
-| `/{id}`                          | GET         | Retrieves an achievement by ID.                        | 200 OK - Achievement found <br/> 400 Bad Request - Invalid input data input <br/> 404 Not Found - Achievement does not exist                                                                                                                                                                          |
-| `/`                              | PUT         | Adds a new achievement.                                | 201 Created - New achievement added <br/> 500 Internal Server Error - Failed to add achievement                                                                                                                                                                                                       |
-| `/{id}`                          | POST        | Updates an existing achievement by ID.                 | 200 OK - Achievement updated <br/> 500 Internal Server Error - Failed to update achievement                                                                                                                                                                                                           |
-| **/exercises - Parent Route**    |             |                                                        |                                                                                                                                                                                                                                                                                                       |
-| `/`                              | GET         | Retrieves all exercises.                               | 200 OK - All exercises retrieved <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                                            |
-| `/{id}`                          | GET         | Retrieves exercises for a specific user by ID.         | 200 OK - Successful retrieval <br/> 400 Bad Request - Invalid input data input <br/> 404 Not Found - User not found <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                         |
-| `/stats/sum`                     | GET         | Retrieves total exercise statistics.                   | 200 OK - Successful retrieval <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                                               |
-| `/stats/:type`                   | GET         | Retrieves statistics for a specific exercise type.     | 200 OK - Successful retrieval <br/> 400 Bad Request - Invalid input data exercise type <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                      |
-| `/log`                           | POST        | Logs exercise and earns experience points.             | 200 OK - Successful log <br/> 401 Unauthorized - Invalid token <br/> 400 Bad Request - Invalid input data ID <br/> 403 Forbidden - Only own data can be modified <br/> 400 Bad Request - Invalid input data data format <br/> 500 Internal Server Error - Failed to log exercise                      |
-| **/leaderboard - Parent Route**  |             |                                                        | These endpoints work similarly, but rank by different attributes.                                                                                                                                                                                                                                     |
-| `/xp`                            | GET         | Retrieves the leaderboard based on experience points.  | 200 OK - XP-based leaderboard <br/> 500 Internal Server Error - Failed to retrieve leaderboard                                                                                                                                                                                                        |
-| `/achievements`                  | GET         | Retrieves the leaderboard based on achievements.       | 200 OK - Achievement-based leaderboard <br/> 500 Internal Server Error - Failed to retrieve leaderboard                                                                                                                                                                                               |
-| `/exercise/{type}`               | GET         | Retrieves the leaderboard based on exercise type.      | 200 OK - Exercise-type based leaderboard <br/> 500 Internal Server Error - Failed to retrieve leaderboard                                                                                                                                                                                             |
-| **/tokens - Parent Route**       |             |                                                        |                                                                                                                                                                                                                                                                                                       |
-| `/`                              | GET         | Retrieves all tokens.                                  | 200 OK - All user tokens retrieved <br/> 500 Internal Server Error - Failed to retrieve tokens                                                                                                                                                                                                        |
-| `/count`                         | GET         | Retrieves the count of tokens.                         | 200 OK - Successful retrieval <br/> 500 Internal Server Error - Failed to retrieve token count                                                                                                                                                                                                        |
-| `/{id}`                          | GET         | Retrieves a token by ID.                               | 200 OK - Successful retrieval <br/> 500 Internal Server Error - Failed to retrieve token                                                                                                                                                                                                              |
-| `/user/{id}`                     | GET         | Retrieves tokens for a specific user.                  | 200 OK - Successful retrieval <br/> 400 Bad Request - Invalid input data user ID <br/> 404 Not Found - Token not found <br/> 500 Internal Server Error - Failed to retrieve token                                                                                                                     |
-| **/xperiences - Parent Route**   |             |                                                        |                                                                                                                                                                                                                                                                                                       |
-| `/`                              | GET         | Retrieves all experience points.                       | 200 OK - All experience points retrieved <br/> 500 Internal Server Error - Failed to retrieve data                                                                                                                                                                                                    |
-| `/{id}`                          | GET         | Retrieves experience points for a specific user by ID. | 200 OK - Successful retrieval <br/> 400 Bad Request - Invalid input data input data <br/> 404 Not Found - User not found <br/> 500 Internal Server Error - Failed to retrieve the user's experience points                                                                                            |
+A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktív és stabil internetkapcsolat mellett.
+
+### Szükséges szoftverek
+
+- Visual Studio Code 
+- XAMPP
+- Node.Js
+- Git és Github
+- Postman
+
+---
+
+### A projekt letöltése
+Első lépésként nyissa meg a következő https://github.com/Zsomialegenda/heble oldalt. Ott kattinson a *Code* gombra, majd válasszon a két opció közül: *Open with GitHub Desktop*, vagy választhatja a *Download ZIP* opciót. A letöltött fájlokat csomagolja ki egy választott mappába.
+
+### XAMPP indítása
+
+Ezután nyissa meg XAMMP-ot (XAMPP Control Panel (v3.3.0)) és indítsa el az Apache-ot és a MySQL-t a mellettük lévő *Start* gomb segítségével, majd nyomjon rá a MySQL melletti *Admin* gombra, hogy megnyissa a phpMyAdmin felületét. Ezt megteheti úgy is, hogy a böngésző címmezőjébe beírja a következő URL-t: http://localhost/phpmyadmin/ . Majd hozzon létre egy új adatbázist. Az adatbázis neve legyen **heble** és a karakterkódolásnak állítsa be következőt: **utf8_hungarian_ci**.
+
+### Szerveroldali alkalmazás indítása (Backend)
+
+Nyissa meg a Visual Studio Code-ot és nyissa meg a projektet. Majd válassza ki a heble mappán belül a **backend** könyvtárat. Kattintson rá jobb egérgombbal és válassza ki az *Open in Integrated Terminal*-t opciót, ezzel megnyitva a terminált. Telepítse a szükséges csomagoakt *npm i*, végül indítsa el a szervert *npm start* segítségével.
+
+### Felhasználói felület indítása (Frontend)
+
+Most ugyanígy külön nyissa meg a **frontend** könyvtárat. Itt is telepítse a szükséges csomagokat *npm i* segítségével, majd végül *ng serve --open* segítségével indítsa el az Angular alkalmazást.
+
+---
+
+### Hiba felmerülése esetén
+
+Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az *npm i* parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba!
+
+
+
+### Backend végpontok áttekintése
+
+| Végpont URL                     | HTTP Módszer | Leírás                                              | Állapotkód / Válasz |
+|---------------------------------|-------------|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **/users - Szülő útvonal**      |             |                                                    | |
+| `/`                             | GET         | Az összes felhasználó adatainak lekérése jelszó nélkül. | 200 OK - Összes felhasználó adat lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/{id}`                         | GET         | Egy adott felhasználó adatainak lekérése ID alapján. | 200 OK - Felhasználó megtalálva <br/> 404 Not Found - Felhasználó nem létezik <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/email`                        | GET         | Felhasználó keresése email alapján. | 200 OK - Felhasználó megtalálva <br/> 404 Not Found - Felhasználó nem létezik <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/count`                        | GET         | A felhasználók számának lekérése. | 200 OK - Felhasználók száma <br/> 404 Not Found - Nincsenek felhasználók <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/signup`                       | PUT         | Új felhasználó regisztrációja. | 201 Created - Sikeres regisztráció <br/> 400 Bad Request - Érvénytelen adatok <br/> 403 Forbidden - Fiók tiltott/törölt <br/> 409 Conflict - Email már használatban <br/> 500 Internal Server Error - Sikertelen regisztráció |
+| `/generate`                     | PUT         | Véletlenszerű felhasználók generálása. | Nincs megadott válaszrészlet |
+| `/login`                        | POST        | Felhasználó bejelentkezése. | 200 OK - Sikeres bejelentkezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 401 Unauthorized - Hibás email <br/> 401 Unauthorized - Hibás jelszó <br/> 500 Internal Server Error - Sikertelen bejelentkezés |
+| `/logout`                       | POST        | Felhasználó kijelentkezése. | 200 OK - Sikeres kijelentkezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 500 Internal Server Error - Sikertelen kijelentkezés |
+| `/update`                       | PATCH       | Felhasználói adatok frissítése token segítségével. | 200 OK - Sikeres frissítés <br/> 401 Unauthorized - Token szükséges <br/> 401 Unauthorized - Érvénytelen token <br/> 403 Forbidden - Csak saját adatok módosíthatók <br/> 403 Forbidden - Érvénytelen biztonsági válasz <br/> 404 Not Found - Felhasználó nem található <br/> 500 Internal Server Error - Sikertelen frissítés |
+| `/delete/:id?`                  | DELETE      | Felhasználók törlése (rendes és admin felhasználók). | 200 OK - Sikeres törlés <br/> 401 Unauthorized - Token szükséges <br/> 403 Forbidden - Csak admin törölhet másokat <br/> 404 Not Found - Felhasználó nem található <br/> 500 Internal Server Error - Sikertelen törlés |
+| **/achievements - Szülő útvonal** | | | |
+| `/`                             | GET         | Az összes elért eredmény lekérése. | 200 OK - Összes eredmény lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/{id}`                         | GET         | Egy adott eredmény lekérése ID alapján. | 200 OK - Eredmény megtalálva <br/> 400 Bad Request - Érvénytelen adatok <br/> 404 Not Found - Eredmény nem létezik |
+| `/`                             | PUT         | Új eredmény hozzáadása. | 201 Created - Új eredmény hozzáadva <br/> 500 Internal Server Error - Sikertelen hozzáadás |
+| `/{id}`                         | POST        | Létező eredmény frissítése ID alapján. | 200 OK - Eredmény frissítve <br/> 500 Internal Server Error - Sikertelen frissítés |
+| **/exercises - Szülő útvonal**  | | | |
+| `/`                             | GET         | Az összes edzés lekérése. | 200 OK - Összes edzés lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/{id}`                         | GET         | Egy adott felhasználó edzéseinek lekérése ID alapján. | 200 OK - Sikeres lekérdezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 404 Not Found - Felhasználó nem található <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/stats/sum`                    | GET         | Összesített edzésstatisztika lekérése. | 200 OK - Sikeres lekérdezés <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/stats/:type`                  | GET         | Egy adott edzéstípus statisztikájának lekérése. | 200 OK - Sikeres lekérdezés <br/> 400 Bad Request - Érvénytelen edzéstípus <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/log`                          | POST        | Edzésnaplózás és XP szerzés. | 200 OK - Sikeres naplózás <br/> 401 Unauthorized - Érvénytelen token <br/> 400 Bad Request - Érvénytelen ID <br/> 403 Forbidden - Csak saját adatok módosíthatók <br/> 400 Bad Request - Érvénytelen formátum <br/> 500 Internal Server Error - Sikertelen naplózás |
+| **/leaderboard - Szülő útvonal** | | | |
+| `/xp`                           | GET         | Ranglista XP alapján. | 200 OK - XP alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/achievements`                 | GET         | Ranglista elért eredmények alapján. | 200 OK - Eredmény alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/exercise/{type}`              | GET         | Ranglista edzéstípus alapján. | 200 OK - Edzéstípus alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| **/tokens - Szülő útvonal**     | | | |
+| `/`                             | GET         | Az összes token lekérése. | 200 OK - Összes token lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/count`                        | GET         | Tokenek számának lekérése. | 200 OK - Sikeres lekérdezés <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/{id}`                         | GET         | Egy adott token lekérése ID alapján. | 200 OK - Sikeres lekérdezés <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/user/{id}`                    | GET         | Egy adott felhasználó tokenjeinek lekérése. | 200 OK - Sikeres lekérdezés <br/> 400 Bad Request - Érvénytelen felhasználó ID <br/> 404 Not Found - Token nem található <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| **/xperiences - Szülő útvonal** | | | |
+| `/`                             | GET         | Az összes XP pont lekérése. | 200 OK - Összes XP lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
+| `/{id}`                         | GET         | Egy adott felhasználó XP pontjainak lekérése ID alapján. | 200 OK - Sikeres lekérdezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 404 Not Found - Felhasználó nem található <br/> 500 Internal Server Error - Sikertelen lekérdezés |
