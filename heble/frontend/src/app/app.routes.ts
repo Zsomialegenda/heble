@@ -6,11 +6,11 @@ import { AchievementsComponent } from './achievements/achievements.component';
 import { AchievementsoffComponent } from './achievementsoff/achievementsoff.component';
 import { FreecontentComponent } from './freecontent/freecontent.component';
 import { ContentvitaminsComponent } from './contentvitamins/contentvitamins.component';
-import { ContentsupplementsComponent } from './contentsupplements/contentsupplements.component';
 import { ContentsleepingComponent } from './contentsleeping/contentsleeping.component';
 import { ContentworkouttypesComponent } from './contentworkouttypes/contentworkouttypes.component';
 import { ContentworkoutComponent } from './contentworkout/contentworkout.component';
 import { ContenthydrationComponent } from './contenthydration/contenthydration.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverloginComponent } from './recoverlogin/recoverlogin.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -28,11 +28,11 @@ export const routes: Routes = [
   { path: 'achievementsoff', component: AchievementsoffComponent },
   { path: 'freecontent', component: FreecontentComponent },
   { path: 'contentvitamins', component: ContentvitaminsComponent },
-  { path: 'contentsupplements', component: ContentsupplementsComponent },
   { path: 'contentsleeping', component: ContentsleepingComponent },
   { path: 'contentworkouttypes', component: ContentworkouttypesComponent },
   { path: 'contentworkout', component: ContentworkoutComponent },
   { path: 'contenthydration', component: ContenthydrationComponent },
+  { path: 'userprofile', component: UserprofileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'recoverlogin', component: RecoverloginComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
