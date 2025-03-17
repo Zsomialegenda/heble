@@ -6,13 +6,11 @@
 
 ## HeBLE - Healthy Body Lifestyle Entertainment
 
-**SZOFTVERFEJLESZTÉS ÉS -TESZTELÉS VIZSGAREMEK**
+**SZOFTVERFEJLESZTÉS ÉS -TESZTELÉS VIZSGAREMEK - Sátoraljaújhely, 2025**
 
 A mozgás életünk szerves része, így a projektünk erre épült, hogy egészséges életmódra ösztönözzük a felhasználóinkat. Azonban az emberek igényei átalakultak az elmúlt évek során, sokkal több időt töltünk az okoseszközeink előtt, így alkalmazkodtunk ehhez és megszületett a HeBLE, ami kombinálja a mozgást és a videójátékok egyes aspektusait. 
 
 Az oldalon különböző mozgásos gyakorlatok érhetőek el, amelyek elvégzésért a felhasználók tapasztalatpontot szerezhetnek és szintet is léphetnek egyaránt, mint egy videójátékban. Emellett különböző teljesítményeket érhetnek el, amelyeket maguk előtt tarthatnak, mint célkitűzés. Fontos kihangsúlyoznunk, hogy a HeBLE jelenleg becsület alapon működik, azaz a felhasználó saját kedve és becsülete szerint adhat hozzá elvégzettként különböző mozgásos feladatokat. Emellett az oldalon különböző témákban ingyenes tartalmak érhetőek el, amelyek lényegre törően és kezdőbarát módon összefoglalják az adott témát.
-
----
 
 ## Rendszerkövetelmények
 
@@ -34,8 +32,6 @@ Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerköve
 - Operációs rendszer: Windows 10/11, Linux, macOS
 - Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
----
-
 ## Fejlesztéshez használt szoftverek és eszközök
 
 A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt modern technológiákat és egyéb eszközöket használtunk.
@@ -46,7 +42,7 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 - **Szerverfutattási környezet**: Node.js (v22.11.0)
     - Csomagok: @faker-js/faker, bcrypt, bcryptjs, chart.js, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize
 - **Frontend keretrendszer**: Angular 19 (v19.0.4)
-- **Frontend technológiák**: HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. 
+- **Frontend technológiák**: HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. Illetve VSC-ba hozzáadott Prettier extension.
 - **Adatbázis**: MySQL (MariaDB (v10.4.32) [XAMPP]
 
 ### Egyéb fejlesztői eszkökök:
@@ -54,8 +50,6 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 - **Csoportmunkát segítő szoftverek:** Trello és Github
 - **Dokumentációkészítéshez használt eszközök**: Microsoft Word (v16)
 - **Képtervezéshez és szerkesztéshez használt szoftverek:** Adobe Photoshop, Canva, Background Remover (remove.bg)
-
----
 
 ## Telepítés és beindítás menete
 
@@ -68,6 +62,10 @@ A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktí
 - Node.Js
 - Git és Github
 - Postman
+
+### Szükséges keretrendszer
+
+- Angular
 
 ---
 
@@ -90,7 +88,7 @@ Most ugyanígy külön nyissa meg a **frontend** könyvtárat. Itt is telepítse
 
 ### Hiba felmerülése esetén
 
-Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az *npm i* parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba!
+Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív internetkapcsolata. Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az *npm i* parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba!
 
 ---
 
