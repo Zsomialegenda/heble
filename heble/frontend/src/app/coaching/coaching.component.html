@@ -31,19 +31,21 @@
       <div class="card" style="max-width: 28rem; width: 80%; margin: 10px auto;">
          <div class="card-body">
           <p class="card-title"><i>Add meg az elvégzett gyakorlatok mennyiségét számban!</i></p>
-          <hr>
+
+          <form #coachingForm="ngForm" (ngSubmit)="addExercise()">
             <label>Fekvőtámasz:</label><br>
-            <input placeholder="Fekvőtámaszok száma" type="number" value=""><br>
+            <input placeholder="Fekvőtámaszok száma" required type="number" name="pushUps" [(ngModel)]="exercise.pushUps"><br>
             <label>Húzódzkodás:</label><br>
-            <input placeholder="Húzódzkodások száma" type="number" value=""><br>
+            <input placeholder="Húzódzkodások száma" required type="number" name="pullUps" [(ngModel)]="exercise.pullUps"><br>
             <label>Felülés:</label><br>
-            <input placeholder="Felülések száma" type="number" value=""><br>
+            <input placeholder="Felülések száma" required type="number" name="sitUps" [(ngModel)]="exercise.sitUps"><br>
             <label>Guggolás:</label><br>
-            <input placeholder="Guggolások száma" type="number" value=""><br>
+            <input placeholder="Guggolások száma" required type="number" name="squats" [(ngModel)]="exercise.squats"><br>
             <label>Futás:</label><br>
-            <input placeholder="Futás mennyisége (km-ben)" type="number" value="">
+            <input placeholder="Futás mennyisége (km-ben)" required type="number" name="running" [(ngModel)]="exercise.running"><br>
             <hr>
-            <button type="submit" class="buttonstyle">Beküldés</button>
+            <button type="submit" class="buttonstyle" [disabled]="coachingForm.invalid">Beküldés</button>
+          </form>
           </div>
        </div>
      </div>
