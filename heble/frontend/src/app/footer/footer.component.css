@@ -2,6 +2,8 @@
   border: none;
   background-color: #3c3c44;
   padding: 20px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .card-body img {
@@ -16,6 +18,10 @@
 }
 
 .card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: #fff;
   font-size: 22px;
   font-weight: 600;

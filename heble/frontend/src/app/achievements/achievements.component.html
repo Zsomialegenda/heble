@@ -90,7 +90,9 @@
     <hr>
     <p>Ha egy teljesítményt elértél akkor az itt fog megjelenni az alábbiakban...</p>
     <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
-    <ul style="display: flex; justify-content: center; text-align: center; gap:10px; flex-wrap: wrap;">
+  </div>
+  <div>
+    <ul style="display: flex; justify-content: center; text-align: center; gap:10px; flex-wrap: wrap; width: 100%;">
       <li *ngFor="let achievement of achievements"><h4>Név:</h4> <br>{{achievement.Achievement.name}}  <hr> <h4>Leírás:</h4> <br> {{achievement.Achievement.description}}</li>
     </ul>
   </div>

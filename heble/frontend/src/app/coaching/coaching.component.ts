@@ -35,7 +35,7 @@ export class CoachingComponent implements OnInit {
     })
   }
 
-  exercise: Exercise={pushUps:0, pullUps:0, sitUps:0, squats:0, running:0 }
+  exercise: Exercise={pushUps: undefined, pullUps: undefined, sitUps: undefined, squats: undefined, running: undefined }
 
   addExercise(){
     this.exerciseService.addExercise(this.exercise).subscribe({
