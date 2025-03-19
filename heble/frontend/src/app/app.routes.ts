@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth.guard';
 import { HomeComponent } from './home/home.component';
 import { CoachingComponent } from './coaching/coaching.component';
 import { CoachingoffComponent } from './coachingoff/coachingoff.component';
@@ -22,9 +23,9 @@ import { ContactsComponent } from './contacts/contacts.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'coaching', component: CoachingComponent },
+  { path: 'coaching', component: CoachingComponent, canActivate: [authGuard] },
   { path: 'coachingoff', component: CoachingoffComponent },
-  { path: 'achievements', component: AchievementsComponent },
+  { path: 'achievements', component: AchievementsComponent, canActivate: [authGuard] },
   { path: 'achievementsoff', component: AchievementsoffComponent },
   { path: 'freecontent', component: FreecontentComponent },
   { path: 'contentvitamins', component: ContentvitaminsComponent },
@@ -32,12 +33,12 @@ export const routes: Routes = [
   { path: 'contentworkouttypes', component: ContentworkouttypesComponent },
   { path: 'contentworkout', component: ContentworkoutComponent },
   { path: 'contenthydration', component: ContenthydrationComponent },
-  { path: 'userprofile', component: UserprofileComponent },
+  { path: 'userprofile', component: UserprofileComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'recoverlogin', component: RecoverloginComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'adminpanel', component: AdminpanelComponent },
+  { path: 'adminpanel', component: AdminpanelComponent, canActivate: [authGuard] },
   { path: 'about', component: AboutComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: '**', component: HomeComponent },

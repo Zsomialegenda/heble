@@ -16,6 +16,9 @@ import { ExerciseService } from '../exercise.service';
   styleUrl: './coaching.component.css'
 })
 export class CoachingComponent implements OnInit {
+  successMessage: string = '';
+  errorMessage: string = '';
+
   constructor(private experienceService:ExperienceService, private userService:UserService, private exerciseService:ExerciseService ) { }
   
   experience:Experience={id:0, userId:0, level:0, xp:0,  xpToNextLevel:0}
@@ -40,10 +43,12 @@ export class CoachingComponent implements OnInit {
   addExercise(){
     this.exerciseService.addExercise(this.exercise).subscribe({
       next:(res:any) => {
-        alert("Sikeres gyakorlatrögzítés!")
-        window.location.reload()
+        this.successMessage = "Sikeres gyakorlatrögzítés!";
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500)
       },error:(err:HttpErrorResponse) => {
-        alert(err.message);
+        this.errorMessage = "Sikertelen gyakorlatrögzítés!";
       }
     })
   }
