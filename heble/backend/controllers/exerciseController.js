@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken')
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const SECRET_KEY = process.env.SECRET_KEY;
 const {
   sequelize,
@@ -135,47 +135,53 @@ const getUserExercises = async (req, res) => {
  *              5. Nem megfelelő a token - 401
  *              6. Belső szerver hiba - 5000
  */
-const logExerciseAndGainXP = async (req, res) => {
-  const { pushUps, pullUps, sitUps, squats, running } = req.body;
-
-  const token = req.headers.authorization?.split(" ")[1];
+const logExerciseAndGainXP = async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
+    reason = ["Token not provided.", "A token nincs megadva."];
+    return Code404(null, req, res, next, reason);
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+  } catch (error) {
     reason = [
-      "Authorization token required.",
-      "Engedélyezési token szükséges.",
+      "Invalid token. Please log in again.",
+      "Érvénytelen token. Kérjük, jelentkezzen be újra.",
     ];
-    return Code401(null, null, res, null, reason);
+    return Code401(error, req, res, next, reason);
+  }
+
+  const { pushUps, pullUps, sitUps, squats, running } = req.body;
+  const requestUserId = decoded.userId;
+  const isAdmin = decoded.isAdmin || false;
+  const userId = parseInt(decoded.userId, 10);
+
+  if (isNaN(userId)) {
+    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+    return Code400(null, req, res, next, reason);
+  }
+
+  if (!isAdmin && requestUserId !== userId) {
+    reason = [
+      "You can only log exercises for your own account.",
+      "Csak a saját fiókjára rögzítheti a gyakorlatokat.",
+    ];
+    return Code403(null, req, res, next, reason);
+  }
+
+  if (!pushUps && !pullUps && !sitUps && !squats && !running) {
+    reason = [
+      "Exercise not found for this user!",
+      "Gyakorlat nem található ehhez a felhasználóhoz!",
+    ];
+    return Code404(null, req, res, next, reason);
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    const requestUserId = decoded.userId;
-    const isAdmin = decoded.isAdmin || false;
-
-    const userId = parseInt(decoded.userId, 10);
-
-    if (isNaN(userId)) {
-      reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
-      return Code400(null, null, res, null, reason);
-    }
-
-    if (!isAdmin && requestUserId !== userId) {
-      reason = [
-        "You can only log exercises for your own account.",
-        "Csak a saját fiókjára rögzítheti a gyakorlatokat.",
-      ];
-      return Code403(null, null, res, null, reason);
-    }
-
-    if (!pushUps || !pullUps || !sitUps || !squats || !running) {
-      reason = [
-        "Exercise not found for this user!",
-        "Gyakorlat nem található ehhez a felhasználóhoz!",
-      ];
-      return Code404(null, null, res, null, reason);
-    }
-
     const exercise = await Exercise.findOrCreate({
       where: { userId },
       defaults: {
@@ -247,19 +253,11 @@ const logExerciseAndGainXP = async (req, res) => {
       })),
     });
   } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      reason = [
-        "Invalid token. Please log in again.",
-        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
-      ];
-      return Code401(error, null, res, null, reason);
-    }
-
     reason = [
       "An error occurred while logging exercise and gaining XP.",
       "Hiba történt a gyakorlat rögzítése és az XP hozzáadása közben.",
     ];
-    return Code500(error, null, res, null, reason);
+    return Code500(error, req, res, next, reason);
   }
 };
 

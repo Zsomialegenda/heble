@@ -11,6 +11,8 @@ const experienceRoute = require("./routes/experienceRoute");
 const tokenRoute = require("./routes/tokenRoute");
 const leaderboardRoute = require("./routes/leaderboardRoute");
 
+const checkAndDeleteExpiredTokens = require("./utils/tokenDelete");
+
 const sequelize = require("./utils/sequelize");
 
 const { generateAchievements, generateUsers } = require("./utils/generator");
@@ -73,6 +75,10 @@ app.use("/userAchivements", userAchievementRoute);
 app.use("/experiences", experienceRoute);
 app.use("/tokens", tokenRoute);
 app.use("/leaderboard", leaderboardRoute);
+
+
+// Törlés -- 1 óra
+setInterval(checkAndDeleteExpiredTokens, 3600000);
 
 app.get("/", (req, res) => {
   res.sendFile(

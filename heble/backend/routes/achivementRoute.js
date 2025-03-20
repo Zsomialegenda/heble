@@ -12,9 +12,9 @@ router.get('/', getAllAchievements);
 router.get('/:id', getAchievementById);
 
 // PUT metódusok
-router.put('/', addAchievement);
+router.post('/', addAchievement);
 
 // POST metódusok
-router.post('/:id', updateAchievement);
+router.patch('/:id', updateAchievement);
 
 module.exports = router;

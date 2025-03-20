@@ -20,27 +20,27 @@ const Exercise = sequelize.define('Exercise', {
   pushUps: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    allowNull: false,
+    allowNull: true,
   },
   pullUps: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    allowNull: false,
+    allowNull: true,
   },
   sitUps: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    allowNull: false,
+    allowNull: true,
   },
   squats: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    allowNull: false,
+    allowNull: true,
   },
   running: {
     type: DataTypes.FLOAT,
     defaultValue: 0.0,
-    allowNull: false,
+    allowNull: true,
     comment: 'Running distance in kilometers',
   },
 }, {

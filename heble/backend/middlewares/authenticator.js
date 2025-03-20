@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Code404, Code403 } = require("../controllers/statusCodeController");
+const { Code404, Code403 } = require("../utils/statusCode");
 let reason = [];
 
 const authenticator = (req, res, next) => {

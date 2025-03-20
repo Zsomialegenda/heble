@@ -19,19 +19,20 @@ const { generateUsers } = require("../utils/generator");
 
 // GET metódusojk
 router.get("/", getAllUsers);
+router.get("/count", countUsers);
 router.get("/:id", getUserByID);
 router.get("/email", getUserByEmail);
-router.get("/count", countUsers);
 
 // PUT metódusojk
-router.put("/signup", signupUser);
-router.put("/generate", generateUsers);
+router.put("/forgot", verifySecureAnswer);
+router.put("/forgot/reset", resetPassword);
 
 // POST metódusojk
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.post("/forgot", verifySecureAnswer);
-router.post("/forgot/reset", resetPassword);
+router.post("/signup", signupUser);
+
+router.post("/generate", generateUsers);
 
 // PATCH metódusojk
 router.patch("/update", updateAccount);
