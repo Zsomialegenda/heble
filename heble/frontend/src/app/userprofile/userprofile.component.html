@@ -13,6 +13,7 @@
       <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
   </div>
 
+  <div style="display: flex; justify-content: center; text-align: center; gap:10px; flex-wrap: wrap; width: 100%;">
   <div *ngIf="user">
     <div class="card" style="width: 22rem">
        <div class="card-body">
@@ -28,6 +29,24 @@
      </div>
    </div>
 
+  <div *ngIf="exercises">
+    <div class="card" style="width: 22rem">
+      <div class="card-body">
+         <h5 class="card-title">Elvégzett gyakorlatok</h5>
+         <hr>
+         <p class="card-text">Fekvőtámaszok száma: {{ exercises.pushUps }} </p>
+         <p class="card-text">Húzódzkodások száma: {{ exercises.pullUps }} </p>
+         <p class="card-text">Felülések száma: {{ exercises.sitUps }} </p>
+         <p class="card-text">Guggolások száma:  {{ exercises.squats }} </p>
+         <p class="card-text">Futás mennyisége: {{ exercises.running }} km </p>
+         <hr>
+         <p class="card-text">Legelső edzés: {{ exercises.createdAt | date:'yyyy.MM.dd.' }} </p>
+         <p class="card-text">Legutóbbi edzés: {{ exercises.updatedAt | date:'yyyy.MM.dd.' }} </p>
+      </div>
+    </div>
+  </div>
+</div>
+  
    <div style="margin: 10px;">
     <h2>A HeBLE jövője</h2>
     <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>

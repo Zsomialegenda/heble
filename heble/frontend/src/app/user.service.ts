@@ -16,7 +16,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   signup(users: any) {
-    return this.http.put(this.baseURL + this.signupEnd, users);
+    return this.http.post(this.baseURL + this.signupEnd, users);
   }
 
   login(users: any) {
@@ -81,11 +81,11 @@ export class UserService {
   }
 
   forgotPassword(userData: any) {
-    return this.http.post(this.baseURL + this.forgotPasswordEnd, userData);
+    return this.http.put(this.baseURL + this.forgotPasswordEnd, userData);
   }
 
   changePassword(userData: any) {
-    return this.http.post(this.baseURL + this.changePasswordEnd, userData);
+    return this.http.put(this.baseURL + this.changePasswordEnd, userData);
   }
 
   isAdmin(): boolean {

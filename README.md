@@ -65,7 +65,7 @@ A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktí
 
 ### Szükséges keretrendszer
 
-- Angular
+- Angular ( letöltés, terminálba: @angular/cli@19.0.5 )
 
 ---
 

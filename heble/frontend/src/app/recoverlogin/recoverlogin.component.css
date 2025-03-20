@@ -61,8 +61,8 @@ button:disabled {
 
 .toast-container {
   position: fixed;
-  top: 10%;
-  left: 43%;
-  width: 25%;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
 }
 

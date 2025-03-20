@@ -29,7 +29,6 @@ export class CoachingComponent implements OnInit {
     this.userID = this.userService.getUserID()
     this.experienceService.getExp(this.userID).subscribe({
       next:(res:any)=> {
-
         this.experience = res.data;
       },
       error:(err:HttpErrorResponse)=> {
@@ -49,6 +48,10 @@ export class CoachingComponent implements OnInit {
         }, 1500)
       },error:(err:HttpErrorResponse) => {
         this.errorMessage = "Sikertelen gyakorlatrögzítés!";
+
+        setTimeout(() => {
+          this.errorMessage = "";
+        }, 3000);
       }
     })
   }

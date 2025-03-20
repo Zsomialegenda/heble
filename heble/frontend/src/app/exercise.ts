@@ -4,4 +4,6 @@ export interface Exercise {
   sitUps?: number;
   squats?: number;
   running?: number;
+  createdAt?: number;
+  updatedAt?: number;
 }

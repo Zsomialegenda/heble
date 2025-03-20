@@ -10,11 +10,11 @@ export class ExerciseService {
 
   baseURL = 'http://localhost:3000/exercises/';
 
-  /* getExperience(id: number) {
-    return this.http.get(this.baseURL + `/${id}`);
-  }*/
-
   addExercise(exercises: Exercise) {
     return this.http.post(this.baseURL + 'log', exercises);
+  }
+
+  getExercises(userId: number) {
+    return this.http.get(`${this.baseURL}${userId}`);
   }
 }

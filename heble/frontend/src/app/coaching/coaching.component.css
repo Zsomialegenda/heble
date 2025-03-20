@@ -65,26 +65,3 @@ button:disabled {
   background-color: rgb(113, 121, 129);
   border: 4px solid #fff;
 }
-
-/* Bootstrap accordion - a HeBLE jövője rész beállításai */
-
-.accordion-item,
-.accordion-button {
-  background-color: #3c3c44;
-  color: #fff;
-  box-shadow: none;
-}
-
-.accordion-button:hover {
-  box-shadow: 0 3px 0 #1f1f23;
-}
-
-.accordion-button::after {
-  background-color: white;
-}
-
-.accordion,
-.accordion-flush {
-  width: 100%;
-  max-width: 800px;
-}
