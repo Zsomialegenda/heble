@@ -67,7 +67,7 @@ const getUserByID = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      include: [Exercise, UserExperience],
+      include: [Exercise, UserExperience, UserAchievement],
     });
 
     if (!user) {
@@ -309,9 +309,6 @@ const loginUser = async (req, res) => {
       expiresAt,
     });
 
-    console.log("User Login Successful");
-    console.log("Generated User JWT Token:", userToken);
-
     return res.status(200).json({
       status: 200,
       userId: user.id,
@@ -336,7 +333,7 @@ const loginUser = async (req, res) => {
  *          3. szerver hiba - 500
  */
 const logoutUser = async (req, res) => {
-  const { token } = req.body;
+  const { token } = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     reason = [
@@ -379,14 +376,7 @@ const logoutUser = async (req, res) => {
 const updateAccount = async (req, res) => {
   const { newEmail, newPassword, secureAnswer } = req.body;
 
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    reason = [
-      "Authorization token required.",
-      "Engedélyezési token szükséges.",
-    ];
-    return Code401(null, null, res, null, reason);
-  }
+  const token = authHeader && authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
@@ -451,12 +441,16 @@ const updateAccount = async (req, res) => {
   }
 };
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns 
+/** verifySecureAnswer -- Biztonsági válasz ellenőrzése
+ *
+ * @param {*} req e-mail és  biztonsági válasz (`secureAnswer`)
+ * @param {*} res Visszaadja az ellenőrzés sikerességét - 200
+ *
+ * @returns Hibákat ad vissza, ha:
+ *          1. Hiányzó email vagy biztonsági válasz - 400
+ *          2. A felhasználó nem található az adatbázisban - 404
+ *          3. Hibás biztonsági válasz - 401
+ *          4. Szerverhiba történt az ellenőrzés közben - 500
  */
 const verifySecureAnswer = async (req, res, next) => {
   try {
@@ -499,12 +493,15 @@ const verifySecureAnswer = async (req, res, next) => {
 };
 
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns 
+/** resetPassword -- Felhasználói jelszó visszaállítása
+ *
+ * @param {*} req e-mail cím és új jelszó
+ * @param {*} res Visszaadja a jelszó frissítésének sikerességét - 200
+ *
+ * @returns Hibákat ad vissza, ha:
+ *          1. Az új jelszó nincs megadva - 400
+ *          2. A felhasználó nem található az adatbázisban - 404
+ *          3. Szerverhiba történt a jelszó frissítése közben - 500
  */
 const resetPassword = async (req, res, next) => {
   try {

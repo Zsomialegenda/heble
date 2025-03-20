@@ -130,29 +130,7 @@ const countToken = async (req, res) => {
     }
 };
 
-/** checkAndDeleteExpiredTokens -- Lejárt tokenek törlése
- * 
- * Időzített feladat, eltávolítja a lejárt tokeneket
- */
-const checkAndDeleteExpiredTokens = async () => {
-    try {
-        const now = new Date();
-        const result = await Token.destroy({
-            where: {
-                expiresAt: {
-                    [Sequelize.Op.lt]: now,
-                },
-            },
-        });
 
-        console.log(`${result} expired tokens deleted. (${result} lejárt token törölve.)`);
-    } catch (error) {
-        console.log('Error deleting expired tokens:', error);
-    }
-};
-
-// Törlés -- 1 óra (lehet több kéne a feleslegges túlterhelés miatt akér)
-setInterval(checkAndDeleteExpiredTokens, 3600000);
 
 module.exports = {
     fetchAllTokens,
