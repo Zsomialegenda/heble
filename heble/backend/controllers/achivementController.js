@@ -125,6 +125,7 @@ const updateAchievement = async (req, res) => {
     description,
     pushUpsRequired,
     pullUpsRequired,
+    sitUpsRequired,
     squatsRequired,
     runningRequired,
   } = req.body;
@@ -142,6 +143,7 @@ const updateAchievement = async (req, res) => {
       description,
       pushUpsRequired: pushUpsRequired || achievement.pushUpsRequired,
       pullUpsRequired: pullUpsRequired || achievement.pullUpsRequired,
+      sitUpsRequired: sitUpsRequired || achievement.sitUpsRequired,
       squatsRequired: squatsRequired || achievement.squatsRequired,
       runningRequired: runningRequired || achievement.runningRequired,
     });

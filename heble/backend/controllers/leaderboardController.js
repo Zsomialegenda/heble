@@ -122,7 +122,7 @@ const getLeaderboardByExercise = async (req, res) => {
 
   if (!ALLOWED_EXERCISES.includes(name)) {
     reason = ["Invalid exercise name.", "Nem meggfelelő gyakorlat név."];
-    return Code400(error, null, res, null, reason);
+    return Code400(null, null, res, null, reason);
   }
 
   try {

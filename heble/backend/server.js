@@ -3,6 +3,27 @@ require("dotenv").config();
 const cors = require("cors");
 const session = require("express-session");
 
+const checkAndDeleteExpiredTokens = require("./utils/tokenDelete");
+
+const sequelize = require("./utils/sequelize");
+
+const { generateAchievements, generateUsers } = require("./utils/generator");
+
+const app = express();
+
+// Middleware
+
+// app.use(
+//   session({
+//     secret: "Kicsicsirke_1298",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false },  
+//   })
+// );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 const userRoute = require("./routes/userRoute");
 const exerciseRoute = require("./routes/exerciseRoute");
 const achievementRoute = require("./routes/achivementRoute");
@@ -11,13 +32,6 @@ const experienceRoute = require("./routes/experienceRoute");
 const tokenRoute = require("./routes/tokenRoute");
 const leaderboardRoute = require("./routes/leaderboardRoute");
 
-const checkAndDeleteExpiredTokens = require("./utils/tokenDelete");
-
-const sequelize = require("./utils/sequelize");
-
-const { generateAchievements, generateUsers } = require("./utils/generator");
-
-const app = express();
 
 async function seedData() {
   sequelize
@@ -44,28 +58,6 @@ async function seedData() {
 }
 
 //seedData();
-
-// Middleware
-app.use(
-  cors({
-    origin: "http://localhost:4200",
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true,
-  })
-);
-app.use(
-  session({
-    secret: "Kicsicsirke_1298",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
-  })
-);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Serve static files
-app.use(express.static("public"));
 
 // Routes
 app.use("/users", userRoute);

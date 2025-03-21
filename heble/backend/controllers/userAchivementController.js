@@ -61,22 +61,23 @@ const getAllAchievements = async (req, res) => {
  *            3. Szerverhiba történt - 500
  */
 const getUserAchievements = async (req, res) => {
-  const id = req.params.id;
+  const userId = Number(req.params.id);
 
-  if (isNaN(id)) {
+  if (isNaN(userId)) {
     reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
     return Code400(null, null, res, null, reason);
   }
 
-  try {
-    const user = await User.findByPk(id);
+ try {
+    const user = await User.findByPk(userId );
     
     if (!user) {
+      console.error(`User with ID ${userId} not found.`);
       reason = ["User not found.", "Nem található felhasználó."];
       return Code404(null, null, res, null, reason);
     }
     const userAchievements = await UserAchievement.findAll({
-      where: { userId: id },
+      where: { userId: userId },
       include: [
         {
           model: Achievement,

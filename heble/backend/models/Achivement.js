@@ -23,6 +23,10 @@ const Achievement = sequelize.define('Achievement', {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  sitUpsRequired: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
   squatsRequired: {
     type: DataTypes.INTEGER,
     defaultValue: 0,

@@ -21,13 +21,13 @@ const { generateUsers } = require("../utils/generator");
 router.get("/", getAllUsers);
 router.get("/count", countUsers);
 router.get("/:id", getUserByID);
-router.get("/email", getUserByEmail);
 
 // PUT metódusojk
 router.put("/forgot", verifySecureAnswer);
 router.put("/forgot/reset", resetPassword);
 
 // POST metódusojk
+router.post("/email", getUserByEmail);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/signup", signupUser);

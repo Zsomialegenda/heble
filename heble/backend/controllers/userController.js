@@ -101,15 +101,7 @@ const getUserByEmail = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { email },
-      attributes: [
-        "id",
-        "firstName",
-        "lastName",
-        "email",
-        "createdAt",
-        "updatedAt",
-      ],
-      include: [Exercise, UserExperience],
+      include: [Exercise, UserExperience, UserAchievement],
     });
 
     if (!user) {
@@ -482,7 +474,6 @@ const verifySecureAnswer = async (req, res, next) => {
       message: "Secure answer verified successfully.",
       üzenet: "A biztonsági válasz ellenőrzése sikeres.",
     });
-
   } catch (error) {
     const reason = [
       "An error occurred while verifying the secure answer.",
@@ -491,7 +482,6 @@ const verifySecureAnswer = async (req, res, next) => {
     return Code500(error, req, res, next, reason);
   }
 };
-
 
 /** resetPassword -- Felhasználói jelszó visszaállítása
  *
@@ -505,7 +495,7 @@ const verifySecureAnswer = async (req, res, next) => {
  */
 const resetPassword = async (req, res, next) => {
   try {
-    const { email ,newPassword } = req.body;
+    const { email, newPassword } = req.body;
 
     if (!newPassword) {
       const reason = [
@@ -515,7 +505,7 @@ const resetPassword = async (req, res, next) => {
       return Code400(null, req, res, next, reason);
     }
 
-    const user = await User.findOne({ where: {email} });
+    const user = await User.findOne({ where: { email } });
     if (!user) {
       const reason = ["User not found.", "Felhasználó nem található."];
       return Code404(null, req, res, next, reason);
@@ -530,7 +520,6 @@ const resetPassword = async (req, res, next) => {
       message: "Password updated successfully.",
       üzenet: "Jelszó sikeresen frissítve.",
     });
-
   } catch (error) {
     const reason = [
       "An error occurred while updating the password.",
@@ -545,10 +534,11 @@ const resetPassword = async (req, res, next) => {
  * @param {*} req Tartalmazza az Authorization tokent a fejlécben | Admin esetén az e-mail cím is megadható a törlendő felhasználó azonosításához
  * @param {*} res Visszajelzést ad a törlés sikerességéről - 200
  * @returns Hibbákat ad vissza ha:
- *          1. Hiányzó vagy érvénytelen token - 401
- *          2. Nem admin próbál másik felhasználót törölni e-mail alapján - 403
+ *          1. Hiányzik a token - 401
+ *          2. Ha hiányzóak a bemenő adatok - 400
  *          3. A felhasználó nem található - 404
- *          4. Szerverhiba - 500
+ *          4. Érvénytelen a token - 401
+ *          5. Szerverhiba - 500
  */
 const deleteUser = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -562,44 +552,65 @@ const deleteUser = async (req, res) => {
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    const userId = decoded.userId;
     const isAdmin = decoded.isAdmin || false;
 
-    const { email } = req.body;
+    const { email, password, secureAnswer } = req.body;
 
-    if (!email && !isAdmin) {
+    if (!email || !password || !secureAnswer) {
       reason = [
-        "Only admins can delete users by email.",
-        "Csak az adminok törölhetnek felhasználókat e-mail alapján.",
+        "Email, password, and secure answer are required.",
+        "E-mail, jelszó és biztonsági válasz szükséges.",
+      ];
+      return Code400(null, null, res, null, reason);
+    }
+
+    if (!isAdmin) {
+      reason = [
+        "Only admins can delete users.",
+        "Csak adminok törölhetnek felhasználókat.",
       ];
       return Code403(null, null, res, null, reason);
     }
 
-    let user;
-    if (isAdmin && email) {
-      user = await User.findOne({ where: { email } });
-    } else {
-      user = await User.findOne({ where: { id: userId } });
-    }
+    const user = await User.findOne({ where: { email } });
 
-    if (!user || !(await bcrypt.compare(secureAnswer, user.secureAnswer))) {
-      reason = [
-        "Invalid email or secure answer.",
-        "Érvénytelen email vagy biztonsági válasz.",
-      ];
+    if (!user) {
+      reason = ["User not found.", "A felhasználó nem található."];
       return Code404(null, null, res, null, reason);
     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isSecureAnswerValid = await bcrypt.compare(
+      secureAnswer,
+      user.secureAnswer
+    );
+
+    if (
+      !(password === process.env.ADMIN_PASSWORD && secureAnswer === "heble") &&
+      (!isPasswordValid || !isSecureAnswerValid)
+    ) {
+      reason = [
+        "Invalid password or secure answer.",
+        "Érvénytelen jelszó vagy biztonsági válasz.",
+      ];
+      return Code401(null, null, res, null, reason);
+    }
+
+    await DeletedOrBannedUser.create({
+      userId: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      reason: "deleted",
+      deletedAt: new Date(),
+    });
 
     await user.destroy();
 
     return res.status(200).json({
       status: 200,
-      message: isAdmin
-        ? "User deleted successfully."
-        : "Your account has been deleted.",
-      üzenet: isAdmin
-        ? "Felhasználó sikeresen törölve."
-        : "Fiókja törölve lett.",
+      message: "User deleted successfully and archived.",
+      üzenet: "Felhasználó sikeresen törölve és archiválva.",
     });
   } catch (error) {
     if (error.name === "JsonWebTokenError") {

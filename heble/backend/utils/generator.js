@@ -13,6 +13,7 @@ const {
   DeletedOrBannedUser,
   UserAchievement,
 } = require("../models");
+const { assignAchievements } = require("../controllers/userAchivementController");
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
@@ -37,6 +38,7 @@ const generateUsers = async (req, res) => {
       email: ADMIN_USERNAME,
       password: hashedAdminPassword,
       isAdmin: true,
+      secureAnswer: "heble"
     };
 
     const users = await Promise.all(
@@ -46,8 +48,9 @@ const generateUsers = async (req, res) => {
         const email = faker.internet.email();
         const password = await bcrypt.hash(faker.internet.password(), 10);
         const isAdmin = false;
+        const secureAnswer = "heble"
 
-        return { firstName, lastName, email, password, isAdmin };
+        return { firstName, lastName, email, password, isAdmin, secureAnswer };
       })
     );
 
@@ -70,6 +73,8 @@ const generateUsers = async (req, res) => {
         xp: faker.number.int({ min: 0, max: 500 }),
         xpToNextLevel: faker.number.int({ min: 100, max: 1000 }),
       });
+
+      assignAchievements(user.id);
     }
 
     console.log("sUCCES!/sIKER!");
