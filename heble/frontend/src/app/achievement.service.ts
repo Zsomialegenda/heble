@@ -9,6 +9,7 @@ export class AchievementService {
 
   baseURL = 'http://localhost:3000/userAchivements/';
 
+  //függvény az elért teljesítmények lekérésére
   getAchievements(userId: number) {
     return this.http.get(`${this.baseURL}${userId}`);
   }

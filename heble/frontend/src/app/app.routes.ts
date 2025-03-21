@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth.guard';
+import { adminGuard } from './admin.guard';
 import { HomeComponent } from './home/home.component';
 import { CoachingComponent } from './coaching/coaching.component';
 import { CoachingoffComponent } from './coachingoff/coachingoff.component';
@@ -38,7 +39,7 @@ export const routes: Routes = [
   { path: 'recoverlogin', component: RecoverloginComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'adminpanel', component: AdminpanelComponent, canActivate: [authGuard] },
+  { path: 'adminpanel', component: AdminpanelComponent, canActivate: [adminGuard] },
   { path: 'about', component: AboutComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: '**', component: HomeComponent },

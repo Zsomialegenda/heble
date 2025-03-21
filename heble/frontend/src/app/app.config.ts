@@ -6,10 +6,10 @@ import { TokenInterceptorService } from './token-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-     provideRouter(routes, withInMemoryScrolling({scrollPositionRestoration: "top"})),
-     provideHttpClient(withInterceptorsFromDi()),
-     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}
+     provideZoneChangeDetection({ eventCoalescing: true }),
+     provideRouter(routes, withInMemoryScrolling({scrollPositionRestoration: "top"})), // navigálás esetén mindig a webalkalmazás tetejére dob
+     provideHttpClient(withInterceptorsFromDi()), // Http kliens biztosítása
+     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true} // interceptor biztosítása tokenhez kötött kérések végrehajtásához
     ]
 };
 

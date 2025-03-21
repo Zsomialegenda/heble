@@ -15,22 +15,27 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  // regisztrációért felelős függvény
   signup(users: any) {
     return this.http.post(this.baseURL + this.signupEnd, users);
   }
 
+  // bejelenkezésért felelős függvény
   login(users: any) {
     return this.http.post(this.baseURL + this.loginEnd, users);
   }
 
+  // a függvény ellenőrzi, hogy a felhasználó be van-e jelentkezve, ha igen akkor visszatér a localStorage-ban található tokennel
   loggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
+  // token lekérdezésének függvénye
   getToken() {
     return localStorage.getItem('token');
   }
 
+  // token dekódolására használt függvény
   decodeToken(token: string): any {
     try {
       const base64Url = token.split('.')[1];
@@ -51,26 +56,29 @@ export class UserService {
   token: any;
   payload: any;
 
+  // a szerepkör kinyerése a tokenből
   getRole(): any {
     this.token = localStorage.getItem('token');
     if (this.token) {
       this.payload = this.decodeToken(this.token);
-      console.log(this.payload.role);
+      //console.log(this.payload.role);
 
       return this.payload.role;
     }
   }
 
+  // userID kinyerése a tokenből
   getUserID(): any {
     this.token = localStorage.getItem('token');
     if (this.token) {
       this.payload = this.decodeToken(this.token);
-      console.log('a felhasználói id ' + this.payload.userId);
+      //console.log('A felhasználói id: ' + this.payload.userId);
 
       return this.payload.userId;
     }return 0;
   }
 
+  // felhasználói adatlekérése
   getUserData() {
     const userId = this.getUserID();
     if (userId) {
@@ -80,14 +88,17 @@ export class UserService {
     }
   }
 
+   // jelszó helyreállításáért felelős függvény
   forgotPassword(userData: any) {
     return this.http.put(this.baseURL + this.forgotPasswordEnd, userData);
   }
 
+  // jelszó megváltoztatásért felelős függvény
   changePassword(userData: any) {
     return this.http.put(this.baseURL + this.changePasswordEnd, userData);
   }
 
+  // a függvény ellenőrzi, hogy a felhasználó szerepköre admin-e
   isAdmin(): boolean {
     return this.payload.role == 'admin' ? true : false;
   }

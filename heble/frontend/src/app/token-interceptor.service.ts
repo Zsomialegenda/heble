@@ -10,6 +10,7 @@ export class TokenInterceptorService implements HttpInterceptor{
 
   constructor(private userService:UserService) { }
 
+  // interceptor függvény: a kérésfejlécbe beállítja a felhasználó tokenjét
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     let tokenizedRequest = req.clone({

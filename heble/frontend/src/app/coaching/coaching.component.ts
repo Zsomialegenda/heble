@@ -32,7 +32,7 @@ export class CoachingComponent implements OnInit {
         this.experience = res.data;
       },
       error:(err:HttpErrorResponse)=> {
-        alert(err.message);
+        //alert(err.message);
       }
     })
   }

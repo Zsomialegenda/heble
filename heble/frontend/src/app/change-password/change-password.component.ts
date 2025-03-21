@@ -25,6 +25,7 @@ export class ChangePasswordComponent {
     this.userService.changePassword(this.userData).subscribe({
       next: (res: any) => {
         this.showToast('SuccessfulPasswordChange');
+        localStorage.removeItem('email');
         
         setTimeout(() => {
           this.router.navigate(['/login']);
