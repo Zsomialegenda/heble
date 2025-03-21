@@ -1,0 +1,67 @@
+<div class="user-management">
+  <form>
+    <h2>Felhasználó Törlése</h2>
+    <div class="form-group">
+      <label for="deleteEmail">Felhasználó Email:</label>
+      <input type="text" id="deleteEmail" #deleteEmail autocomplete="off"/>
+    </div>
+    <div class="form-group">
+      <label for="deletePassword">Admin Jelszó:</label>
+      <input type="password" id="deletePassword" #deletePassword autocomplete="off"/>
+    </div>
+    <div class="form-group">
+      <label for="secureAnswer">Biztonsági válasz:</label>
+      <input type="text" id="secureAnswer" #secureAnswer autocomplete="off"/>
+    </div>
+    <button class="buttonstyle"
+      (click)="deleteUser(deleteEmail.value, deletePassword.value, secureAnswer.value)">
+      
+      Felhasználó törlése
+    </button>
+  </form>
+
+  <form>
+    <h2>Felhasználó Keresése</h2>
+    <div class="form-group">
+      <label for="searchEmail">Felhasználó Email:</label>
+      <input type="text" id="searchEmail" #searchEmail autocomplete="off"/>
+    </div>
+    <button class="buttonstyle" (click)="getUserByEmail(searchEmail.value)">Keresés</button>
+
+    <div *ngIf="foundUser">
+      <h3>Felhasználó Adatok</h3>
+      <p>
+        <strong>Név:</strong> {{ foundUser.firstName }}
+        {{ foundUser.lastName }}
+      </p>
+      <p><strong>Email:</strong> {{ foundUser.email }}</p>
+
+      <h3>Edzés Statisztikák</h3>
+      <p><strong>Fekvőtámasz:</strong> {{ foundUser.Exercise?.pushUps }}</p>
+      <p><strong>Húzódzkodás:</strong> {{ foundUser.Exercise?.pullUps }}</p>
+      <p><strong>Felülés:</strong> {{ foundUser.Exercise?.sitUps }}</p>
+      <p><strong>Guggolás:</strong> {{ foundUser.Exercise?.squats }}</p>
+      <p><strong>Futás:</strong> {{ foundUser.Exercise?.running }} km</p>
+
+      <h3>Szint és XP</h3>
+      <p><strong>Szint:</strong> {{ foundUser.UserExperience?.level }}</p>
+      <p><strong>XP:</strong> {{ foundUser.UserExperience?.xp }}</p>
+      <p>
+        <strong>XP következő szintig:</strong>
+        {{ foundUser.UserExperience?.xpToNextLevel }}
+      </p>
+
+      <h3>Elért Achievementek</h3>
+      <ul>
+        <li *ngFor="let achievement of foundUser.UserAchievements">
+          Achievement ID: {{ achievement.achievementId }} - Elnyerve:
+          {{ achievement.earnedAt | date }}
+        </li>
+      </ul>
+    </div>
+
+    <p *ngIf="userNotFound" class="error">Felhasználó nem található.</p>
+  </form>
+
+
+</div>

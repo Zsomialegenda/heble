@@ -10,9 +10,9 @@
   font-size: 18px;
 }
 
-.buttonstyle {
+button {
   border: 4px solid #650707;
-  background-color: #91182b;
+  background-color: #1f1f23;
   color: #fff;
   margin-top: 40px;
   padding: 10px 30px;
@@ -23,6 +23,39 @@
   text-decoration: none;
 }
 
-.buttonstyle:hover {
-  border: 4px solid #fff;
+.leaderboards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.leaderboard {
+  width: 45%;
+  min-width: 300px;
+  padding: 20px;
+  text-align: center;
+}
+
+.leaderboard h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .leaderboard {
+    width: 100%; /* Full width on smaller screens */
+  }
 }

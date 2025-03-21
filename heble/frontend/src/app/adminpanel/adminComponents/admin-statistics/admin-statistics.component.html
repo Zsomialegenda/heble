@@ -1,0 +1,26 @@
+<h1>Statisztikai része az admin felületnek</h1>
+
+<div class="chart-container">
+  <h2>Gyakorlatok statisztikája</h2>
+  <canvas id="exerciseChart"></canvas>
+  <h2>Teljesítmény statisztikák</h2>
+  <canvas id="achievementChart"></canvas>
+</div>
+
+<div class="stats">
+  <h3>Összes felhasználó száma: {{ allUsersCount }}</h3>
+  <h3>Aktív felhasználók száma: {{ activeUsersCount }}</h3>
+
+  <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
+
+  <p>Átlag fekvőtámasz {{ totalPushUps / allUsersCount | number : "1.2-2" }}</p>
+  <p>Átlag húzódzkodás {{ totalPullUps / allUsersCount | number : "1.2-2" }}</p>
+  <p>Átlag felülés {{ totalSitUps / allUsersCount | number : "1.2-2" }}</p>
+  <p>Átlag guggolás {{ totalSquats / allUsersCount | number : "1.2-2" }}</p>
+  <p>Átlag futás {{ totalRunning / allUsersCount | number : "1.2-2" }}</p>
+  <small
+    ><strong
+      >*Itt az összes felhasználóra tekintve vannak az átlagok*</strong
+    ></small
+  >
+</div>

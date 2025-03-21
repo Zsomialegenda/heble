@@ -1,0 +1,50 @@
+.chart-container {
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.chart-container h2 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+canvas {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.stats {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stats h3 {
+  margin: 10px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.stats p {
+  font-size: 1.1em;
+  color: #555;
+  margin: 5px 0;
+}
+
+.stats strong {
+  color: #333;
+}
+
+.stats p:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+

@@ -1,13 +1,198 @@
 <div class="adminpanel">
-    <div>
-       <h1 style="color: #91182b">Admin panel</h1>
-       <hr>
-       <p>A következő felületet csak az admin érheti el! Itt különböző adminisztrátori feladatokat végezhet el.</p>
-       <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
-   </div>
- 
-   <div>
- 
-   </div>
- 
- </div>
+  <div>
+    <h1 style="color: #91182b">Admin panel</h1>
+    <hr />
+    <p>
+      A következő felületet csak az admin érheti el! Itt különböző
+      adminisztrátori feladatokat végezhet el.
+    </p>
+    <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
+  </div>
+
+  <hr />
+
+  <app-admin-statistics></app-admin-statistics>
+
+  <hr />
+
+  <section class="leaderboards">
+    <div class="leaderboard">
+      <h2>Fekvőtámasz ranglista</h2>
+      <table id="pushUpsLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Fekvőtámaszok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['pushUpsLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Húzódzkodás ranglista</h2>
+      <table id="pullUpsLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Húzódzkodások</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['pullUpsLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Felülés ranglista</h2>
+      <table id="sitUpsLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Felülések</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['sitUpsLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Guggolás ranglista</h2>
+      <table id="squatsLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Guggolások</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['squatsLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Futás ranglista</h2>
+      <table id="runningLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Futások</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['runningLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Tapasztalatipont ranglista</h2>
+      <table id="xpLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>XP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of leaderboards['xpLeaderBoard']; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>
+              {{ item.xp || item.exerciseCount || item.achievementCount || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leaderboard">
+      <h2>Elért achievementek ranglista</h2>
+      <table id="userAchievementLeaderBoard">
+        <thead>
+          <tr>
+            <th>Helyezés</th>
+            <th>Felhasználónév</th>
+            <th>Achievementek száma</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="
+              let item of leaderboards['userAchievementLeaderBoard'];
+              let i = index
+            ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.username || "N/A" }}</td>
+            <td>{{ item.achievementCount || 0 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr />
+
+  <app-admin-user-management></app-admin-user-management>
+
+  <hr />
+
+  <app-admin-achievement></app-admin-achievement>
+
+</div>
