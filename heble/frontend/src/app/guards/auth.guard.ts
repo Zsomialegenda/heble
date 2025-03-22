@@ -1,6 +1,6 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { UserService } from './user.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 // authGuard függvény, ami ellenőrzi, hogy a felhasználónak van-e jogosultsága át navigálni az adott route-ra

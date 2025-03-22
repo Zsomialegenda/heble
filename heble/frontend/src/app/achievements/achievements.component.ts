@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AchievementService } from '../achievement.service';
-import { UserService } from '../user.service';
+import { AchievementService } from '../services/achievement.service';
+import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Achievement } from '../achievement';
+import { Achievement } from '../interfaces/achievement';
 import { CommonModule } from '@angular/common';
 
 @Component({

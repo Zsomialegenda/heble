@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { ExerciseService } from '../exercise.service';
+import { UserService } from '../services/user.service';
+import { ExerciseService } from '../services/exercise.service';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Exercise } from '../exercise';
+import { Exercise } from '../interfaces/exercise';
 
 @Component({
   selector: 'app-userprofile',

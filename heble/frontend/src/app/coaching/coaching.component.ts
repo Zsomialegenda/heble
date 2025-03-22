@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Experience } from '../experience';
-import { ExperienceService } from '../experience.service';
-import { UserService } from '../user.service';
+import { Experience } from '../interfaces/experience';
+import { ExperienceService } from '../services/experience.service';
+import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Exercise } from '../exercise';
-import { ExerciseService } from '../exercise.service';
+import { Exercise } from '../interfaces/exercise';
+import { ExerciseService } from '../services/exercise.service';
 
 @Component({
   selector: 'app-coaching',
