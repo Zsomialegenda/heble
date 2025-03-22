@@ -1,3 +1,4 @@
+/* alap stílusbeállítások */
 .contact {
   background-color: #1f1f23;
   color: #fff;
@@ -20,6 +21,7 @@
   margin: 10px;
 }
 
+/* kép stílusbeállításai */
 .gym {
   max-width: 550px;
   width: 100%;
@@ -31,6 +33,7 @@ img:hover {
   transform: translateY(-5px);
 }
 
+/* email-cím és elérhetégeink stílusbeállításai */
 .email {
   border: 5px solid #650707;
   border-radius: 20px;

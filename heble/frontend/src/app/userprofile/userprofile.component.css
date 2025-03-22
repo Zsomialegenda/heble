@@ -1,3 +1,4 @@
+/* alap stílusbeállítások */
 .userprofile {
   background-color: #1f1f23;
   color: #fff;
@@ -10,6 +11,7 @@
   font-size: 18px;
 }
 
+/* Bootstrap card stílusbeállításai */
 .card {
   background-color: #3c3c44;
   color: #fff;
@@ -17,7 +19,6 @@
 }
 
 /* Bootstrap accordion - a HeBLE jövője rész beállításai */
-
 .accordion-item,
 .accordion-button {
   background-color: #3c3c44;

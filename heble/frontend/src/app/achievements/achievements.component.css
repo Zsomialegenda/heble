@@ -1,3 +1,4 @@
+/* alap stílusbeállítások */
 .achievements {
   background-color: #1f1f23;
   color: #fff;
@@ -10,6 +11,7 @@
   font-size: 18px;
 }
 
+/* bootstrap card stílusbeállítások - elérhető teljesítményekhez */
 .card {
   background-color: #3c3c44;
   color: #fff;
@@ -31,7 +33,14 @@
   outline: 2mm solid #91182b;
 }
 
+/* felsorolás stílusbeállításai - elért teljesítményekheu */
 ul {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap:10px; 
+  flex-wrap: wrap;
+  width: 100%; 
   padding-left: 0;
 }
 

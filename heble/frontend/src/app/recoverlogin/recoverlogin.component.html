@@ -2,37 +2,39 @@
 
 <div class="recoverlogin">
 
-    <div>
-        <h1>Fiók helyreállítás</h1>
-        <hr>
-        <p>Elfelejtetted a jelszavad? Van egy jó hírünk! Az <strong>emailed és biztonsági jelszó</strong> segítségével <strong>visszaállíthatod a fiókod!</strong></p>
-    </div>
+  <div>
+    <h1>Fiók helyreállítás</h1>
+    <hr>
+    <p>Elfelejtetted a jelszavad? Van egy jó hírünk! Az <strong>emailed és biztonsági jelszó</strong> segítségével <strong>visszaállíthatod a fiókod!</strong></p>
+  </div>
 
-    <div>
-        <form class="form" #recoverForm="ngForm" (ngSubmit)="submitData()">
-            <div class="form-group">
-              <label class="form-label">Email-cím</label><br>
-              <input placeholder="Email-cím" #email="ngModel" [(ngModel)]="userData.email" name="email" required type="email" class="form-field" autocomplete="off"><br>
-              <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Biztonsági jelszó</label><br>
-              <input placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off"><br>
-              <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
-            </div>
-            <button type="submit" class="buttonstyle" [disabled]="recoverForm.invalid">Elküldés</button>
-          </form>
-    </div>
+  <!-- Bootstrap osztályok segítségével űrlap, ami a jelszó helyreállítás megkezdésért felel -->
+  <div>
+    <form class="form" #recoverForm="ngForm" (ngSubmit)="submitData()">
+      <div class="form-group">
+        <label class="form-label">Email-cím</label><br>
+        <input placeholder="Email-cím" #email="ngModel" [(ngModel)]="userData.email" name="email" required type="email" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Biztonsági jelszó</label><br>
+        <input placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
+      </div>
+      <button type="submit" class="buttonstyle" [disabled]="recoverForm.invalid">Elküldés</button>
+    </form>
+  </div>
 
-    <div>
-        <p>Véletlen tévedtél ide?</p>
-        <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Vissza a Bejelentkezéshez!</a>
-    </div>
+  <!-- navigációs lehetőség -->
+  <div>
+    <p>Véletlen tévedtél ide?</p>
+    <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Vissza a Bejelentkezéshez!</a>
+  </div>
 </div>
 
 <!-- Bootstrap Toast értesítések: sikeres helyreállítás, a felhasználó nem található (404), (jogosulatlan kérés) Hibás biztonsági válasz! (401 és 403)-->
 <div class="toast-container">
-  
+
   <div id="SuccessfulRecover" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
       <div class="toast-body">

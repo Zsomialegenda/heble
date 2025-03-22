@@ -11,20 +11,22 @@ import { CommonModule } from '@angular/common';
   templateUrl: './achievements.component.html',
   styleUrl: './achievements.component.css'
 })
-export class AchievementsComponent {
-  constructor(private achievementservice:AchievementService, private userService:UserService){}
-  achievements:Achievement[]=[]
 
-  userID:any;
+// a komponens betöltésekor lefutó metódus, ami az elért achievementek megjelenítésért felel
+export class AchievementsComponent {
+  constructor(private achievementservice: AchievementService, private userService: UserService) { }
+  achievements: Achievement[] = []
+
+  userID: any;
   ngOnInit(): void {
     this.userID = this.userService.getUserID()
     this.achievementservice.getAchievements(this.userID).subscribe({
-      next:(res:any)=> {
+      next: (res: any) => {
 
         this.achievements = res.data;
         console.log(this.achievements);
       },
-      error:(err:HttpErrorResponse)=> {
+      error: (err: HttpErrorResponse) => {
         //alert(err.message);
       }
     })

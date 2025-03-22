@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
+
+// Az SignOut metódus kijelentkezéskor törli a localStorage-ból a tokent, és át navigálja felhasználót a bejelentkezéshez. A másik metódus betöltésekor ellenőrzi a felhasználó szerepkörét, hogy admin-e vagy sem
 export class NavComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) {}
 

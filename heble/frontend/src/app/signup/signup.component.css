@@ -1,3 +1,4 @@
+/* alap stílusbeállítások */
 .signup {
   background-color: #1f1f23;
   color: #fff;
@@ -10,6 +11,7 @@
   font-size: 18px;
 }
 
+/* az űrlap stílusbeállításai */
 .form {
   max-width: 800px;
   margin: 40px;

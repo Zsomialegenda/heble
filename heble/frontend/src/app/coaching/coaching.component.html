@@ -1,18 +1,21 @@
 <img src="redlights.jpg" class="img-fluid" style="width: 100%; max-height: 55vh;" alt="LED fények">
 
 <div class="coaching">
-   <div>
-      <h1 style="color: #91182b">HeBLE Edzés</h1>
-      <hr>
-      <p>Próbáld ki még ma a HeBLE szórakoztató, újszerű és játékos megoldását az edzésre!</p>
-      <p>Teljesítsd feladatokat, majd a feladatok elvégzése után gyűjtsd be a tapasztalatpontokat és lépj szintet!</p>
-      <p>Érj el különböző teljesítményeket és jutalmakat!</p>
-      <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
-      <p>Az alábbiakban megtekintheted az előrehaládásod! Láthatod, hogy épp hanyas szintű vagy, mennyi az aktuális tapasztalatpontod és mennyi kell a következő szintig.</p>
+  <!-- bevezető szövegek az oldal tetején -->
+  <div>
+    <h1 style="color: #91182b">HeBLE Edzés</h1>
+    <hr>
+    <p>Próbáld ki még ma a HeBLE szórakoztató, újszerű és játékos megoldását az edzésre!</p>
+    <p>Teljesítsd feladatokat, majd a feladatok elvégzése után gyűjtsd be a tapasztalatpontokat és lépj szintet!</p>
+    <p>Érj el különböző teljesítményeket és jutalmakat!</p>
+    <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
+    <p>Az alábbiakban megtekintheted az előrehaládásod! Láthatod, hogy épp hanyas szintű vagy, mennyi az aktuális
+      tapasztalatpontod és mennyi kell a következő szintig.</p>
   </div>
 
+  <!-- Bootstrap card segítségével az előrehaladás megjelenítése: a tapasztalatpont, a szint és következő szintig szükséges tapasztalatpont az experienceből. -->
   <div>
-   <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Előrehaladás</h5>
         <hr>
@@ -30,6 +33,7 @@
     <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
   </div>
 
+  <!-- Bootstrap osztályok segítségével űrlap, ami a gyakorlatok hozzáadásáért felel -->
   <div>
     <form class="form" #coachingForm="ngForm" (ngSubmit)="addExercise()">
       <div class="form-group">
@@ -58,11 +62,12 @@
     </form>
   </div>
 
+  <!-- Különböző alertek: az egyik a sikeres gyakorlat hozzáadásáért, a másik a sikertelen gyakorlat hozzáadásért felel. -->
   <div *ngIf="successMessage" class="alert alert-success" role="alert">
     {{ successMessage }}
   </div>
   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
     {{ errorMessage }}
   </div>
-       
+
 </div>

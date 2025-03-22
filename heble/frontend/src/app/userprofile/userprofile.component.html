@@ -1,95 +1,97 @@
 <img src="redlights.jpg" class="img-fluid" style="width: 100%; max-height: 55vh;" alt="LED fények">
 
 <div class="userprofile">
-   <div>
-      <h1 style="color: #91182b">HeBLE profil</h1>
+  <div>
+    <h1 style="color: #91182b">HeBLE profil</h1>
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-      </svg>
+     <!-- Bootstrap ikon hozzáadása (Person lines fill)-->
+    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+      <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+    </svg>
 
-      <hr>
-      <p>Ezen az oldalon megtekintheted a profilod összes adatát! Kivéve azokat, amelyeket biztonsági okokból nem jelenítünk meg. Ilyen a jelszó és biztonsági jelszó.</p>
-      <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
+    <hr>
+    <p>Ezen az oldalon megtekintheted a profilod összes adatát! Kivéve azokat, amelyeket biztonsági okokból nem jelenítünk meg. Ilyen a jelszó és biztonsági jelszó.</p>
+    <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
   </div>
 
+  <!-- Bootstrap card-ok elhelyezése: az egyik a személyes adatok megjelenítésért felel, a másik pedig az elvégzett gyakrolatok megjelenítésért felel -->
   <div style="display: flex; justify-content: center; text-align: center; gap:10px; flex-wrap: wrap; width: 100%;">
-  <div *ngIf="user">
-    <div class="card" style="width: 22rem">
-       <div class="card-body">
-         <h5 class="card-title">Személyes adatok</h5>
-         <hr>
-         <p class="card-text">Keresztnév: {{ user.firstName }} </p>
-         <p class="card-text">Vezetéknév: {{ user.lastName }} </p>
-         <p class="card-text">Email-cím: {{ user.email }} </p>
-         <p class="card-text">Létrehozva: {{ user.createdAt | date:'yyyy.MM.dd.' }} </p>
-         <p class="card-text">Frissítve: {{ user.updatedAt | date:'yyyy.MM.dd.' }} </p>
-         <hr>
-       </div>
-     </div>
-   </div>
+    <div *ngIf="user">
+      <div class="card" style="width: 22rem">
+        <div class="card-body">
+          <h5 class="card-title">Személyes adatok</h5>
+          <hr>
+          <p class="card-text">Keresztnév: {{ user.firstName }} </p>
+          <p class="card-text">Vezetéknév: {{ user.lastName }} </p>
+          <p class="card-text">Email-cím: {{ user.email }} </p>
+          <p class="card-text">Létrehozva: {{ user.createdAt | date:'yyyy.MM.dd.' }} </p>
+          <p class="card-text">Frissítve: {{ user.updatedAt | date:'yyyy.MM.dd.' }} </p>
+          <hr>
+        </div>
+      </div>
+    </div>
 
-  <div *ngIf="exercises">
-    <div class="card" style="width: 22rem">
-      <div class="card-body">
-         <h5 class="card-title">Elvégzett gyakorlatok</h5>
-         <hr>
-         <p class="card-text">Fekvőtámaszok száma: {{ exercises.pushUps }} </p>
-         <p class="card-text">Húzódzkodások száma: {{ exercises.pullUps }} </p>
-         <p class="card-text">Felülések száma: {{ exercises.sitUps }} </p>
-         <p class="card-text">Guggolások száma:  {{ exercises.squats }} </p>
-         <p class="card-text">Futás mennyisége: {{ exercises.running }} km </p>
-         <hr>
-         <p class="card-text">Legelső edzés: {{ exercises.createdAt | date:'yyyy.MM.dd.' }} </p>
-         <p class="card-text">Legutóbbi edzés: {{ exercises.updatedAt | date:'yyyy.MM.dd.' }} </p>
+    <div *ngIf="exercises">
+      <div class="card" style="width: 22rem">
+        <div class="card-body">
+          <h5 class="card-title">Elvégzett gyakorlatok</h5>
+          <hr>
+          <p class="card-text">Fekvőtámaszok száma: {{ exercises.pushUps }} </p>
+          <p class="card-text">Húzódzkodások száma: {{ exercises.pullUps }} </p>
+          <p class="card-text">Felülések száma: {{ exercises.sitUps }} </p>
+          <p class="card-text">Guggolások száma: {{ exercises.squats }} </p>
+          <p class="card-text">Futás mennyisége: {{ exercises.running }} km </p>
+          <hr>
+          <p class="card-text">Legelső edzés: {{ exercises.createdAt | date:'yyyy.MM.dd.' }} </p>
+          <p class="card-text">Legutóbbi edzés: {{ exercises.updatedAt | date:'yyyy.MM.dd.' }} </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  
-   <div style="margin: 10px;">
+
+  <div style="margin: 10px;">
     <h2>A HeBLE jövője</h2>
     <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
   </div>
 
   <!-- Bootstrap accordion komponens -->
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-            <i>Mi a tervünk a jövőre nézve?</i>
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-          <div class="accordion-body">
-            Szeretnénk, ha a HeBLE nem csak bizalmi alapon működne, hanem a mobilkészülékeken meglévő különböző mozgásos alkalmazásokon keresztül ellenőriznénk, hogy a felhasználó elvégezte-e az adott feladatot. Ilyen alkalmazás az Apple készülékein lévő Egészség alkalmazás, a Samsung készülékein a Samsung Health, de a Google is rendelkezik egy hasonló alkalmazással a Google Fit személyében.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-            <i>Hogyan tervezünk feljődni?</i>
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-          <div class="accordion-body">
-            Szeretnénk további ingyenes tartalmakat az HeBle oldalára, hogy minél több témában érdekes információhoz jussanak a felhasználók. Emellett bővíteni további gyakorlatokkal, jutalmakkal és teljesítményekkel. Ezek színesítenék az oldal tartalmát, illetve fokoznák a felhasználói élményt.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-            <i>Mi a végső célunk?</i>
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-          <div class="accordion-body">
-            A végső nagy távoli célunk az lenne, hogy az oldalunk rendelkezzen saját online bolttal, amelyben a felhasználók vásárolhatnak, illetve a szintezés során különféle kedvezményekhez juthatnának hozzá.
-          </div>
+  <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <i>Mi a tervünk a jövőre nézve?</i>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body"> 
+          Szeretnénk, ha a HeBLE nem csak bizalmi alapon működne, hanem a mobilkészülékeken meglévő különböző mozgásos alkalmazásokon keresztül ellenőriznénk, hogy a felhasználó elvégezte-e az adott feladatot. Ilyen alkalmazás az Apple készülékein lévő Egészség alkalmazás, a Samsung készülékein a Samsung Health, de a Google is rendelkezik egy hasonló alkalmazással a Google Fit személyében.
         </div>
       </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          <i>Hogyan tervezünk feljődni?</i>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+          Szeretnénk további ingyenes tartalmakat az HeBle oldalára, hogy minél több témában érdekes információhoz jussanak a felhasználók. Emellett bővíteni további gyakorlatokkal, jutalmakkal és teljesítményekkel. Ezek színesítenék az oldal tartalmát, illetve fokoznák a felhasználói élményt.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          <i>Mi a végső célunk?</i>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+          A végső nagy távoli célunk az lenne, hogy az oldalunk rendelkezzen saját online bolttal, amelyben a felhasználók vásárolhatnak, illetve a szintezés során különféle kedvezményekhez juthatnának hozzá.
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

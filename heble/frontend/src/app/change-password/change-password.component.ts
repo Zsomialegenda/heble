@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './change-password.component.css',
 })
 export class ChangePasswordComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
   userData = {
     email: localStorage.getItem('email'),
@@ -26,7 +26,7 @@ export class ChangePasswordComponent {
       next: (res: any) => {
         this.showToast('SuccessfulPasswordChange');
         localStorage.removeItem('email');
-        
+
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);

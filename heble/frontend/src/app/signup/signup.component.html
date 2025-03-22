@@ -1,110 +1,120 @@
 <img src="redlights.jpg" class="img-fluid" style="width: 100%; max-height: 55vh;" alt="LED fények">
 
 <div class="signup">
-    <div>
-        <h1>Regisztráció</h1>
-        <hr>
-        <p>Jelentkezzen be az oldalunkon, hogy elérje azokat a tartalmakat, amelyekhez <strong>kizárólagosan csak</strong> regisztrált és bejelentkezett felhasználók férhetnek hozzá!</p>
-    </div>
+  <div>
+    <h1>Regisztráció</h1>
+    <hr>
+    <p>Jelentkezzen be az oldalunkon, hogy elérje azokat a tartalmakat, amelyekhez <strong>kizárólagosan csak</strong>
+      regisztrált és bejelentkezett felhasználók férhetnek hozzá!</p>
+  </div>
 
-    <div>
-        <form class="form" #registerForm="ngForm" (ngSubmit)="signup()">
-        <h4>Hozd létre a saját fiókod még ma!</h4>
-             <div class="form-group">
-                <label>Keresztnév</label><br>
-                <input placeholder="Keresztnév" #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field" autocomplete="off"><br>
-                <small style="color: red" *ngIf="firstName.touched && firstName.invalid">Helytelen keresztnév!</small>
-             </div>
-             <div class="form-group">
-                <label>Vezeteknév</label><br>
-                <input placeholder="Vezeteknév" #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field" autocomplete="off"><br>
-                <small style="color: red" *ngIf="lastName.touched && lastName.invalid">Helytelen vezetéknév!</small>
-             </div>
-             <div class="form-group">
-                <label>Email cím</label><br>
-                <input placeholder="Email cím" #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
-                <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
-             </div>
-             <div class="form-group">
-                <label>Jelszó</label><br>
-                <input placeholder="Jelszó" #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
-                <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
-             </div>
-             <div class="form-group">
-                <label>Biztonsági jelszó</label><br>
-                <input placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="password" name="secureAnswer" class="form-field" autocomplete="off"><br>
-                <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
-             </div>
-             <button type="submit" class="buttonstyle" [disabled]="registerForm.invalid">Regisztráció</button>
-        </form>
+   <!-- Bootstrap osztályok segítségével űrlap, ami a regisztrációért felel -->
+  <div>
+    <form class="form" #registerForm="ngForm" (ngSubmit)="signup()">
+      <h4>Hozd létre a saját fiókod még ma!</h4>
+      <div class="form-group">
+        <label>Keresztnév</label><br>
+        <input placeholder="Keresztnév" #firstName="ngModel" [(ngModel)]="registerUserData.firstName" required type="text" name="firstName" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="firstName.touched && firstName.invalid">Helytelen keresztnév!</small>
+      </div>
+      <div class="form-group">
+        <label>Vezeteknév</label><br>
+        <input placeholder="Vezeteknév" #lastName="ngModel" [(ngModel)]="registerUserData.lastName" required type="text" name="lastName" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="lastName.touched && lastName.invalid">Helytelen vezetéknév!</small>
+      </div>
+      <div class="form-group">
+        <label>Email cím</label><br>
+        <input placeholder="Email cím" #email="ngModel" [(ngModel)]="registerUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
+      </div>
+      <div class="form-group">
+        <label>Jelszó</label><br>
+        <input placeholder="Jelszó" #password="ngModel" [(ngModel)]="registerUserData.password" required type="password" name="password" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="password.touched && password.invalid">Helytelen jelszó!</small>
+      </div>
+      <div class="form-group">
+        <label>Biztonsági jelszó</label><br>
+        <input placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="registerUserData.secureAnswer" required type="password" name="secureAnswer" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztonsági válasz!</small>
+      </div>
+      <button type="submit" class="buttonstyle" [disabled]="registerForm.invalid">Regisztráció</button>
+    </form>
 
-    </div>
+  </div>
 
-    <div>
-      <hr style="color: red;">
-      <p><strong style="color: #91182b">Mi a biztonsági jelszó? </strong><br> A biztonsági jelszó arra az esetre van kitalálva, ha elfelejtetted a jelszavad és nem tudsz bejelentkezni,<br> akkor a biztonsági jelszó és az email címed segítségével helyre tudod állítani a fiókod.<br> Tehát a biztonsági jelszó esetében kérjük, ezért egy személyedhez közel álló egyszerű jelszószerű szöveget adj meg.<br> <i>Például a háziállatod nevét vagy akár a kedvenc országod.</i></p><br>
-   </div>
+  <!-- biztonsági jelszó magyarázata -->
+  <div>
+    <hr style="color: red;">
+    <p><strong style="color: #91182b">Mi a biztonsági jelszó? </strong><br> A biztonsági jelszó arra az esetre van kitalálva, ha elfelejtetted a jelszavad és nem tudsz bejelentkezni,<br> akkor a biztonsági jelszó és az email címed segítségével helyre tudod állítani a fiókod.<br> Tehát a biztonsági jelszó esetében kérjük, ezért egy a személyedhez közel álló egyszerű jelszószerű szöveget adj meg.<br> <i>Például a háziállatod nevét vagy akár a kedvenc országod.</i></p><br>
+  </div>
 
-    <div>
-        <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Van már fiókod? Lépj be!</a>
-    </div>
+  <!-- navigációs lehetőség -->
+  <div>
+    <a routerLink="/login" routerLinkActive="true" class="buttonstyle">Van már fiókod? Lépj be!</a>
+  </div>
 </div>
 
 <!-- Bootstrap Toast értesítések: sikeres regisztráció, hiányzó adatok (404), jogosulatlan kérés (401 és 403), az email cím már foglalt (409), valami hiba fellépése esetén (500), érvénytelen email cím esetén.-->
 <div class="toast-container">
 
-   <div id="SuccessfulSignup" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-     <div class="d-flex">
-       <div class="toast-body">
-         Sikeres regisztráció!
-       </div>
-       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-     </div>
-   </div>
- 
-   <div id="missingdataatSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-     <div class="d-flex">
-       <div class="toast-body">
-         Hiányzó adatok!
-       </div>
-       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-     </div>
-   </div>
- 
-   <div id="unauthorizedSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-     <div class="d-flex">
-       <div class="toast-body">
-         Jogosulatlan kérés!
-       </div>
-       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-     </div>
-   </div>
-
-   <div id="EmailAlreadyInUse" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-         Az email cím már foglalt!
-        </div>
-        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  <div id="SuccessfulSignup" class="toast align-items-center text-bg-success border-0" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Sikeres regisztráció!
       </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
- 
-   <div id="erroratSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-     <div class="d-flex">
-       <div class="toast-body">
-         Valami hiba történt a regisztráció során!
-       </div>
-       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-     </div>
-   </div>
+  </div>
 
-   <div id="IncorrectEmail" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-         Érvénytelen email cím!
-        </div>
-        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  <div id="missingdataatSignup" class="toast align-items-center text-bg-dark border-0" role="alert"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Hiányzó adatok!
       </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
+  </div>
+
+  <div id="unauthorizedSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Jogosulatlan kérés!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="EmailAlreadyInUse" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Az email cím már foglalt!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="erroratSignup" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Valami hiba történt a regisztráció során!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="IncorrectEmail" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Érvénytelen email cím!
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
 
 </div>
