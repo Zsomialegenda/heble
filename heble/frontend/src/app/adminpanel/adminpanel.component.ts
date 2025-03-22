@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
-import { AdminService } from '../admin.service';
+import { AdminService } from '../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

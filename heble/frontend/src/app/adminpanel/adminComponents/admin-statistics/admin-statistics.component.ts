@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
-import { AdminService } from '../../../admin.service';
+import { AdminService } from '../../../services/admin.service';
 import { CommonModule } from '@angular/common';
 
 Chart.register(...registerables);
@@ -116,7 +116,6 @@ export class AdminStatisticsComponent implements OnInit{
                 {
                   label: 'Achievementek',
                   data: values,
-                  backgroundColor: '#91182b',
                 },
               ],
             },
@@ -167,7 +166,6 @@ export class AdminStatisticsComponent implements OnInit{
                   {
                     label: 'Összes gyakorlat',
                     data,
-                    backgroundColor: '#91182b',
                   },
                 ],
               },

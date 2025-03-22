@@ -1,5 +1,7 @@
+/* oszlopdiagram stílusbeállítások */
 .chart-container {
   max-width: 800px;
+  width: 90%;
   margin: 20px auto;
   text-align: center;
 }
@@ -18,33 +20,15 @@ canvas {
   border-radius: 5px;
 }
 
+/* statisztikai stílusbeállítások */
+
 .stats {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #3c3c44;
+  color: #fff;
+  font-size: 18px;
   border-radius: 10px;
   text-align: center;
 }
-
-.stats h3 {
-  margin: 10px 0;
-  color: #333;
-  font-weight: bold;
-}
-
-.stats p {
-  font-size: 1.1em;
-  color: #555;
-  margin: 5px 0;
-}
-
-.stats strong {
-  color: #333;
-}
-
-.stats p:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-

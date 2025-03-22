@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AdminService } from '../../../admin.service';
+import { AdminService } from '../../../services/admin.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AddAchievement } from '../../../add-achievement';
+import { AddAchievement } from '../../../interfaces/add-achievement';
 
 @Component({
   selector: 'app-admin-achievement',

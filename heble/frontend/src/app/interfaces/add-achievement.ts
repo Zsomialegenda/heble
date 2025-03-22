@@ -1,5 +1,5 @@
 export interface AddAchievement {
-    id: number;
+  id: number;
   name: string;
   description: string;
   pushUpsRequired: number;
