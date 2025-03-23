@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const {
   getAllExperiences,
   getUserExperience,
-} = require('../controllers/experienceController');
+} = require("../controllers/experienceController");
 
 const router = express.Router();
 
 //GET metódusok
-router.get('', getAllExperiences);
-router.get('/:id', getUserExperience);
+router.get("", getAllExperiences);
+router.get("/:id", getUserExperience);
 
 module.exports = router;

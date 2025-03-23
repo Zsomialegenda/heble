@@ -1,7 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../utils/sequelize');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../utils/sequelize");
 
-const Token = sequelize.define('Token', {
+const Token = sequelize.define(
+  "Token",
+  {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -11,10 +13,10 @@ const Token = sequelize.define('Token', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users',
-        key: 'id',
+        model: "Users",
+        key: "id",
       },
-      onDelete: 'CASCADE',
+      onDelete: "CASCADE",
     },
     token: {
       type: DataTypes.STRING,
@@ -28,9 +30,11 @@ const Token = sequelize.define('Token', {
       type: DataTypes.DATE,
       allowNull: false,
     },
-  }, {
+  },
+  {
     timestamps: true,
-    tableName: 'Tokens',
-});
+    tableName: "Tokens",
+  }
+);
 
 module.exports = Token;

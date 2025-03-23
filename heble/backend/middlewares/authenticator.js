@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const { Code404, Code403 } = require("../utils/statusCode");
 let reason = [];
 
+const SECRET_KEY = process.env.SECRET_KEY || "admin";
+
 const authenticator = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -11,7 +13,7 @@ const authenticator = (req, res, next) => {
     return Code404(null, req, res, next, reason);
   }
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
       reason = ["Invalid or expired token.", "Érvénytelen vagy lejárt token."];
       return Code403(null, req, res, next, reason);

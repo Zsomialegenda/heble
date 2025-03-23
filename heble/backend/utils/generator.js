@@ -11,9 +11,7 @@ const {
   DeletedOrBannedUser,
   UserAchievement,
 } = require("../models");
-const {
-  assignAchievements,
-} = require("../utils/checkAchievements");
+const { assignAchievements } = require("../utils/checkAchievements");
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";

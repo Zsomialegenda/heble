@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const SECRET_KEY = process.env.SECRET_KEY;
 const {
   sequelize,
   User,
@@ -20,6 +19,8 @@ const {
   Code500,
 } = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
+
+const SECRET_KEY = process.env.SECRET_KEY || "admin";
 
 const { assignAchievements } = require("../utils/checkAchievements");
 
@@ -146,7 +147,7 @@ const logExerciseAndGainXP = async (req, res, next) => {
 
   let decoded;
   try {
-    decoded = jwt.verify(token, process.env.SECRET_KEY);
+    decoded = jwt.verify(token, SECRET_KEY);
   } catch (error) {
     reason = [
       "Invalid token. Please log in again.",
@@ -266,7 +267,6 @@ const logExerciseAndGainXP = async (req, res, next) => {
     return Code500(error, req, res, next, reason);
   }
 };
-
 
 /** statsExercises -- Összesített statisztikák
  *

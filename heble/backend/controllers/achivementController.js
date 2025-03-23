@@ -44,19 +44,18 @@ const getAllAchievements = async (req, res) => {
 
 /**
  *
- * @param {*} req 
+ * @param {*} req
  * @param {*} res
  * @returns
  */
 const getAchievementById = async (req, res) => {
-  
   try {
     const achievementId = parseInt(req.params.id, 10);
 
     if (isNaN(achievementId) || achievementId <= 0) {
       reason = [
         "Invalid achievement ID.",
-        "Érvénytelen azonosító a teljesítménynek."
+        "Érvénytelen azonosító a teljesítménynek.",
       ];
       return Code400(null, req, res, null, reason);
     }
@@ -72,9 +71,9 @@ const getAchievementById = async (req, res) => {
   } catch (error) {
     reason = [
       "Failed to fetch achievement.",
-      "Nem sikerült lekérni a teljesítményt."
+      "Nem sikerült lekérni a teljesítményt.",
     ];
-    return Code500(error, req, res, null, reason); 
+    return Code500(error, req, res, null, reason);
   }
 };
 

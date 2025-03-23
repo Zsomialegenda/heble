@@ -11,7 +11,6 @@ const { generateAchievements, generateUsers } = require("./utils/generator");
 
 const app = express();
 
-
 // Middleware
 app.use(
   session({
@@ -56,7 +55,7 @@ async function seedData() {
   })();
 }
 
-//seedData();
+seedData();
 
 // Routes
 app.use("/users", userRoute);
@@ -66,7 +65,6 @@ app.use("/userAchivements", userAchievementRoute);
 app.use("/experiences", experienceRoute);
 app.use("/tokens", tokenRoute);
 app.use("/leaderboard", leaderboardRoute);
-
 
 // Törlés -- 1 óra
 setInterval(checkAndDeleteExpiredTokens, 3600000);

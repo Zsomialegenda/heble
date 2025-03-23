@@ -37,7 +37,7 @@ const getAllUsers = async (req, res) => {
       include: [
         { model: Exercise },
         { model: UserExperience },
-        { model: UserAchievement}
+        { model: UserAchievement },
       ],
     });
 
@@ -70,7 +70,7 @@ const getUserByID = async (req, res) => {
       include: [
         { model: Exercise },
         { model: UserExperience },
-        { model: UserAchievement}
+        { model: UserAchievement },
       ],
     });
 
@@ -108,7 +108,7 @@ const getUserByEmail = async (req, res) => {
       include: [
         { model: Exercise },
         { model: UserExperience },
-        { model: UserAchievement}
+        { model: UserAchievement },
       ],
     });
 

@@ -14,7 +14,6 @@ const {
   resetPassword,
 } = require("../controllers/userController");
 
-
 const { generateUsers } = require("../utils/generator");
 
 // GET metódusojk
