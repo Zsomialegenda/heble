@@ -47,6 +47,46 @@ const getAllExercises = async (req, res) => {
   }
 };
 
+/** getUserExercises -- Egy felhasználó gyakorlatai
+ *
+ * @param {*} req Az üzenet tartalmazza a `userId` paramétert az URL-ben.
+ * @param {*} res Válaszként visszaadja a felhasználó gyakorlatait - 200
+ * @returns Hibákat küld vissza:
+ *              1. Ha a userId érvénytelen - 400
+ *              2. Ha nincs találat - 404
+ *              3. Szerverhiba - 500
+ */
+const getUserExercises = async (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+
+  if (isNaN(userId)) {
+    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+    return Code400(null, null, res, null, reason);
+  }
+
+  try {
+    const exercise = await Exercise.findOne({ where: { userId } });
+    if (!exercise) {
+      reason = [
+        "No exercises found for this user.",
+        "Nincsenek gyakorlatok ehhez a felhasználóhoz.",
+      ];
+      return Code404(null, null, res, null, reason);
+    }
+    return res.status(200).json({
+      message: "User exercises fetched successfully.",
+      üzenet: "A felhasználó gyakorlatai sikeresen lekérve.",
+      data: exercise,
+    });
+  } catch (error) {
+    reason = [
+      "An error occurred while fetching exercises.",
+      "Hiba történt a gyakorlatok lekérése közben.",
+    ];
+    return Code500(error, null, res, null, reason);
+  }
+};
+
 /** getExercise -- visssza adja  az összesitett számát egy gyakorlatnak.
  *
  * @param {*} req BBevitelnek a gyakorlat tipusa
@@ -84,46 +124,6 @@ const getExercise = async (req, res) => {
   }
 };
 
-/** getUserExercises -- Egy felhasználó gyakorlatai
- *
- * @param {*} req Az üzenet tartalmazza a `userId` paramétert az URL-ben.
- * @param {*} res Válaszként visszaadja a felhasználó gyakorlatait - 200
- * @returns Hibákat küld vissza:
- *              1. Ha a userId érvénytelen - 400
- *              2. Ha nincs találat - 404
- *              3. Szerverhiba - 500
- */
-const getUserExercises = async (req, res) => {
-  const userId = parseInt(req.params.id, 10);
-
-  if (isNaN(userId)) {
-    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
-    return Code400(null, null, res, null, reason);
-  }
-
-  try {
-    const exercises = await Exercise.findOne({ where: { userId } });
-    if (exercises.length === 0) {
-      reason = [
-        "No exercises found for this user.",
-        "Nincsenek gyakorlatok ehhez a felhasználóhoz.",
-      ];
-      return Code404(null, null, res, null, reason);
-    }
-    return res.status(200).json({
-      message: "User exercises fetched successfully.",
-      üzenet: "A felhasználó gyakorlatai sikeresen lekérve.",
-      data: exercises,
-    });
-  } catch (error) {
-    reason = [
-      "An error occurred while fetching exercises.",
-      "Hiba történt a gyakorlatok lekérése közben.",
-    ];
-    return Code500(error, null, res, null, reason);
-  }
-};
-
 /** logExerciseAndGainXP -- Gyakorlat rögzítése és XP növelése
  *
  * @param {*} req userId, pushUps, pullUps, sitUps, squats, running - szzámok
@@ -137,12 +137,14 @@ const getUserExercises = async (req, res) => {
  *              6. Belső szerver hiba - 5000
  */
 const logExerciseAndGainXP = async (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    reason = ["Token not provided.", "A token nincs megadva."];
-    return Code404(null, req, res, next, reason);
+    reason = [
+      "Authorization token required.",
+      "Engedélyezési token szükséges.",
+    ];
+    return Code401(null, null, res, null, reason);
   }
 
   let decoded;
@@ -157,35 +159,11 @@ const logExerciseAndGainXP = async (req, res, next) => {
   }
 
   const { pushUps, pullUps, sitUps, squats, running } = req.body;
-  const requestUserId = Number(decoded.userId);
-  const isAdmin = decoded.isAdmin || false;
   const userId = parseInt(decoded.userId, 10);
 
   if (isNaN(userId)) {
     reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
     return Code400(null, req, res, next, reason);
-  }
-
-  if (!isAdmin && requestUserId !== userId) {
-    reason = [
-      "You can only log exercises for your own account.",
-      "Csak a saját fiókjára rögzítheti a gyakorlatokat.",
-    ];
-    return Code403(null, req, res, next, reason);
-  }
-
-  if (
-    pushUps === undefined &&
-    pullUps === undefined &&
-    sitUps === undefined &&
-    squats === undefined &&
-    running === undefined
-  ) {
-    reason = [
-      "Exercise not found for this user!",
-      "Gyakorlat nem található ehhez a felhasználóhoz!",
-    ];
-    return Code404(null, req, res, next, reason);
   }
 
   try {

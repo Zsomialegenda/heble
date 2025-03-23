@@ -333,7 +333,7 @@ const loginUser = async (req, res) => {
  *          3. szerver hiba - 500
  */
 const logoutUser = async (req, res) => {
-  const { token } = authHeader && authHeader.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     reason = [
@@ -347,7 +347,8 @@ const logoutUser = async (req, res) => {
     const tokenRecord = await Token.findOne({ where: { token } });
 
     if (!tokenRecord) {
-      return Code404(null, null, res, null);
+      reason = ["Token not found.", "Token nem található."];
+      return Code404(null, null, res, null, reason);
     }
 
     await tokenRecord.destroy();
@@ -358,85 +359,6 @@ const logoutUser = async (req, res) => {
       üzenet: "Sikeres kijelentkezés.",
     });
   } catch (error) {
-    return Code500(error, null, res, null, reason);
-  }
-};
-
-/** updateAccount -- Felhasználói fiók frissítése
- *
- * @param {*} req meg lehet adni az új e-mail címet, új jelszót és biztonsági választ | Az Authorization tokent a fejlécben van
- * @param {*} res Vussza adjaa frissítés sikerességét - 200
- *
- * @returns Hibbákat ad vissza ha:
- *          1. Hiányzó vagy érvénytelen token - 401
- *          2. Nem admin próbál másik fiókot módosítani, vagy hibás biztonsági választ adott meg - 403
- *          3. A felhasználó nem található - 404
- *          4. Szerverhiba - 500
- */
-const updateAccount = async (req, res) => {
-  const { newEmail, newPassword, secureAnswer } = req.body;
-
-  const token = authHeader && authHeader.split(" ")[1];
-
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    const requestUserId = decoded.userId;
-    const isAdmin = decoded.isAdmin || false;
-
-    let user = await User.findOne({ where: { id: requestUserId } });
-
-    if (!user) {
-      reason = ["User not found.", "Felhasználó nem található."];
-      return Code404(null, null, res, null, reason);
-    }
-
-    if (isAdmin) {
-      console.log("Admin updating user:", user.id);
-    } else {
-      if (requestUserId !== user.id) {
-        reason = [
-          "You can only update your own account.",
-          "Csak a saját fiókját módosíthatja.",
-        ];
-        return Code403(null, null, res, null, reason);
-      }
-
-      if (!secureAnswer) {
-        reason = ["Invalid security answer.", "Érvénytelen biztonsági válasz."];
-        return Code403(null, null, res, null, reason);
-      }
-    }
-
-    if (newEmail) {
-      user.email = newEmail;
-    }
-
-    if (newPassword) {
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      user.password = hashedPassword;
-    }
-
-    user.secureAnswer = await bcrypt.hash(secureAnswer, 10);
-    await user.save();
-
-    return res.status(200).json({
-      status: 200,
-      message: "User account updated successfully.",
-      üzenet: "Felhasználói fiók sikeresen frissítve.",
-    });
-  } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      reason = [
-        "Invalid token. Please log in again.",
-        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
-      ];
-      return Code401(null, null, res, null, reason);
-    }
-
-    reason = [
-      "An error occurred while updating the user account.",
-      "Hiba történt a felhasználói fiók frissítésekor.",
-    ];
     return Code500(error, null, res, null, reason);
   }
 };
@@ -564,20 +486,20 @@ const deleteUser = async (req, res) => {
 
     const { email, password, secureAnswer } = req.body;
 
-    if (!email || !password || !secureAnswer) {
-      reason = [
-        "Email, password, and secure answer are required.",
-        "E-mail, jelszó és biztonsági válasz szükséges.",
-      ];
-      return Code400(null, null, res, null, reason);
-    }
-
     if (!isAdmin) {
       reason = [
         "Only admins can delete users.",
         "Csak adminok törölhetnek felhasználókat.",
       ];
       return Code403(null, null, res, null, reason);
+    }
+
+    if (!email || !password || !secureAnswer) {
+      reason = [
+        "Email, password, and secure answer are required.",
+        "E-mail, jelszó és biztonsági válasz szükséges.",
+      ];
+      return Code400(null, null, res, null, reason);
     }
 
     const user = await User.findOne({ where: { email } });
@@ -621,14 +543,6 @@ const deleteUser = async (req, res) => {
       üzenet: "Felhasználó sikeresen törölve és archiválva.",
     });
   } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      reason = [
-        "Invalid token. Please log in again.",
-        "Érvénytelen token. Kérjük, jelentkezzen be újra.",
-      ];
-      return Code401(error, null, res, null, reason);
-    }
-
     reason = [
       "An error occurred while deleting the user.",
       "Hiba merült fel a felhasználó törlése közben.",
@@ -669,7 +583,6 @@ module.exports = {
   signupUser,
   loginUser,
   logoutUser,
-  updateAccount,
   verifySecureAnswer,
   resetPassword,
   deleteUser,

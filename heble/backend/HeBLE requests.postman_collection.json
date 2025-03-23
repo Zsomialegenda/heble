@@ -35,14 +35,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/users/12",
+							"raw": "localhost:3000/users/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"users",
-								"12"
+								"1"
 							]
 						}
 					},
@@ -121,65 +121,6 @@
 							"path": [
 								"users",
 								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Users",
-					"request": {
-						"auth": {
-							"type": "jwt",
-							"jwt": [
-								{
-									"key": "algorithm",
-									"value": "HS256",
-									"type": "string"
-								},
-								{
-									"key": "isSecretBase64Encoded",
-									"value": false,
-									"type": "boolean"
-								},
-								{
-									"key": "payload",
-									"value": "{}",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "headerPrefix",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "queryParamKey",
-									"value": "token",
-									"type": "string"
-								},
-								{
-									"key": "header",
-									"value": "{}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/users/generate",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"generate"
 							]
 						}
 					},
@@ -344,37 +285,6 @@
 								"users",
 								"forgot",
 								"reset"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update User information",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"newEmail\" : \"\",\r\n    \"newPassword\" : \"\",\r\n    \"secureAnswer\" : \"\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/users/update",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"update"
 							]
 						}
 					},
@@ -596,7 +506,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yMlQxNzoxNDo1NC42MTZaIiwiaWF0IjoxNzQyNjYzNjk0LCJleHAiOjE3NDI2OTI0OTR9.o32g9eVklmTMx7p8f4XuOZ_RRc31OONWbgNgFHdN38s",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yM1QxOToxNToxNi4zNDdaIiwiaWF0IjoxNzQyNzU3MzE2LCJleHAiOjE3NDI3ODYxMTZ9.rBWgWOUtE436U_Yxe1gCjjxFXm2bFzhexZsGL4Q21sw",
 									"type": "string"
 								}
 							]
@@ -1136,7 +1046,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"email\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1157,7 +1067,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Itt találhatók meg a törölt/kitiltott felhasználókhoz ffüződő HTTP kérések."
 		},
 		{
 			"name": "Experience",
@@ -1207,6 +1118,1228 @@
 				}
 			],
 			"description": "Itt tlálhatók meg a ffelhasználók tapasztalati pontjainak a végpontjai."
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Users test",
+					"item": [
+						{
+							"name": "Get user by id - 400",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/users/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by id - 404",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/users/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by email - 400",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/email",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by email - 404",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/email",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signup - 400",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"\",\r\n    \"lastName\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"secureAnswer\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signup - 409",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"asd\",\r\n    \"lastName\": \"asd\",\r\n    \"email\": \"admin\",\r\n    \"password\": \"ads\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login (regular user) - 400",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login (regular user) - 401",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"Kicsicsirke_1298\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiakBleGFtcGxlLmNvbSIsImxvZ2luQXQiOiIyMDI1LTAxLTI0VDExOjIzOjU5LjM5MFoiLCJpYXQiOjE3Mzc3MTc4MzksImV4cCI6MTczNzc0NjYzOX0.nV074zMS_hksZlhafgrwW4QFrFcJhn0gqF_8piTTM1I\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/logout",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout - 404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yM1QxODozMzo0Ni44ODlaIiwiaWF0IjoxNzQyNzU0ODI2LCJleHAiOjE3NDI3ODM2MjZ9.s79JpMmwNYaY1q3mIwchZRG6w8NILbx88hZN01wkRXE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiakBleGFtcGxlLmNvbSIsImxvZ2luQXQiOiIyMDI1LTAxLTI0VDExOjIzOjU5LjM5MFoiLCJpYXQiOjE3Mzc3MTc4MzksImV4cCI6MTczNzc0NjYzOX0.nV074zMS_hksZlhafgrwW4QFrFcJhn0gqF_8piTTM1I\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/logout",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot password - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"secureAnswer\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/forgot",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"forgot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot password - 404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"_\",\r\n    \"secureAnswer\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/forgot",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"forgot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot password - 401",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin\",\r\n    \"secureAnswer\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/forgot",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"forgot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"newPassword\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/forgot/reset",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"forgot",
+										"reset"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password - 404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"_\",\r\n    \"newPassword\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/forgot/reset",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"forgot",
+										"reset"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user (admin) - 401",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"secureAnswer\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/delete",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user (admin) - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjNUMTg6NTU6MDEuNDIyWiIsImlhdCI6MTc0Mjc1NjEwMSwiZXhwIjoxNzQyNzg0OTAxfQ.it1dmF1G_ldNVxS6j8EGSrE4avt_LOVKXCkiAPVtshw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"secureAnswer\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/delete",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user (admin) - 401",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjNUMTg6NTU6MDEuNDIyWiIsImlhdCI6MTc0Mjc1NjEwMSwiZXhwIjoxNzQyNzg0OTAxfQ.it1dmF1G_ldNVxS6j8EGSrE4avt_LOVKXCkiAPVtshw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"email\": \"admin\",\r\n    \"password\": \"_\",\r\n    \"secureAnswer\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/delete",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Exercises test",
+					"item": [
+						{
+							"name": "a user's exercises - 400",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/exercises/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"exercises",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "a user's exercises - 404",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/exercises/12",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"exercises",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get exercise - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/exercises/stats/a",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"exercises",
+										"stats",
+										"a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "log someone's exercises - 401",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImZvZG9yZ2VyZ29AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImxvZ2luQXQiOiIyMDI1LTAzLTEyVDExOjMxOjEyLjg1OFoiLCJpYXQiOjE3NDE3NzkwNzIsImV4cCI6MTc0MTgwNzg3Mn0.chLq1x-jD9qMyOs9jtlAghQ19F5_0LkXv23aDWpWsuw",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pushUps\": 15,\r\n    \"pullUps\": 15,\r\n    \"sitUps\": 15,\r\n    \"squats\": 15,\r\n    \"running\": 15\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/exercises/log",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"exercises",
+										"log"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "log someone's exercises - 401",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImZvZG9yZ2VyZ29AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImxvZ2luQXQiOiIyMDI1LTAzLTEyVDExOjMxOjEyLjg1OFoiLCJpYXQiOjE3NDE3NzkwNzIsImV4cCI6MTc0MTgwNzg3Mn0.chLq1x-jD9qMyOs9jtlAghQ19F5_0LkXv23aDWpWsuw",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pushUps\": 15,\r\n    \"pullUps\": 15,\r\n    \"sitUps\": 15,\r\n    \"squats\": 15,\r\n    \"running\": 15\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/exercises/log",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"exercises",
+										"log"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tokens test",
+					"item": [
+						{
+							"name": "Get one token by user id - 400",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/tokens/user/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"tokens",
+										"user",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get one token by user id - 404",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/tokens/user/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"tokens",
+										"user",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get token by its id - 400",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/tokens/a",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"tokens",
+										"a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get token by its id - 404",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/tokens/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"tokens",
+										"999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Achievements test",
+					"item": [
+						{
+							"name": "one Achievement - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/achievements/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "one Achievement - 404 Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/achievements/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Achivement - 400",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"pushUpsRequired\": 0,\r\n    \"pullUpsRequired\": 0,\r\n    \"squatsRequired\": 0,\r\n    \"runningRequired\": 0\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/achievements",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Achivement - 400 Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"_\",\r\n    \"description\": \"_\",\r\n    \"pushUpsRequired\": -1,\r\n    \"pullUpsRequired\": -1,\r\n    \"sitUpsRequired\": -1,\r\n    \"squatsRequired\": 0,\r\n    \"runningRequired\": 0\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/achievements",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update achievement - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"\",\r\n    \"description\" : \"\",\r\n    \"pushUpsRequired\" : 0,\r\n    \"pullUpsRequired\" : 0,\r\n    \"sitUpsRequired\" : 0,\r\n    \"squatsRequired\" : 0,\r\n    \"runningRequired\" : 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/achievements/a",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements",
+										"a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update achievement - 404",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"\",\r\n    \"description\" : \"\",\r\n    \"pushUpsRequired\" : 0,\r\n    \"pullUpsRequired\" : 0,\r\n    \"sitUpsRequired\" : 0,\r\n    \"squatsRequired\" : 0,\r\n    \"runningRequired\" : 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/achievements/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update achievement - 404 Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"\",\r\n    \"description\" : \"\",\r\n    \"pushUpsRequired\" : 0,\r\n    \"pullUpsRequired\" : 0,\r\n    \"sitUpsRequired\" : 0,\r\n    \"squatsRequired\" : 0,\r\n    \"runningRequired\" : 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/achievements/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"achievements",
+										"999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UserAchievements test",
+					"item": [
+						{
+							"name": "one user's achievement identified by Id - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/userAchivements/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"userAchivements",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "one user's achievement identified by Id - 404",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/userAchivements/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"userAchivements",
+										"999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DeletedOrBannedUsers test",
+					"item": [
+						{
+							"name": "one Del/Ban User - 400",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/delorban/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"delorban",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "one Del/Ban User - 404",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/delorban/1",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"delorban",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "one Del/Ban User by email - 400",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/delorban/email",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"delorban",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "one Del/Ban User by email - 404 Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"_\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/delorban/email",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"delorban",
+										"email"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Experience test",
+					"item": [
+						{
+							"name": "Get one user's experience - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/experiences/_",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"experiences",
+										"_"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get one user's experience - 404",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/experiences/999",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"experiences",
+										"999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Itt találhatók meg a tesztesetek, amik igazából a megffelelő hibbaüzenetek kezelését tesztelik (a sikeres válasz és adatbázishiba kivételével)."
 		}
 	]
 }

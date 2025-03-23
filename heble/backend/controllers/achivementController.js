@@ -42,17 +42,20 @@ const getAllAchievements = async (req, res) => {
   }
 };
 
-/**
+/** getAchievementById -- Az adott teljesítmény lekérdezése
  *
- * @param {*} req
- * @param {*} res
- * @returns
+ * @param {*} req Paraméterként az adott teljesítmény id-jét adja meg
+ * @param {*} res Válaszként visszaadja az adott teljesítményt - 200
+ * @returns Hibát küld ha:
+ *          1. Nem szám az id - 400
+ *          2. Nem található az achievement - 404
+ *          3. Szerverhiba - 500
  */
 const getAchievementById = async (req, res) => {
   try {
     const achievementId = parseInt(req.params.id, 10);
 
-    if (isNaN(achievementId) || achievementId <= 0) {
+    if (isNaN(achievementId)) {
       reason = [
         "Invalid achievement ID.",
         "Érvénytelen azonosító a teljesítménynek.",
@@ -81,35 +84,67 @@ const getAchievementById = async (req, res) => {
  *
  * @param {*} req A kérés törzse tartalmazza az új teljesítmény adatait.
  * @param {*} res A válasz visszaadja a létrehozott teljesítményt - 201
- * @returns Hibát küld vissza szerverhiba - 500
+ * @returns Hibát küld ha:
+ *          1. Nincs adat a kérésben - 400
+ *          2. Rosszak az adatok - 400
+ *          3. Szerverhiba - 500
  */
 const addAchievement = async (req, res) => {
   const {
     name,
     description,
-    pushUpsRequired,
-    pullUpsRequired,
-    squatsRequired,
-    runningRequired,
+    pushUpsRequired = 0,
+    pullUpsRequired = 0,
+    sitUpsRequired = 0,
+    squatsRequired = 0,
+    runningRequired = 0,
   } = req.body;
+
+  if (!name || !description) {
+    const reason = [
+      "Name and description are required.",
+      "A név és a leírás megadása kötelező.",
+    ];
+    return Code400(null, null, res, null, reason);
+  }
+
+  if (
+    isNaN(pushUpsRequired) ||
+    pushUpsRequired < 0 ||
+    isNaN(pullUpsRequired) ||
+    pullUpsRequired < 0 ||
+    isNaN(sitUpsRequired) ||
+    sitUpsRequired < 0 ||
+    isNaN(squatsRequired) ||
+    squatsRequired < 0 ||
+    isNaN(runningRequired) ||
+    runningRequired < 0
+  ) {
+    const reason = [
+      "Invalid values provided. All exercise requirements must be non-negative numbers.",
+      "Érvénytelen értékek. Minden gyakorlatkövetelménynek nem negatív számnak kell lennie.",
+    ];
+    return Code400(null, null, res, null, reason);
+  }
 
   try {
     const newAchievement = await Achievement.create({
       name,
       description,
-      pushUpsRequired: pushUpsRequired || 0,
-      pullUpsRequired: pullUpsRequired || 0,
-      squatsRequired: squatsRequired || 0,
-      runningRequired: runningRequired || 0,
+      pushUpsRequired,
+      pullUpsRequired,
+      sitUpsRequired,
+      squatsRequired,
+      runningRequired,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Achievement created successfully.",
       üzenet: "Az eredmény sikeresen létrehozva.",
       data: newAchievement,
     });
   } catch (error) {
-    reason = [
+    const reason = [
       "Failed to create achievement.",
       "Hiba merült fel az eredmény létrehozása közben.",
     ];
@@ -126,7 +161,13 @@ const addAchievement = async (req, res) => {
  *              2. Szerverhiba - 500
  */
 const updateAchievement = async (req, res) => {
-  const achievementId = req.params.id;
+  const achievementId = parseInt(req.params.id, 10);
+
+  if (isNaN(achievementId)) {
+    reason = ["Invalid achievement ID.", "Érvénytelen teljesitmény azonosító."];
+    return Code400(null, null, res, null, reason);
+  }
+
   const {
     name,
     description,

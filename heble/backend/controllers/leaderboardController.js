@@ -24,7 +24,7 @@ const ALLOWED_EXERCISES = ["pushUps", "pullUps", "sitUps", "squats", "running"];
 
 /** getLeaderboardByXP -- Legjobb 10 felhasználó lekérdezése XP alapján
  *
- * @param {*} req Az üzenet nem tartalmaz paramétereket.
+ * @param {*} req Az üzenet nem tartalmaz paramétereket
  * @param {*} res Válaszként visszaadja a legjobb 10 felhasználó XP ranglistáját - 200
  * @returns Hibát küld vissza szerverhiba esetén - 500
  */
@@ -64,7 +64,7 @@ const getLeaderboardByXP = async (req, res) => {
 
 /** getLeaderboardByAchievements -- Legjobb 10 felhasználó lekérdezése elért eredmények száma alapján
  *
- * @param {*} req Az üzenet nem tartalmaz paramétereket.
+ * @param {*} req Az üzenet nem tartalmaz paramétereket
  * @param {*} res Válaszként visszaadja a top 10 felhasználó eredmény ranglistáját - 200
  * @returns Hibát küld vissza szerverhiba esetén - 500
  */
@@ -111,7 +111,7 @@ const getLeaderboardByAchievements = async (req, res) => {
 
 /** getLeaderboardByExercise -- Legjobb 10 felhasználó lekérdezése adott gyakorlat neve szerint
  *
- * @param {*} req Az üzenet tartalmazza az `exercise name` paramétert az URL-ben.
+ * @param {*} req Az üzenet tartalmazza az `exercise name` paramétert az URL-ben
  * @param {*} res Válaszként visszaadja a megadott gyakorlat név szerinti első 10 felhasználót - 200
  * @returns Hibákat küld vissza:
  *              1. Ha az `exercise name` érvénytelen - 400

@@ -9,12 +9,9 @@ const {
   logoutUser,
   deleteUser,
   countUsers,
-  updateAccount,
   verifySecureAnswer,
   resetPassword,
 } = require("../controllers/userController");
-
-const { generateUsers } = require("../utils/generator");
 
 // GET metódusojk
 router.get("/", getAllUsers);
@@ -30,11 +27,6 @@ router.post("/email", getUserByEmail);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/signup", signupUser);
-
-router.post("/generate", generateUsers);
-
-// PATCH metódusojk
-router.patch("/update", updateAccount);
 
 // DELETE metódusojk
 router.delete("/delete/:id?", deleteUser);

@@ -51,13 +51,19 @@ const fetchAllTokens = async (req, res) => {
  * @returns Szerverhiba esetén hibát küld vissza - 500
  */
 const fetchTokenById = async (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
+
+  if (isNaN(id)) {
+    reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
+    return Code400(null, null, res, null, reason);
+  }
 
   try {
     const token = await Token.findByPk(id);
 
     if (!token) {
-      return Code404(null, res);
+      reason = ["Token not found.", "Token nem található."];
+      return Code404(null, null, res, null, reason);
     }
 
     return res.status(200).json({
@@ -85,18 +91,19 @@ const fetchTokenById = async (req, res) => {
  *              3. szerverhiba - 500
  */
 const fetchTokenByUserId = async (req, res) => {
-  const userId = parseInt(req.params.userId, 10);
+  const userId = parseInt(req.params.id, 10);
 
   if (isNaN(userId)) {
     reason = ["Invalid user ID.", "Érvénytelen felhasználói azonosító."];
-    return Code400(null, res, reason);
+    return Code400(null, null, res, null, reason);
   }
 
   try {
     const token = await Token.findOne({ where: { userId } });
 
     if (!token) {
-      return Code404(null, res);
+      reason = ["Token not found.", "Token nem található."];
+      return Code404(null, null, res, null, reason);
     }
 
     return res.status(200).json({
@@ -106,7 +113,6 @@ const fetchTokenByUserId = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error("Error fetching token by user ID:", error);
     reason = [
       "Error fetching token by user ID.",
       "Hiba történt a token lekérése közben.",
@@ -131,7 +137,6 @@ const countToken = async (req, res) => {
       tokenCount,
     });
   } catch (error) {
-    console.error("Error fetching token count:", error);
     reason = [
       "Error fetching token count.",
       "Hiba történt a tokenek számának lekérése közben.",

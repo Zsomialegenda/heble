@@ -23,6 +23,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
 const userRoute = require("./routes/userRoute");
 const exerciseRoute = require("./routes/exerciseRoute");
 const achievementRoute = require("./routes/achivementRoute");
@@ -30,6 +31,7 @@ const userAchievementRoute = require("./routes/userAchievementRoute");
 const experienceRoute = require("./routes/experienceRoute");
 const tokenRoute = require("./routes/tokenRoute");
 const leaderboardRoute = require("./routes/leaderboardRoute");
+const delOrBanUserRoute = require("./routes/delOrBanUserRoute");
 
 async function seedData() {
   sequelize
@@ -65,6 +67,7 @@ app.use("/userAchivements", userAchievementRoute);
 app.use("/experiences", experienceRoute);
 app.use("/tokens", tokenRoute);
 app.use("/leaderboard", leaderboardRoute);
+app.use("/delorban", delOrBanUserRoute);
 
 // Törlés -- 1 óra
 setInterval(checkAndDeleteExpiredTokens, 3600000);
