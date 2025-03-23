@@ -47,5 +47,5 @@ module.exports = {
   Code403,
   Code404,
   Code409,
-  Code500
+  Code500,
 };

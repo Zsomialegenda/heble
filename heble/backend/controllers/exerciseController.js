@@ -21,7 +21,7 @@ const {
 } = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
-const { assignAchievements } = require("./userAchivementController");
+const { assignAchievements } = require("../utils/checkAchievements");
 
 /** getAllExercises -- Az összes gyakorlat lekérdezése
  *
@@ -156,7 +156,7 @@ const logExerciseAndGainXP = async (req, res, next) => {
   }
 
   const { pushUps, pullUps, sitUps, squats, running } = req.body;
-  const requestUserId = decoded.userId;
+  const requestUserId = Number(decoded.userId);
   const isAdmin = decoded.isAdmin || false;
   const userId = parseInt(decoded.userId, 10);
 
@@ -173,7 +173,13 @@ const logExerciseAndGainXP = async (req, res, next) => {
     return Code403(null, req, res, next, reason);
   }
 
-  if (!pushUps && !pullUps && !sitUps && !squats && !running) {
+  if (
+    pushUps === undefined &&
+    pullUps === undefined &&
+    sitUps === undefined &&
+    squats === undefined &&
+    running === undefined
+  ) {
     reason = [
       "Exercise not found for this user!",
       "Gyakorlat nem található ehhez a felhasználóhoz!",
@@ -182,7 +188,7 @@ const logExerciseAndGainXP = async (req, res, next) => {
   }
 
   try {
-    const exercise = await Exercise.findOrCreate({
+    const [exercise] = await Exercise.findOrCreate({
       where: { userId },
       defaults: {
         userId,
@@ -192,12 +198,12 @@ const logExerciseAndGainXP = async (req, res, next) => {
         squats: 0,
         running: 0,
       },
-    }).then(([record]) => record);
+    });
 
-    const userExperience = await UserExperience.findOrCreate({
+    const [userExperience] = await UserExperience.findOrCreate({
       where: { userId },
       defaults: { userId, level: 1, xp: 0, xpToNextLevel: 100 },
-    }).then(([record]) => record);
+    });
 
     const xpMultipliers = {
       pushUps: 10,
@@ -260,6 +266,7 @@ const logExerciseAndGainXP = async (req, res, next) => {
     return Code500(error, req, res, next, reason);
   }
 };
+
 
 /** statsExercises -- Összesített statisztikák
  *

@@ -43,33 +43,41 @@ const getAllAchievements = async (req, res) => {
 };
 
 /**
- * 
+ *
  * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} res
+ * @returns
  */
 const getAchievementById = async (req, res) => {
+  
   try {
-    const { id } = req.params;
+    const achievementId = parseInt(req.params.id, 10);
 
-    if (!id || isNaN(id)) {
-      reason = ["Invalid achievement ID.", "Érvénytelen azanositó a teljesitménynek."]
-      return Code400(null, null, res, null, reason);
+    if (isNaN(achievementId) || achievementId <= 0) {
+      reason = [
+        "Invalid achievement ID.",
+        "Érvénytelen azonosító a teljesítménynek."
+      ];
+      return Code400(null, req, res, null, reason);
     }
 
-    const achievement = await Achievement.findByPk(id);
+    const achievement = await Achievement.findByPk(achievementId);
 
     if (!achievement) {
-      reason = ["Achievement not found.", "Achievement nem találva."]
-      return Code404(null, null, res, null, reason);
+      reason = ["Achievement not found.", "Achievement nem találva."];
+      return Code404(null, req, res, null, reason);
     }
 
     return res.status(200).json(achievement);
   } catch (error) {
-    reason = ["Failed to fetch achievement.", "Nem sikerült lekérni a teljesitményt."]
-    return Code500(error, null, res, null, reason);
+    reason = [
+      "Failed to fetch achievement.",
+      "Nem sikerült lekérni a teljesítményt."
+    ];
+    return Code500(error, req, res, null, reason); 
   }
 };
+
 /** addAchievement -- Új teljesítmény hozzáadása
  *
  * @param {*} req A kérés törzse tartalmazza az új teljesítmény adatait.
@@ -166,5 +174,5 @@ module.exports = {
   getAllAchievements,
   getAchievementById,
   addAchievement,
-  updateAchievement
+  updateAchievement,
 };

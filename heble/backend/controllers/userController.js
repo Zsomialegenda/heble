@@ -37,7 +37,7 @@ const getAllUsers = async (req, res) => {
       include: [
         { model: Exercise },
         { model: UserExperience },
-        UserAchievement,
+        { model: UserAchievement}
       ],
     });
 
@@ -67,7 +67,11 @@ const getUserByID = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { id: userId },
-      include: [Exercise, UserExperience, UserAchievement],
+      include: [
+        { model: Exercise },
+        { model: UserExperience },
+        { model: UserAchievement}
+      ],
     });
 
     if (!user) {
@@ -101,7 +105,11 @@ const getUserByEmail = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { email },
-      include: [Exercise, UserExperience, UserAchievement],
+      include: [
+        { model: Exercise },
+        { model: UserExperience },
+        { model: UserAchievement}
+      ],
     });
 
     if (!user) {

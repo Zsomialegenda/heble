@@ -18,21 +18,19 @@ const {
 } = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
-/**
+/** getAllUserAchievements - Minden felhasználó és az általuk elért achievement lekérdezése
  *
  * @param {*} req Nem vár bemenetet
  * @param {*} res Visszaadja az összes felhasználóhoz tartozó eredményt - 200
  * @returns Ha belső hiba történik - 500
  */
-const getAllAchievements = async (req, res) => {
+const getAllUserAchievements = async (req, res) => {
   try {
     const achievements = await UserAchievement.findAll({
       include: [
         {
           model: User,
           attributes: ["id", "firstName", "lastName", "email"],
-        },
-        {
           model: Achievement,
           attributes: ["id", "name", "description"],
         },
@@ -44,9 +42,11 @@ const getAllAchievements = async (req, res) => {
       üzenet: "Az eredmények sikeresen lekérve.",
       data: achievements,
     });
-
   } catch (error) {
-    reason = ["Failed to fetch achievements.", "Nem sikerült lekérni az eredményeket." ];
+    reason = [
+      "Failed to fetch achievements.",
+      "Nem sikerült lekérni az eredményeket.",
+    ];
     return Code500(error, null, res, null, reason);
   }
 };
@@ -68,9 +68,9 @@ const getUserAchievements = async (req, res) => {
     return Code400(null, null, res, null, reason);
   }
 
- try {
-    const user = await User.findByPk(userId );
-    
+  try {
+    const user = await User.findByPk(userId);
+
     if (!user) {
       console.error(`User with ID ${userId} not found.`);
       reason = ["User not found.", "Nem található felhasználó."];
@@ -87,7 +87,10 @@ const getUserAchievements = async (req, res) => {
     });
 
     if (userAchievements.length === 0) {
-      reason = ["This user hasn't completed a single achievement.", "Ez a feljassználó nem teljesitett még achievementet."];
+      reason = [
+        "This user hasn't completed a single achievement.",
+        "Ez a feljassználó nem teljesitett még achievementet.",
+      ];
       return Code404(null, null, res, null, reason);
     }
 
@@ -97,73 +100,11 @@ const getUserAchievements = async (req, res) => {
       data: userAchievements,
     });
   } catch (error) {
-    reason = ["Failed to fetch user achievements.", "Nem sikerült lekérni a felhasználó eredményeit.",];
+    reason = [
+      "Failed to fetch user achievements.",
+      "Nem sikerült lekérni a felhasználó eredményeit.",
+    ];
     return Code500(error, null, res, null, reason);
-  }
-};
-
-/** checkAchievements -- Ellenőrzi, hogy egy felhasználó milyen teljesítményeket ért el
- *
- * @param {*} userId A felhasználó egyedi azonosítója
- * @returns 1. Visszaadja a felhasználó által elért eredményeket
- *          2. Ha nincs a felhasználóhoz tartozó gyakorlat üres tömböt ad vissza
- */
-const checkAchievements = async (userId) => {
-  try {
-    const userExercises = await Exercise.findOne({ where: { userId } });
-    if (!userExercises) {
-      return [];
-    }
-
-    const achievements = await Achievement.findAll();
-
-    const earnedAchievements = achievements.filter((achievement) => {
-      console.log(`Checking achievement: ${achievement.name}`);
-      const requirements =
-        userExercises.pushUps >= achievement.pushUpsRequired &&
-        userExercises.pullUps >= achievement.pullUpsRequired &&
-        userExercises.squats >= achievement.squatsRequired &&
-        userExercises.running >= achievement.runningRequired;
-
-      return requirements;
-    });
-
-    return earnedAchievements;
-  } catch (error) {
-    console.error("Error/Hiba:", error);
-    throw error;
-  }
-};
-
-/** assignAchievements -- Megszerzett eredmények hozzárendelése egy felhasználóhoz
- *
- * @param {*} userId A felhasználó egyedi azonosítója
- * @returns A frissen megszerzett eredményeket adja vissza
- */
-const assignAchievements = async (userId) => {
-  try {
-    const earnedAchievements = await checkAchievements(userId);
-
-    const newAchievements = [];
-
-    for (const achievement of earnedAchievements) {
-      const alreadyEarned = await UserAchievement.findOne({
-        where: { userId: userId, achievementId: achievement.id },
-      });
-
-      if (!alreadyEarned) {
-        await UserAchievement.create({
-          userId: userId,
-          achievementId: achievement.id,
-        });
-        newAchievements.push(achievement);
-      }
-    }
-
-    return newAchievements;
-  } catch (error) {
-    console.error("Error/Hiba:", error);
-    throw error;
   }
 };
 
@@ -195,14 +136,16 @@ const getAchievementStats = async (req, res) => {
 
     res.json({ data });
   } catch (error) {
-    reason = ["Failed to fetch achievement statistics.", "Hiba történt az achievementek lekérdezése során.",];
+    reason = [
+      "Failed to fetch achievement statistics.",
+      "Hiba történt az achievementek lekérdezése során.",
+    ];
     return Code500(error, null, res, null, reason);
   }
 };
 
 module.exports = {
-  getAllAchievements,
+  getAllUserAchievements,
   getUserAchievements,
-  assignAchievements,
   getAchievementStats,
 };

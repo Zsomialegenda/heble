@@ -4,13 +4,13 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -668.8875,
-    "scrollLeft": -358.5853,
+    "scrollTop": -425.0738,
+    "scrollLeft": -483.7014,
     "zoomLevel": 0.73,
     "show": 431,
     "database": 4,
     "databaseName": "",
-    "canvasType": "ERD",
+    "canvasType": "@dineug/erd-editor/builtin-visualization",
     "language": 1,
     "tableNameCase": 4,
     "columnNameCase": 2,
@@ -78,15 +78,15 @@
           "MlhPoHUgg_cItV8AZWxka"
         ],
         "ui": {
-          "x": 66.8578,
-          "y": 297.5762,
+          "x": 120.9561,
+          "y": 227.0844,
           "zIndex": 2,
           "widthName": 74,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1741108778559,
+          "updateAt": 1742662101878,
           "createAt": 1741108479183
         }
       },

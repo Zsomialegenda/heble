@@ -11,16 +11,16 @@ const { generateAchievements, generateUsers } = require("./utils/generator");
 
 const app = express();
 
-// Middleware
 
-// app.use(
-//   session({
-//     secret: "Kicsicsirke_1298",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: false },  
-//   })
-// );
+// Middleware
+app.use(
+  session({
+    secret: "Kicsicsirke_1298",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -31,7 +31,6 @@ const userAchievementRoute = require("./routes/userAchievementRoute");
 const experienceRoute = require("./routes/experienceRoute");
 const tokenRoute = require("./routes/tokenRoute");
 const leaderboardRoute = require("./routes/leaderboardRoute");
-
 
 async function seedData() {
   sequelize

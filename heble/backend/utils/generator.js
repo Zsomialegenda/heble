@@ -1,6 +1,4 @@
 const bcrypt = require("bcrypt");
-const fs = require("fs");
-const path = require("path");
 const { faker } = require("@faker-js/faker");
 
 const {
@@ -13,14 +11,16 @@ const {
   DeletedOrBannedUser,
   UserAchievement,
 } = require("../models");
-const { assignAchievements } = require("../controllers/userAchivementController");
+const {
+  assignAchievements,
+} = require("../utils/checkAchievements");
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
 /** generateUsers -- felhasználók generálása
  *
- * @returns Feltölt random generált felhasználókat a Users táblába és 
+ * @returns Feltölt random generált felhasználókat a Users táblába és
  *          egy 'generated_users.json' nevü fájlba leirja el is menti azokat
  */
 const generateUsers = async (req, res) => {
@@ -38,7 +38,7 @@ const generateUsers = async (req, res) => {
       email: ADMIN_USERNAME,
       password: hashedAdminPassword,
       isAdmin: true,
-      secureAnswer: "heble"
+      secureAnswer: "heble",
     };
 
     const users = await Promise.all(
@@ -48,7 +48,7 @@ const generateUsers = async (req, res) => {
         const email = faker.internet.email();
         const password = await bcrypt.hash(faker.internet.password(), 10);
         const isAdmin = false;
-        const secureAnswer = "heble"
+        const secureAnswer = "heble";
 
         return { firstName, lastName, email, password, isAdmin, secureAnswer };
       })
@@ -64,7 +64,7 @@ const generateUsers = async (req, res) => {
         pullUps: faker.number.int({ min: 0, max: 100 }),
         sitUps: faker.number.int({ min: 0, max: 300 }),
         squats: faker.number.int({ min: 0, max: 500 }),
-        running: faker.number.float({ min: 0, max: 50, precision: 0.1 }),
+        running: faker.number.int({ min: 0, max: 50 }),
       });
 
       await UserExperience.create({
@@ -83,12 +83,10 @@ const generateUsers = async (req, res) => {
   }
 };
 
-
-
 /** generateAchievements - teljesitmény generálás
- * 
+ *
  * Előre meghatározott teljesitményeket generál a szerver elinditása után
- * 
+ *
  */
 const generateAchievements = async () => {
   const achievementsData = [
@@ -126,7 +124,8 @@ const generateAchievements = async () => {
     },
     {
       name: "Sokoldalú sportoló",
-      description: "Végezzen el 20 fekvőtámaszt, 10 Húzódzkodást, 30 guggolást és fusson 1 kilométert!",
+      description:
+        "Végezzen el 20 fekvőtámaszt, 10 Húzódzkodást, 30 guggolást és fusson 1 kilométert!",
       pushUpsRequired: 20,
       pullUpsRequired: 10,
       squatsRequired: 30,
@@ -134,7 +133,8 @@ const generateAchievements = async () => {
     },
     {
       name: "Haladó sportoló",
-      description: "Érjen el összesen 100 fekvőtámaszt, 50 Húzódzkodást, 150 guggolást és fusson 10 kilométert!",
+      description:
+        "Érjen el összesen 100 fekvőtámaszt, 50 Húzódzkodást, 150 guggolást és fusson 10 kilométert!",
       pushUpsRequired: 100,
       pullUpsRequired: 50,
       squatsRequired: 150,
@@ -158,7 +158,7 @@ const generateAchievements = async () => {
       });
     }
   } catch (error) {
-    console.error("Error initializing achievements:", error);
+    console.error("Hiba az achievementek generálása közben:", error);
   }
 };
 

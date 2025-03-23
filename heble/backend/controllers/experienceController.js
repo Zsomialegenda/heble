@@ -83,5 +83,5 @@ const getUserExperience = async (req, res) => {
 
 module.exports = {
   getAllExperiences,
-  getUserExperience
-}
+  getUserExperience,
+};
