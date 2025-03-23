@@ -1,0 +1,1212 @@
+{
+	"info": {
+		"_postman_id": "970d0357-fa03-423e-a94e-b972d75f6092",
+		"name": "HeBLE requests",
+		"description": "This is the collection of HeBLE requests for our last term prject.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39982026",
+		"_collection_link": "https://heble6.postman.co/workspace/HeBLE-Workspace~d8f98ec3-6bb5-4548-97de-6a20ebe103db/collection/39982026-970d0357-fa03-423e-a94e-b972d75f6092?action=share&source=collection_link&creator=39982026"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/12",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "count users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/count",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Georgianna_Larson@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/email",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"asd\",\r\n    \"lastName\": \"asd\",\r\n    \"email\": \"asd@example.com\",\r\n    \"password\": \"asd\",\r\n    \"secureAnswer\": \"Buksi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Users",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/generate",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login (regular user)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"asd@example.com\",\r\n    \"password\": \"asd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login (admin)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"Nagycsirke_1298\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiakBleGFtcGxlLmNvbSIsImxvZ2luQXQiOiIyMDI1LTAxLTI0VDExOjIzOjU5LjM5MFoiLCJpYXQiOjE3Mzc3MTc4MzksImV4cCI6MTczNzc0NjYzOX0.nV074zMS_hksZlhafgrwW4QFrFcJhn0gqF_8piTTM1I\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"asd@example.com\",\r\n    \"secureAnswer\": \"Buksi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/forgot",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"asd@example.com\",\r\n    \"newPassword\": \"buksi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/forgot/reset",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"forgot",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User information",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newEmail\" : \"\",\r\n    \"newPassword\" : \"\",\r\n    \"secureAnswer\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user (admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjFUMTY6Mjg6MzIuMTU0WiIsImlhdCI6MTc0MjU3NDUxMiwiZXhwIjoxNzQyNjAzMzEyfQ.a8WjWWgAKnrEC2OwTnO3K2zy5BSjn2Tjr-qb8JTwKtE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"email\": \"Raven21@hotmail.com\",\r\n    \"password\": \"Nagycsirke_1298\",\r\n    \"secureAnswer\": \"heble\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Itt találhatók a felhasználókhoz füződő HTTP kérések.  \nAz automatikusan generált felhasználókhoz található adataok a ../utils/**generated_users.json** fájla találhatók meg. Ezeket a felhasználók reprezentativ okokból vannak legenerálva és onnan ismerhetők fel, hogy a secureAnswer rekordban mindeggggyiknek heble van rögzitve."
+		},
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "all exercises for all user's",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/exercises",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "a user's exercises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/12",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SUM of pushups",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/pushUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"pushUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SUM of pullUps",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/pullUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"pullUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SUM of sitUps",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/sitUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"sitUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SUM of squats",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/squats",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"squats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SUM of running",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/running",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"running"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log someone's exercises",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yMlQxNzoxNDo1NC42MTZaIiwiaWF0IjoxNzQyNjYzNjk0LCJleHAiOjE3NDI2OTI0OTR9.o32g9eVklmTMx7p8f4XuOZ_RRc31OONWbgNgFHdN38s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImZvZG9yZ2VyZ29AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImxvZ2luQXQiOiIyMDI1LTAzLTEyVDExOjMxOjEyLjg1OFoiLCJpYXQiOjE3NDE3NzkwNzIsImV4cCI6MTc0MTgwNzg3Mn0.chLq1x-jD9qMyOs9jtlAghQ19F5_0LkXv23aDWpWsuw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pushUps\": 15,\r\n    \"pullUps\": 15,\r\n    \"sitUps\": 15,\r\n    \"squats\": 15,\r\n    \"running\": 15\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/exercises/log",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"log"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statitics for chart",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/exercises/stats/sum",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exercises",
+								"stats",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Itt vannak rögzitve a felhasználók gyakorlataihoz szükséges HTTP kérések."
+		},
+		{
+			"name": "Tokens",
+			"item": [
+				{
+					"name": "Gett all tokens",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tokens",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one token by user id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tokens/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tokens",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get token by its id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tokens/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tokens",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "active users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tokens/count",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tokens",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "A bejelentkezéskor rögzitett tokenek HTTP kéerései vannak itt."
+		},
+		{
+			"name": "Achievements",
+			"item": [
+				{
+					"name": "all Achievements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/achievements",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"achievements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one Achievement",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/achievements/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"achievements",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Achivement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marathon Runner\",\r\n    \"description\": \"Run a total of 42 kilometers.\",\r\n    \"pushUpsRequired\": 0,\r\n    \"pullUpsRequired\": 0,\r\n    \"squatsRequired\": 0,\r\n    \"runningRequired\": 42\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/achievements",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"achievements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update achievement",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"hebe\",\r\n    \"description\" : \"\",\r\n    \"pushUpsRequired\" : 50,\r\n    \"pullUpsRequired\" : 50,\r\n    \"sitUpsRequired\" : 50,\r\n    \"squatsRequired\" : 50,\r\n    \"runningRequired\" : 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/achievements/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"achievements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "A z adatázisban legenerált achievementek HTTP kérései vannak itt."
+		},
+		{
+			"name": "UserAchievements",
+			"item": [
+				{
+					"name": "all users completed achievements",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/userAchivements",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userAchivements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one user's achievement identified by Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/userAchivements/12",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userAchivements",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user achivements for statistics",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/userAchivements/stats/sum",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userAchivements",
+								"stats",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "A felhasználók által elért achievementek HTTP kérései vannak itt."
+		},
+		{
+			"name": "Leaderboard",
+			"item": [
+				{
+					"name": "pushUps Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/exercise/pushUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"exercise",
+								"pushUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pullUps Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/exercise/pullUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"exercise",
+								"pullUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sitUps Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/exercise/sitUps",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"exercise",
+								"sitUps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "squats Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/exercise/squats",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"exercise",
+								"squats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "running Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/exercise/running",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"exercise",
+								"running"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "XP Leaderboard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/xp",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"xp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Achievement Leaderoard",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/leaderboard/achievements",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"leaderboard",
+								"achievements"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Az adatbázisab felvitt adatok alapján állitott ranglisták kérései vann kitt."
+		},
+		{
+			"name": "DeletedOrBannedUsers",
+			"item": [
+				{
+					"name": "All Ban/Del Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/delorban/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delorban",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one Del/Ban User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/delorban/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delorban",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one Del/Ban User by email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"email\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/delorban/email",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delorban",
+								"email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Experience",
+			"item": [
+				{
+					"name": "Get all experience",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/experiences",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"experiences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one user's experience",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/experiences/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"experiences",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Itt tlálhatók meg a ffelhasználók tapasztalati pontjainak a végpontjai."
+		}
+	]
+}
