@@ -108,8 +108,7 @@ Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív inter
 | **/delorban - Szülő útvvonal** | | |
 | `/`                             | GET         | Az összes kitiltott/törölt felhasználó lekérdezése |  200 OK - Sikeres lekérdezés <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/{id}`                         | GET         | Egy adott kitiltott/törölt felhasználó lekérdezése ID alapján | 200 OK - Sikeres lekérdezés <br/> 400 Bad request - Nem megfeflelő az ID <br/> 404 Not Found - A felhasználó nem található <br/> 500 Internal Server Error - Sikertelen lekérdezés |
-| `/email` | GET | Egy adott kitiltott/törölt felhasználó lekérdezése E-mail alapján | 200 OK - Sikeres lekérdezés <br/> 400 Bad request -
-Az e-mail nincs megadva <br/> 404 Not Found - A felhasználó nem található <br/> 500 Internal Server - Sikertelen lekérdezés |
+| `/email` | GET | Egy adott kitiltott/törölt felhasználó lekérdezése E-mail alapján | 200 OK - Sikeres lekérdezés <br/> 400 Bad request - Az e-mail nincs megadva <br/> 404 Not Found - A felhasználó nem található <br/> 500 Internal Server - Sikertelen lekérdezés |
 | **/achievements - Szülő útvonal** | | | |
 | `/`                             | GET         | Az összes elért eredmény lekérése. | 200 OK - Összes eredmény lekérve <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/{id}`                         | GET         | Egy adott eredmény lekérése ID alapján. | 200 OK - Eredmény megtalálva <br/> 400 Bad Request - Érvénytelen adatok <br/> 404 Not Found - Eredmény nem létezik |
@@ -121,7 +120,7 @@ Az e-mail nincs megadva <br/> 404 Not Found - A felhasználó nem található <b
 | `/stats/sum`                    | GET         | Összesített edzésstatisztika lekérése. | 200 OK - Sikeres lekérdezés <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/stats/:type`                  | GET         | Egy adott edzéstípus statisztikájának lekérése. | 200 OK - Sikeres lekérdezés <br/> 400 Bad Request - Érvénytelen edzéstípus <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/log`                          | POST        | Edzésnaplózás és XP szerzés. | 200 OK - Sikeres naplózás <br/> 401 Unauthorized - Érvénytelen token <br/> 400 Bad Request - Érvénytelen ID <br/> 403 Forbidden - Csak saját adatok módosíthatók <br/> 400 Bad Request - Érvénytelen formátum <br/> 500 Internal Server Error - Sikertelen naplózás |
-| **/leaderboard - Szülő útvonal** | | | |
+| **/leaderboard - Szülő útvonal** | | | 
 | `/xp`                           | GET         | Ranglista XP alapján. | 200 OK - XP alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/achievements`                 | GET         | Ranglista elért eredmények alapján. | 200 OK - Eredmény alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/exercise/{type}`              | GET         | Ranglista edzéstípus alapján. | 200 OK - Edzéstípus alapú ranglista <br/> 500 Internal Server Error - Sikertelen lekérdezés |
