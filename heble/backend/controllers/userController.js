@@ -325,7 +325,7 @@ const loginUser = async (req, res) => {
 
 /** logoutUser -- felhasználó kijelentkezés
  *
- * @param {*} req token
+ * @param {*} req token - fejléc
  * @param {*} res Kitörli a táblából a tokent és kijelentkeztet - 200
  * @returns Hibákat ad vissza ha:
  *          1. nincs token - 400
@@ -359,6 +359,75 @@ const logoutUser = async (req, res) => {
       üzenet: "Sikeres kijelentkezés.",
     });
   } catch (error) {
+    return Code500(error, null, res, null, reason);
+  }
+};
+
+/** updateUser -- Felhasználó frissitése
+ *
+ * @param {*} req token - fejléc, newEmail, secureAnswer
+ * @param {*} res Válaszként elküldi hogy sikeres a rissités - 200
+ * @returns Hibát ad vissza ha:
+ *            1. Nincs token - 401
+ *            2. Nem található a felhasználó - 404
+ *            3. Nem jó a biztonsági válasz - 400
+ *            4. Nincs e-mail megadva - 400
+ *            5. Szerver hiba - 500
+ */
+const updateUser = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  const { newEmail, secureAnswer } = req.body;
+
+  if (!token) {
+    const reason = [
+      "Missing or invalid token.",
+      "Hiányzó vagy érvénytelen token.",
+    ];
+    return Code401(null, null, res, null, reason);
+  }
+
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const userId = decoded.userId;
+
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      const reason = ["User not found.", "Felhasználó nem található."];
+      return Code404(null, null, res, null, reason);
+    }
+
+    const checkSecureAnswer = await bcrypt.compare(
+      secureAnswer,
+      user.secureAnswer
+    );
+
+    if (!secureAnswer || !checkSecureAnswer) {
+      const reason = [
+        "Invalid security answer.",
+        "Érvénytelen biztonsági válasz.",
+      ];
+      return Code400(null, null, res, null, reason);
+    }
+
+    if (!newEmail) {
+      const reason = ["No e-mail is provided.", "Nincs e-mail megadva."];
+      return Code400(null, null, res, null, reason);
+    }
+
+    user.email = newEmail;
+
+    await user.save();
+
+    return res.status(200).json({
+      status: 200,
+      message: "User account updated successfully.",
+      üzenet: "Felhasználói fiók sikeresen frissítve.",
+    });
+  } catch (error) {
+    const reason = [
+      "An error occurred while updating the user account.",
+      "Hiba történt a felhasználói fiók frissítésekor.",
+    ];
     return Code500(error, null, res, null, reason);
   }
 };
@@ -583,6 +652,7 @@ module.exports = {
   signupUser,
   loginUser,
   logoutUser,
+  updateUser,
   verifySecureAnswer,
   resetPassword,
   deleteUser,

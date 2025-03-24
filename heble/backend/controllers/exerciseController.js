@@ -126,7 +126,7 @@ const getExercise = async (req, res) => {
 
 /** logExerciseAndGainXP -- Gyakorlat rögzítése és XP növelése
  *
- * @param {*} req userId, pushUps, pullUps, sitUps, squats, running - szzámok
+ * @param {*} req token - fejléc, pushUps, pullUps, sitUps, squats, running - számok
  * @param {*} res Válaszként visszaadja a frissített adatokat és az újonnan szerzett achievementeket - 200
  * @returns Hibákat küld vissza:
  *              1. Ha nincs a token - 401

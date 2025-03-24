@@ -6,6 +6,7 @@ const {
   getUserByID,
   signupUser,
   loginUser,
+  updateUser,
   logoutUser,
   deleteUser,
   countUsers,
@@ -27,6 +28,9 @@ router.post("/email", getUserByEmail);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/signup", signupUser);
+
+// PATCH metódusok
+router.patch("/update", updateUser);
 
 // DELETE metódusojk
 router.delete("/delete/:id?", deleteUser);

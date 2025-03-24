@@ -105,7 +105,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"asd\",\r\n    \"lastName\": \"asd\",\r\n    \"email\": \"asd@example.com\",\r\n    \"password\": \"asd\",\r\n    \"secureAnswer\": \"Buksi\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"asd\",\r\n    \"lastName\": \"asd\",\r\n    \"email\": \"asd@example.com\",\r\n    \"password\": \"asd\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -323,6 +323,44 @@
 							"path": [
 								"users",
 								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yNFQxODowNDoyMi4xNzJaIiwiaWF0IjoxNzQyODM5NDYyLCJleHAiOjE3NDI4NjgyNjJ9.3uTWROFKBR18v1Bzpkp7mTNQs0ulfKRP82WvYmHk018",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newEmail\": \"asdfg@example.com\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update"
 							]
 						}
 					},
@@ -573,8 +611,11 @@
 			"name": "Tokens",
 			"item": [
 				{
-					"name": "Gett all tokens",
+					"name": "Get all tokens",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1700,6 +1741,151 @@
 									"path": [
 										"users",
 										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user - 401",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newEmail\": \"asdfg@example.com\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/update",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yNFQxODoxMDo1Ni4zMzVaIiwiaWF0IjoxNzQyODM5ODU2LCJleHAiOjE3NDI4Njg2NTZ9.bgF8auHvcxAWQz6v4ZZ8VWUJmGLYRTuCCCJo0z02jHw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newEmail\": \"asd@example.com\",\r\n    \"secureAnswer\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/update",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yNFQxODoxMDo1Ni4zMzVaIiwiaWF0IjoxNzQyODM5ODU2LCJleHAiOjE3NDI4Njg2NTZ9.bgF8auHvcxAWQz6v4ZZ8VWUJmGLYRTuCCCJo0z02jHw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newEmail\": \"\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/update",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user - 404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yNFQxODoxMDo1Ni4zMzVaIiwiaWF0IjoxNzQyODM5ODU2LCJleHAiOjE3NDI4Njg2NTZ9.bgF8auHvcxAWQz6v4ZZ8VWUJmGLYRTuCCCJo0z02jHw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newEmail\": \"\",\r\n    \"secureAnswer\": \"asd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/users/update",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"update"
 									]
 								}
 							},
