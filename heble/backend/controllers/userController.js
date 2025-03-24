@@ -429,8 +429,8 @@ const resetPassword = async (req, res, next) => {
 
     if (!newPassword) {
       const reason = [
-        "New password is required.",
-        "Az új jelszó megadása kötelező.",
+        "Both email and the new password is required.",
+        "Az email és új jelszó megadása kötelező.",
       ];
       return Code400(null, req, res, next, reason);
     }
