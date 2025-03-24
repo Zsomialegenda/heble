@@ -25,19 +25,19 @@ export class SignupComponent {
   validEmail = false;
   toasts: { message: string; type: string }[] = [];
 
+  // a signup metódus felel a regisztrációért, sikeres regisztráció esetén átnavigál a bejelentkezésért felelős komponensre. Sikertelenség esetén hibát add vissza, emellett a metódus ellenőrzi az email-cím helyes szerkezetét.
   signup() {
-    const email_ = this.registerUserData.email.split('');
-    console.log(email_);
+    // email-cím feltételek (@ jel, email hossza, . ellenőrzése, . utáni domain cím)
+    const emailParts = this.registerUserData.email.split('@');
 
-    if (email_.length < 10) {
+    if (emailParts.length !== 2 || emailParts[0].length < 5) {
       this.validEmail = false;
     } else {
-      for (let i = 0; i < email_.length; i++) {
-        if (email_[i] === '@') {
-          this.validEmail = true;
-          break;
-        }
-      }
+      const domain = emailParts[1];
+      const domainParts = domain.split('.');
+      const lastPart = domainParts[domainParts.length - 1];
+
+      this.validEmail = domainParts.length > 1 && lastPart.length >= 2 && !domain.endsWith('.');
     }
 
     if (this.validEmail) {
@@ -69,6 +69,7 @@ export class SignupComponent {
     }
   }
 
+  // A felugró értesítéseket kezelő metódus
   private showToast(toastId: string) {
     const toastElement = document.getElementById(toastId);
     if (toastElement) {

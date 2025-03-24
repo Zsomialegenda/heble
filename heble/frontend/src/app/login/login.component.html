@@ -12,7 +12,7 @@
   <div>
     <form class="form" #loginForm="ngForm" (ngSubmit)="login()">
       <div class="form-group">
-        <label>Email cím</label><br>
+        <label>Email-cím</label><br>
         <input placeholder="Email cím" #email="ngModel" [(ngModel)]="loginUserData.email" required type="email" name="email" class="form-field" autocomplete="off"><br>
         <small style="color: red" *ngIf="email.touched && email.invalid">Helytelen Email cím!</small>
       </div>
