@@ -38,23 +38,23 @@
     <form class="form" #coachingForm="ngForm" (ngSubmit)="addExercise()">
       <div class="form-group">
         <label>Fekvőtámasz:</label><br>
-        <input placeholder="Fekvőtámaszok száma" required type="number" name="pushUps" #pushUps="ngModel" [(ngModel)]="exercise.pushUps" class="form-field" autocomplete="off"><br>
+        <input min=0 placeholder="Fekvőtámaszok száma" required type="number" name="pushUps" #pushUps="ngModel" [(ngModel)]="exercise.pushUps" class="form-field" autocomplete="off"><br>
       </div>
       <div class="form-group">
         <label>Húzódzkodás:</label><br>
-        <input placeholder="Húzódzkodások száma" required type="number" name="pullUps" #pullUps="ngModel" [(ngModel)]="exercise.pullUps" class="form-field" autocomplete="off"><br>
+        <input min=0 placeholder="Húzódzkodások száma" required type="number" name="pullUps" #pullUps="ngModel" [(ngModel)]="exercise.pullUps" class="form-field" autocomplete="off"><br>
       </div>
       <div class="form-group">
         <label>Felülés:</label><br>
-        <input placeholder="Felülések száma" required type="number" name="sitUps" #sitUps="ngModel" [(ngModel)]="exercise.sitUps" class="form-field" autocomplete="off"><br>
+        <input min=0 placeholder="Felülések száma" required type="number" name="sitUps" #sitUps="ngModel" [(ngModel)]="exercise.sitUps" class="form-field" autocomplete="off"><br>
       </div>
       <div class="form-group">
         <label>Guggolás:</label><br>
-        <input placeholder="Guggolások száma" required type="number" name="squats" #squats="ngModel" [(ngModel)]="exercise.squats" class="form-field" autocomplete="off"><br>
+        <input min=0 placeholder="Guggolások száma" required type="number" name="squats" #squats="ngModel" [(ngModel)]="exercise.squats" class="form-field" autocomplete="off"><br>
       </div>
       <div class="form-group">
         <label>Futás:</label><br>
-        <input placeholder="Futás mennyisége (km-ben)" required type="number" name="running" #running="ngModel" [(ngModel)]="exercise.running" class="form-field" autocomplete="off"><br>
+        <input min=0 placeholder="Futás mennyisége (km-ben)" required type="number" name="running" #running="ngModel" [(ngModel)]="exercise.running" class="form-field" autocomplete="off"><br>
       </div>
 
       <hr>

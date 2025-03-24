@@ -49,6 +49,39 @@
     </div>
   </div>
 
+  <div>
+    <hr>
+    <h3>Email-cím frissítése</h3>
+    <p>A fiókhoz tartozó email-címet itt frissítheted a biztonsági jelszó segítségével!</p>
+    <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>
+  </div>
+
+  <!-- űrlap, bootstrap osztályokkal - új email-cím a fiókhoz tartozóan -->
+  <div>
+    <form class="form" #updateForm="ngForm" (ngSubmit)="submitData()">
+      <div class="form-group">
+        <label class="form-label">Új email-cím</label><br>
+        <input minlength="12" placeholder="Új email-cím" #newEmail="ngModel" [(ngModel)]="userData.newEmail" name="newEmail" required type="email" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="newEmail.touched && newEmail.invalid">Helytelen email-cím!</small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Biztonsági jelszó</label><br>
+        <input minlength="6" placeholder="Biztonsági jelszó" #secureAnswer="ngModel" [(ngModel)]="userData.secureAnswer" name="secureAnswer" required type="password" class="form-field" autocomplete="off"><br>
+        <small style="color: red" *ngIf="secureAnswer.touched && secureAnswer.invalid">Helytelen biztosági jelszó!</small>
+      </div>
+      <button type="submit" class="buttonstyle" [disabled]="updateForm.invalid">Elküldés</button>
+    </form>
+  </div>
+
+  <!-- Különböző alertek: az egyik a sikeres gyakorlat hozzáadásáért, a másik a sikertelen gyakorlat hozzáadásért felel. -->
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <!-- A HeBLE jövője bevezető rész-->
   <div style="margin: 10px;">
     <h2>A HeBLE jövője</h2>
     <span class="placeholder col-12 bg-danger" style="cursor: default;"></span>

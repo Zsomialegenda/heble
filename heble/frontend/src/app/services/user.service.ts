@@ -13,7 +13,7 @@ export class UserService {
   forgotPasswordEnd = 'forgot';
   changePasswordEnd = 'forgot/reset';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // regisztrációért felelős függvény
   signup(users: any) {
@@ -75,7 +75,7 @@ export class UserService {
       //console.log('A felhasználói id: ' + this.payload.userId);
 
       return this.payload.userId;
-    }return 0;
+    } return 0;
   }
 
   // felhasználói adatlekérése
@@ -88,7 +88,12 @@ export class UserService {
     }
   }
 
-   // jelszó helyreállításáért felelős függvény
+  // email-cím frissítésért felelős függvény
+  updateEmail(body: {newEmail: string; secureAnswer: string }) {
+    return this.http.patch(`${this.baseURL}update`, body);
+  }
+
+  // jelszó helyreállításáért felelős függvény
   forgotPassword(userData: any) {
     return this.http.put(this.baseURL + this.forgotPasswordEnd, userData);
   }
