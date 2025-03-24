@@ -24,6 +24,7 @@ export class CoachingComponent implements OnInit {
 
   userID: any;
 
+  // a komponens betöltésekor a tapasztalatpont lekérdezése a bejelentkezett felhasználóhoz kötődően 
   ngOnInit(): void {
     this.userID = this.userService.getUserID();
     this.experienceService.getExp(this.userID).subscribe({
@@ -38,6 +39,7 @@ export class CoachingComponent implements OnInit {
 
   exercise: Exercise = { pushUps: undefined, pullUps: undefined, sitUps: undefined, squats: undefined, running: undefined };
 
+  // gyakorlat hozzáadása az opciónálisan kiválasztott gyakorlattípusokból, dinamikus tapasztalatpont számítása a megadott gyakorlatokból
   addExercise() {
     this.exerciseService.addExercise(this.exercise).subscribe({
       next: (res: any) => {

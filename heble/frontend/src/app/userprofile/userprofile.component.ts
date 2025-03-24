@@ -18,6 +18,7 @@ export class UserprofileComponent implements OnInit {
   userID: any;
   exercises: Exercise | null = null;
 
+  // a komponens betöltésekor a személyes adatok és az elvégzett gyakorlatok lekérdezése a bejelentkezett felhasználóhoz kötődően 
   ngOnInit(): void {
     this.userID = this.userService.getUserID();
     

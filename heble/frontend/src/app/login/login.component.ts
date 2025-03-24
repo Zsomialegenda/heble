@@ -19,6 +19,7 @@ export class LoginComponent {
     password: '',
   };
 
+  // A felhasználó bejelentkezéstetése, a felhasználóhoz tartozó token eltárolása a localStorage-ban a későbbi használathoz és a kulcsfontosságú adatok kinyeréséhez, mint például a felhasználói azonosító, szerepkör és email
   login() {
     console.log(this.loginUserData);
 
@@ -45,6 +46,7 @@ export class LoginComponent {
     });
   }
 
+  // A felugró értesítéseket kezelő metódus
   private showToast(toastId: string) {
     const toastElement = document.getElementById(toastId);
     if (toastElement) {

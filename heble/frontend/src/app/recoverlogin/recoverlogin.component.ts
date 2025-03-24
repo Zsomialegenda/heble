@@ -19,6 +19,7 @@ export class RecoverloginComponent {
     secureAnswer: '',
   };
 
+   // jelszó megváltoztatásáért felelős függvény, ami a sikeres felhasználói adatok megadása után átnavigálja a felhasználót a jelszó megváltoztatásért felelős komponenshez
   submitData() {
     console.log(this.userData);
 
@@ -42,6 +43,7 @@ export class RecoverloginComponent {
     });
   }
 
+  // A felugró értesítéseket kezelő metódus
   private showToast(toastId: string) {
     const toastElement = document.getElementById(toastId);
     if (toastElement) {

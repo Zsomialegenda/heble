@@ -19,6 +19,7 @@ export class ChangePasswordComponent {
     newPassword: '',
   };
 
+  // jelszó megváltoztatásáért felelős függvény, ami sikeres jelszómegadást követően megváltoztatja a felhasználó jelszavát
   submitData() {
     console.log(this.userData);
 
@@ -37,6 +38,7 @@ export class ChangePasswordComponent {
     });
   }
 
+  // A felugró értesítéseket kezelő metódus
   private showToast(toastId: string) {
     const toastElement = document.getElementById(toastId);
     if (toastElement) {
