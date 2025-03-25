@@ -9,8 +9,8 @@ const {
 
 // GET metódusok
 router.get("/", fetchAllTokens);
+router.get("/count", countToken);
 router.get("/:id", fetchTokenById);
 router.get("/user/:id", fetchTokenByUserId);
-router.get("/count", countToken);
 
 module.exports = router;

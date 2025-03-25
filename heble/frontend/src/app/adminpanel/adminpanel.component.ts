@@ -1,15 +1,11 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
 import { AdminService } from '../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+// gyerekkomponensek importálása
 import { AdminUserManagementComponent } from "./adminComponents/admin-user-management/admin-user-management.component";
 import { AdminStatisticsComponent } from "./adminComponents/admin-statistics/admin-statistics.component";
 import { AdminAchievementComponent } from "./adminComponents/admin-achievement/admin-achievement.component";
@@ -234,6 +230,5 @@ foundUser: any;
       },
     });
   }
-
 
 }

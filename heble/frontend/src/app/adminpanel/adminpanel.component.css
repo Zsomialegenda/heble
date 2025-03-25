@@ -42,21 +42,22 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 15px;
+  max-width: 750px;
+  padding: 20px;
   max-width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }
 
 .leaderboard {
-  max-width: 800px;
+  max-width: 750px;
+  width: 100%;
   padding: 20px;
   text-align: center;
 }
 
-.leaderboard h2 {
-  margin-bottom: 20px;
-  font-size: 25px;
+h2 {
+  margin-bottom: 10px;
   text-decoration: underline;
 }
 
@@ -64,12 +65,67 @@ button:disabled {
 
 table {
   width: 100%;
+  text-align: center;
   border-collapse: collapse;
   margin: 0 auto;
+  overflow-x: auto;
+  margin-inline: auto;
 }
 
 th, td {
   padding: 12px;
   border-bottom: 1px solid #fff;
   text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .adminpanel{
+    padding: 40px 15px;
+  }
+  table{
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .adminpanel{
+    padding: 30px 10px;
+  }
+  table{
+    font-size: 12px;
+  }
+  .buttonstyle{
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttonstyle{
+    padding: 6px 15px;
+  }
+  th, td{
+    padding: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .buttonstyle{
+    padding: 5px 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .buttonstyle{
+    padding: 4px 10px;
+  }
+  th, td{
+    padding: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .buttonstyle{
+    padding: 4px 8px;
+  }
 }

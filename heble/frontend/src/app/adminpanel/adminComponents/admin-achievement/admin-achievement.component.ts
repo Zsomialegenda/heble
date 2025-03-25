@@ -12,9 +12,7 @@ import { AddAchievement } from '../../../interfaces/add-achievement';
 export class AdminAchievementComponent {
   constructor(private http: HttpClient, private adminService: AdminService) {}
 
-
   newAchievements: AddAchievement[] = [];
-
 
   updateAchievement(
     id: number,
