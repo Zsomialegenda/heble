@@ -1,4 +1,6 @@
 <form class="form">
+  <h3>Achievement (Teljesítmények) hozzáadása</h3>
+  <hr>
   <div class="form-group">
     <label>Achievement neve:</label><br>
     <input #achievementName type="text" id="achievementName" placeholder="Achievement neve" class="form-field" autocomplete="off"/><br>
@@ -40,38 +42,39 @@
 </form>
 
 <form class="form">
-  <h2>Achievement Frissítése</h2>
+  <h3>Achievement (Teljesítmények) frissítése</h3>
+  <hr>
   <div class="form-group">
     <label for="achievementId">Achievement ID:</label> <br>
-    <input type="number" id="achievementId" #achievementId /> <br>
+    <input min="0" type="number" id="achievementId" #achievementId placeholder="Achievement ID"/> <br>
   </div>
   <div class="form-group">
     <label for="updateAchievementName">Achievement neve:</label> <br>
-    <input type="text" id="updateAchievementName" #updateAchievementName /> <br>
+    <input type="text" id="updateAchievementName" #updateAchievementName placeholder="Achievement neve"/> <br>
   </div>
   <div class="form-group">
     <label for="updateAchievementDescription">Achievement leírása:</label> <br>
-    <textarea id="updateAchievementDescription" #updateAchievementDescription></textarea> <br>
+    <textarea id="updateAchievementDescription" #updateAchievementDescription placeholder="Achievement leírása" ></textarea> <br>
   </div>
   <div class="form-group">
     <label for="updatePushUpsRequired">Szükséges fekvőtámaszok:</label> <br>
-    <input type="number" id="updatePushUpsRequired" #updatePushUpsRequired /> <br>
+    <input min="0" type="number" id="updatePushUpsRequired" #updatePushUpsRequired placeholder="0"/> <br>
   </div>
   <div class="form-group">
     <label for="updatePullUpsRequired">Szükséges húzódzkodások:</label> <br>
-    <input type="number" id="updatePullUpsRequired" #updatePullUpsRequired /> <br>
+    <input min="0" type="number" id="updatePullUpsRequired" #updatePullUpsRequired placeholder="0"/> <br>
   </div>
   <div class="form-group">
     <label for="updateSitUpsRequired">Szükséges felülések:</label> <br>
-    <input type="number" id="updateSitUpsRequired" #updateSitUpsRequired /> <br>
+    <input min="0" type="number" id="updateSitUpsRequired" #updateSitUpsRequired placeholder="0"/> <br>
   </div>
   <div class="form-group">
     <label for="updateSquatsRequired">Szükséges guggolások:</label> <br>
-    <input type="number" id="updateSquatsRequired" #updateSquatsRequired /> <br>
+    <input min="0" type="number" id="updateSquatsRequired" #updateSquatsRequired placeholder="0"/> <br>
   </div>
   <div class="form-group">
-    <label for="updateRunningRequired">Szükséges futás (méterben):</label> <br>
-    <input type="number" id="updateRunningRequired" #updateRunningRequired /> <br>
+    <label for="updateRunningRequired">Szükséges futás (km-ben):</label> <br>
+    <input min="0" type="number" id="updateRunningRequired" #updateRunningRequired placeholder="0"/> <br>
   </div>
   <button type="submit" class="buttonstyle" (click)="updateAchievement(+achievementId.value, updateAchievementName.value, updateAchievementDescription.value, +updatePushUpsRequired.value, +updatePullUpsRequired.value, +updateSitUpsRequired.value, +updateSquatsRequired.value, +updateRunningRequired.value)">
     Achievement frissítése

@@ -73,9 +73,10 @@ app.use("/delorban", delOrBanUserRoute);
 setInterval(checkAndDeleteExpiredTokens, 3600000);
 
 app.get("/", (req, res) => {
-  res.sendFile(
-    "C:/Users/sedla/Desktop/projekt/heble/heble/backend/public/index.html"
-  );
+  res.status(200).json({
+    "message": "Hello from the HeBLE server.",
+    "üzenet": "Hello a HeBLE szerverről."
+  })
 });
 
 const PORT = process.env.PORT || 3000;

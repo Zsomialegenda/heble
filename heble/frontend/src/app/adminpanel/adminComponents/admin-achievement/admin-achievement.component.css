@@ -1,8 +1,9 @@
 /* űrlap stílusbeállítások */
 .form {
-  max-width: 800px;
-  margin: 40px;
-  border: 4px solid #fff;
+  max-width: 1200px;
+  width: 100%;
+  margin: 40px auto;
+  border: 2px solid #fff;
   border-radius: 20px;
   padding: 20px 50px;
   background-color: #3c3c44;

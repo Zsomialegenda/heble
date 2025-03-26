@@ -1,55 +1,69 @@
 <div class="user-management">
 
+  <!-- Felhasználó törléséhez szükséges űrlap -->
   <form class="form">
-    <h2>Felhasználó Törlése</h2>
+    <h3>Felhasználó Törlése</h3>
+    <hr>
     <div class="form-group">
-      <label for="deleteEmail">Felhasználó Email:</label>
-      <input type="text" id="deleteEmail" #deleteEmail autocomplete="off"/>
+      <label for="deleteEmail">Felhasználó email-címe:</label><br>
+      <input type="text" id="deleteEmail" #deleteEmail placeholder="Felhasználó email-címe" autocomplete="off"/> <br>
     </div>
     <div class="form-group">
-      <label for="deletePassword">Admin Jelszó:</label>
-      <input type="password" id="deletePassword" #deletePassword autocomplete="off"/>
+      <label for="deletePassword">Adminisztrátori jelszó:</label><br>
+      <input type="password" id="deletePassword" #deletePassword placeholder="Admininisztrátori jelszó" autocomplete="off"/> <br>
     </div>
     <div class="form-group">
-      <label for="secureAnswer">Biztonsági válasz:</label>
-      <input type="text" id="secureAnswer" #secureAnswer autocomplete="off"/>
+      <label for="secureAnswer">Biztonsági jelszó:</label><br>
+      <input type="password" id="secureAnswer" #secureAnswer placeholder="Biztonsági jelszó" autocomplete="off"/> <br>
     </div>
-    <button class="buttonstyle"(click)="deleteUser(deleteEmail.value, deletePassword.value, secureAnswer.value)"> 
+    <button type="submit" class="buttonstyle"(click)="deleteUser(deleteEmail.value, deletePassword.value, secureAnswer.value)"> 
       Felhasználó törlése
     </button>
   </form>
 
+  <!-- Felhasználó kereséséhez szükséges űrlap -->
   <form class="form">
-    <h2>Felhasználó Keresése</h2>
+    <h3>Felhasználó Keresése</h3>
+    <hr>
     <div class="form-group">
-      <label for="searchEmail">Felhasználó Email:</label>
-      <input type="text" id="searchEmail" #searchEmail autocomplete="off"/>
+      <label for="searchEmail">Felhasználó email-címe:</label><br>
+      <input type="text" id="searchEmail" #searchEmail placeholder="Felhasználó email-címe" autocomplete="off"/> <br>
     </div>
-    <button class="buttonstyle" (click)="getUserByEmail(searchEmail.value)">Keresés</button>
+    <button type="button" class="buttonstyle" (click)="getUserByEmail(searchEmail.value)">Keresés</button>
 
     <div *ngIf="foundUser">
-      <h3>Felhasználó Adatok</h3>
-      <p> <strong>Név:</strong> {{ foundUser.firstName }} {{ foundUser.lastName }} </p>
-      <p> <strong>Email:</strong> {{ foundUser.email }} </p>
+      <hr>
+      <h4>Felhasználói adatok</h4>
+      <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
 
-      <h3>Edzés Statisztikák</h3>
+      <p> <strong>Teljes név:</strong> {{ foundUser.firstName }} {{ foundUser.lastName }} </p>
+      <p> <strong>Email-cím:</strong> {{ foundUser.email }} </p>
 
-      <p><strong>Fekvőtámasz:</strong> {{ foundUser.Exercise?.pushUps }} </p>
-      <p><strong>Húzódzkodás:</strong> {{ foundUser.Exercise?.pullUps }} </p>
-      <p><strong>Felülés:</strong> {{ foundUser.Exercise?.sitUps }} </p>
-      <p><strong>Guggolás:</strong> {{ foundUser.Exercise?.squats }} </p>
-      <p><strong>Futás:</strong> {{ foundUser.Exercise?.running }} km </p>
+      <hr>
+      <h4>Elvégzett edzések száma</h4>
+      <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
 
-      <h3>Szint és XP</h3>
+      <p><strong>Fekvőtámaszok száma:</strong> {{ foundUser.Exercise?.pushUps }} </p>
+      <p><strong>Húzódzkodások száma:</strong> {{ foundUser.Exercise?.pullUps }} </p>
+      <p><strong>Felülések száma:</strong> {{ foundUser.Exercise?.sitUps }} </p>
+      <p><strong>Guggolások száma:</strong> {{ foundUser.Exercise?.squats }} </p>
+      <p><strong>Futás mennyisége (km-ben):</strong> {{ foundUser.Exercise?.running }} km </p>
+
+      <hr>
+      <h4>Felhasználó előrehaladása</h4>
+      <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
+
       <p> <strong>Szint: </strong> {{ foundUser.UserExperience?.level }} </p>
-      <p> <strong>XP: </strong> {{ foundUser.UserExperience?.xp }} </p>
-      <p> <strong>XP következő szintig: </strong> {{ foundUser.UserExperience?.xpToNextLevel }} </p>
+      <p> <strong>Tapasztalatpont: </strong> {{ foundUser.UserExperience?.xp }} </p>
+      <p> <strong>Szükséges tapasztalatpont a következő szintig: </strong> {{ foundUser.UserExperience?.xpToNextLevel }} </p>
 
-      <h3>Elért Achievementek</h3>
+      <hr>
+      <h4>Elért Achievementek</h4>
+      <span class="placeholder col-12 bg-danger" style="cursor: default"></span>
 
       <ul>
-        <li *ngFor="let achievement of foundUser.UserAchievements">
-          Achievement ID: {{ achievement.achievementId }} - Elnyerve:
+        <li *ngFor="let achievement of foundUser.UserAchievements" style="list-style: none;">
+          Teljesítmény ID: {{ achievement.achievementId }} - Teljesítve:
           {{ achievement.earnedAt | date }}
         </li>
       </ul>

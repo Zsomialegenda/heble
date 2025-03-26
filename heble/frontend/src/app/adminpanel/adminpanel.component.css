@@ -11,7 +11,12 @@
   font-size: 18px;
 }
 
-/* button, azaz gombok stílusbeállításai */
+h2 {
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+/*button, azaz gombok stílusbeállításai */
 .buttonstyle {
   border: 4px solid #650707;
   background-color: #91182b;
@@ -37,95 +42,51 @@ button:disabled {
   border: 4px solid #fff;
 }
 
-/* ranglisták stílusbeállításai */
+/*ranglisták stílusbeállításai */
 .leaderboards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   max-width: 750px;
-  padding: 20px;
-  max-width: 100%;
+  padding: 20px 10px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .leaderboard {
-  max-width: 750px;
   width: 100%;
   padding: 20px;
   text-align: center;
 }
 
-h2 {
-  margin-bottom: 10px;
-  text-decoration: underline;
-}
-
-/* táblázatok stílusbeállításai */
-
 table {
   width: 100%;
-  text-align: center;
   border-collapse: collapse;
   margin: 0 auto;
-  overflow-x: auto;
-  margin-inline: auto;
+  min-width: 300px;
 }
 
 th, td {
   padding: 12px;
   border-bottom: 1px solid #fff;
   text-align: center;
-  white-space: nowrap;
-}
-
-@media (max-width: 1024px) {
-  .adminpanel{
-    padding: 40px 15px;
-  }
-  table{
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 768px) {
-  .adminpanel{
-    padding: 30px 10px;
-  }
-  table{
-    font-size: 12px;
-  }
-  .buttonstyle{
-    padding: 8px 20px;
-  }
+  white-space: nowrap; 
 }
 
 @media (max-width: 480px) {
-  .buttonstyle{
-    padding: 6px 15px;
+  th, td {
+    white-space: normal; 
+    padding: 8px 4px;
+    font-size: 13px;
   }
-  th, td{
-    padding: 8px;
-  }
-}
-
-@media (max-width: 420px) {
-  .buttonstyle{
-    padding: 5px 12px;
-  }
-}
-
-@media (max-width: 375px) {
-  .buttonstyle{
-    padding: 4px 10px;
-  }
-  th, td{
-    padding: 6px;
+  .leaderboard {
+    padding: 10px;
   }
 }
 
 @media (max-width: 360px) {
-  .buttonstyle{
-    padding: 4px 8px;
+  th, td {
+    font-size: 11px;
+    padding: 6px 2px;
   }
 }

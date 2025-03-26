@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -107,7 +106,7 @@ export class AdminService {
     pullUpsRequired: number;
     squatsRequired: number;
     runningRequired: number;
-  }): Observable<any> {
+  }) {
     return this.http.post<{ üzenet: string }>(
       this.baseURL + this.achievementsEnd,
       achievement
@@ -118,7 +117,7 @@ export class AdminService {
     email: string,
     password: string,
     secureAnswer: string
-  ): Observable<any> {
+  ) {
     const body = { email, password, secureAnswer };
     return this.http.request(
       'DELETE',
@@ -127,7 +126,7 @@ export class AdminService {
     );
   }
 
-  updateAchievement(id: number, achievementData: any): Observable<any> {
+  updateAchievement(id: number, achievementData: any) {
     return this.http.patch(
       this.baseURL + this.achievementsEnd + id,
       achievementData
