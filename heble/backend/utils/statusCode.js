@@ -1,3 +1,7 @@
+/** handleError -- Hiba kezelés
+ * 
+ * @returns Vissza adja a megfelelő hibaüzenetet és státuszkódot
+ */
 const handleError = (status, massage, üzenet) => {
   return (error, req, res, next, reason) => {
     if (error) {
@@ -8,7 +12,7 @@ const handleError = (status, massage, üzenet) => {
       console.error(`Váratlan hiba történt (Status: ${status}).`);
     }
 
-    if (!reason || !Array.isArray(reason) || reason.length < 2) {
+    if (!reason || reason.length < 2) {
       res.status(status).json({
         status,
         message: massage,

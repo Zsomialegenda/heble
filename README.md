@@ -1,22 +1,26 @@
-![image](https://github.com/user-attachments/assets/a44f1e3d-1144-4bab-afd5-1581a9a3c6d1)
+<div align="center">
+  <img src="https://katolikuskeri.hu/Files/keri/keri_logo2.jpg" alt="KERI logó" width="350">
+</div>
 
-# SZENT ISTVÁN KATOLIKUS TECHNIKUM ÉS GIMNÁZIUM
+<h1 align="center"> SZENT ISTVÁN KATOLIKUS TECHNIKUM ÉS GIMNÁZIUM </h1>
 
-## DAKOS JÁNOS BENCE, FODOR GERGŐ, SEDLÁK PATRIK ANDRÁS
+<h2 align="center"> DAKOS JÁNOS BENCE, FODOR GERGŐ, SEDLÁK PATRIK ANDRÁS </h2>
 
-## HeBLE - Healthy Body Lifestyle Entertainment
+<h2 align="center"> HeBLE - Healthy Body Lifestyle Entertainment </h2>
 
-**SZOFTVERFEJLESZTÉS ÉS -TESZTELÉS VIZSGAREMEK - Sátoraljaújhely, 2025**
+<h3 align="center"> SZOFTVERFEJLESZTÉS ÉS -TESZTELÉS VIZSGAREMEK - Sátoraljaújhely, 2025 </h3>
 
-A mozgás életünk szerves része, így a projektünk erre épült, hogy egészséges életmódra ösztönözzük a felhasználóinkat. Azonban az emberek igényei átalakultak az elmúlt évek során, sokkal több időt töltünk az okoseszközeink előtt, így alkalmazkodtunk ehhez és megszületett a HeBLE, ami kombinálja a mozgást és a videójátékok egyes aspektusait. 
+<br>
 
-Az oldalon különböző mozgásos gyakorlatok érhetőek el, amelyek elvégzésért a felhasználók tapasztalatpontot szerezhetnek és szintet is léphetnek egyaránt, mint egy videójátékban. Emellett különböző teljesítményeket érhetnek el, amelyeket maguk előtt tarthatnak, mint célkitűzés. Fontos kihangsúlyoznunk, hogy a HeBLE jelenleg becsület alapon működik, azaz a felhasználó saját kedve és becsülete szerint adhat hozzá elvégzettként különböző mozgásos feladatokat. Emellett az oldalon különböző témákban ingyenes tartalmak érhetőek el, amelyek lényegre törően és kezdőbarát módon összefoglalják az adott témát.
+<p> A mozgás életünk szerves része, így a projektünk erre épült, hogy egészséges életmódra ösztönözzük a felhasználóinkat. Azonban az emberek igényei átalakultak az elmúlt évek során, sokkal több időt töltünk az okoseszközeink előtt, így alkalmazkodtunk ehhez és megszületett a HeBLE, ami kombinálja a mozgást és a videójátékok egyes aspektusait. </p>
 
-## Rendszerkövetelmények
+<p> Az oldalon különböző mozgásos gyakorlatok érhetőek el, amelyek elvégzésért a felhasználók tapasztalatpontot szerezhetnek és szintet is léphetnek egyaránt, mint egy videójátékban. Emellett különböző teljesítményeket érhetnek el, amelyeket maguk előtt tarthatnak, mint célkitűzés. Fontos kihangsúlyoznunk, hogy a HeBLE jelenleg becsület alapon működik, azaz a felhasználó saját kedve és becsülete szerint adhat hozzá elvégzettként különböző mozgásos feladatokat. Emellett az oldalon különböző témákban ingyenes tartalmak érhetőek el, amelyek lényegre törően és kezdőbarát módon összefoglalják az adott témát. </p>
 
-Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerkövetelményeit, ezeket érdemes ellenőrizni a webalkalmazás elindítása előtt a legjobb felhasználói élményért. Fontos megjegyeznünk, hogy a projektünk elindításához aktív és stabil internetkapcsolatra lesz szükség. Illetve minimális szabad merevlemez-területre, optimális esetben 2GB minimum.
+<h2> Rendszerkövetelmények </h2>
 
- **Minimális:**
+<p> Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerkövetelményeit, ezeket érdemes ellenőrizni a webalkalmazás elindítása előtt a legjobb felhasználói élményért. Fontos megjegyeznünk, hogy a projektünk elindításához aktív és stabil internetkapcsolatra lesz szükség. Illetve minimális szabad merevlemez-területre, optimális esetben 2GB minimum. </p>
+
+ <h2> Minimális: </h2>
 
 - Processzor: Intel Core 3 vagy AMD Ryzen 3
 - Memória: 4GB RAM
@@ -24,7 +28,7 @@ Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerköve
 - Operációs rendszer: Windows 10/11, Linux, macOS
 - Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
- **Ajánlott:**
+ <h2> Ajánlott: </h2>
 
 - Processzor: Intel Core 3 vagy AMD Ryzen 3
 - Memória: 8GB RAM
@@ -32,30 +36,30 @@ Az alábbiakban felsoroljuk a projektünk minimális és ajánlott rendszerköve
 - Operációs rendszer: Windows 10/11, Linux, macOS
 - Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
 
-## Fejlesztéshez használt szoftverek és eszközök
+<h2> Fejlesztéshez használt szoftverek és eszközök </h2>
 
 A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt modern technológiákat és egyéb eszközöket használtunk.
 
-### Kódíráshoz használt:
+<h3> Kódíráshoz használt: </h3>
 
 - **Fejleszői környezet**: Visual Studio Code (v1.98.2)
 - **Szerverfutattási környezet**: Node.js (v22.11.0)
-    - Csomagok: @faker-js/faker, bcrypt, bcryptjs, chart.js, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize
+    - Csomagok: @faker-js/faker, bcrypt, bcryptjs, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize
 - **Frontend keretrendszer**: Angular 19 (v19.0.4)
 - **Frontend technológiák**: HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. Illetve VSC-ba hozzáadott Prettier extension.
 - **Adatbázis**: MySQL (MariaDB (v10.4.32) [XAMPP]
 
-### Egyéb fejlesztői eszkökök:
+<h3> Egyéb fejlesztői eszkökök:  </h3>
 
 - **Csoportmunkát segítő szoftverek:** Trello és Github
 - **Dokumentációkészítéshez használt eszközök**: Microsoft Word (v16)
 - **Képtervezéshez és szerkesztéshez használt szoftverek:** Adobe Photoshop, Canva, Background Remover (remove.bg)
 
-## Telepítés és beindítás menete
+<h3> Telepítés és beindítás menete </h3>
 
-A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktív és stabil internetkapcsolat mellett.
+<p> A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktív és stabil internetkapcsolat mellett. </p>
 
-### Szükséges szoftverek
+<h3> Szükséges szoftverek </h3>
 
 - Visual Studio Code 
 - XAMPP
@@ -63,36 +67,37 @@ A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktí
 - Git és Github
 - Postman
 
-### Szükséges keretrendszer
+<h3> Szükséges keretrendszer </h3>
 
 - Angular ( letöltés, terminálba: @angular/cli@19.0.5 )
 
 ---
 
-### A projekt letöltése
-Első lépésként nyissa meg a következő https://github.com/Zsomialegenda/heble oldalt. Ott kattinson a *Code* gombra, majd válasszon a két opció közül: *Open with GitHub Desktop*, vagy választhatja a *Download ZIP* opciót. A letöltött fájlokat csomagolja ki egy választott mappába.
+<h3> A projekt letöltése </h3>
 
-### XAMPP indítása
+<p> Első lépésként nyissa meg a következő https://github.com/Zsomialegenda/heble oldalt. Ott kattinson a <i>Code</i> gombra, majd válasszon a két opció közül: <i>Open with GitHub Desktop</i>, vagy választhatja a <i>Download ZIP</i> opciót. A letöltött fájlokat csomagolja ki egy választott mappába. </p>
 
-Ezután nyissa meg XAMMP-ot (XAMPP Control Panel (v3.3.0)) és indítsa el az Apache-ot és a MySQL-t a mellettük lévő *Start* gomb segítségével, majd nyomjon rá a MySQL melletti *Admin* gombra, hogy megnyissa a phpMyAdmin felületét. Ezt megteheti úgy is, hogy a böngésző címmezőjébe beírja a következő URL-t: http://localhost/phpmyadmin/ . Majd hozzon létre egy új adatbázist. Az adatbázis neve legyen **heble** és a karakterkódolásnak állítsa be következőt: **utf8_hungarian_ci**.
+<h3> XAMPP indítása </h3>
 
-### Szerveroldali alkalmazás indítása (Backend)
+<p> Ezután nyissa meg XAMMP-ot (XAMPP Control Panel (v3.3.0)) és indítsa el az Apache-ot és a MySQL-t a mellettük lévő <i>Start</i> gomb segítségével, majd nyomjon rá a MySQL melletti <i>Admin</i> gombra, hogy megnyissa a phpMyAdmin felületét. Ezt megteheti úgy is, hogy a böngésző címmezőjébe beírja a következő URL-t: http://localhost/phpmyadmin/ . Majd hozzon létre egy új adatbázist. Az adatbázis neve legyen <i>heble</i> és a karakterkódolásnak állítsa be következőt: <i>utf8_hungarian_ci</i>. </p>
 
-Nyissa meg a Visual Studio Code-ot és nyissa meg a projektet. Majd válassza ki a heble mappán belül a **backend** könyvtárat. Kattintson rá jobb egérgombbal és válassza ki az *Open in Integrated Terminal*-t opciót, ezzel megnyitva a terminált. Telepítse a szükséges csomagoakt *npm i*, végül indítsa el a szervert *npm start* segítségével.
+<h3> Szerveroldali alkalmazás indítása (Backend) </h3>
 
-### Felhasználói felület indítása (Frontend)
+<p> Nyissa meg a Visual Studio Code-ot és nyissa meg a projektet. Majd válassza ki a heble mappán belül a <strong>backend</strong> könyvtárat. Kattintson rá jobb egérgombbal és válassza ki az <i>Open in Integrated Terminal</i>-t opciót, ezzel megnyitva a terminált. Telepítse a szükséges csomagoakt <i>npm i</i>, végül indítsa el a szervert <i>npm start</i> segítségével. </p>
 
-Most ugyanígy külön nyissa meg a **frontend** könyvtárat. Itt is telepítse a szükséges csomagokat *npm i* segítségével, majd végül *ng serve --open* segítségével indítsa el az Angular alkalmazást.
+<h3> Felhasználói felület indítása (Frontend) </h3>
 
----
-
-### Hiba felmerülése esetén
-
-Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív internetkapcsolata. Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az *npm i* parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba!
+<p> Most ugyanígy külön nyissa meg a <strong>frontend</strong> könyvtárat. Itt is telepítse a szükséges csomagokat <i>npm i</i> segítségével, majd végül <i>ng serve --open</i> segítségével indítsa el az Angular alkalmazást. </p>
 
 ---
 
-### Backend végpontok áttekintése
+<h3> Hiba felmerülése esetén </h3>
+
+<p> Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív internetkapcsolata. Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az <i>npm i</i> parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba! </p>
+
+---
+
+<h3> Backend végpontok áttekintése </h3>
 
 | Végpont URL                     | HTTP Módszer | Leírás                                              | Állapotkód / Válasz |
 |---------------------------------|-------------|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
