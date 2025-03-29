@@ -28,6 +28,7 @@ const checkAchievements = async (userId) => {
       const requirements =
         userExercises.pushUps >= achievement.pushUpsRequired &&
         userExercises.pullUps >= achievement.pullUpsRequired &&
+        userExercises.sitUps >= achievement.sitUpsRequired &&
         userExercises.squats >= achievement.squatsRequired &&
         userExercises.running >= achievement.runningRequired;
 

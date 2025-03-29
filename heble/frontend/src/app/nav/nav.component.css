@@ -1,9 +1,9 @@
 /* logó (kép) stílusbeállításai*/
-img {
+.logo {
   transition: transform 0.7s ease-in-out;
 }
 
-img:hover {
+.logo:hover {
   transform: rotate(360deg);
 }
 

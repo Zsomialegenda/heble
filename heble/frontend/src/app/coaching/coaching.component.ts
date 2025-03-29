@@ -39,7 +39,7 @@ export class CoachingComponent implements OnInit {
 
   exercise: Exercise = { pushUps: undefined, pullUps: undefined, sitUps: undefined, squats: undefined, running: undefined };
 
-  // gyakorlat hozzáadása az opciónálisan kiválasztott gyakorlattípusokból, dinamikus tapasztalatpont számítása a megadott gyakorlatokból
+  // gyakorlat hozzáadásáért felelős metódus, az opcionálisan kiválasztott gyakorlattípusokból, dinamikus tapasztalatpont számítása a megadott gyakorlatokból
   addExercise() {
     this.exerciseService.addExercise(this.exercise).subscribe({
       next: (res: any) => {

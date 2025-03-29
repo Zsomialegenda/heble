@@ -22,19 +22,23 @@
 
  <h2> Minimális: </h2>
 
-- Processzor: Intel Core 3 vagy AMD Ryzen 3
-- Memória: 4GB RAM
-- Videókártya: Integrált megfelel
-- Operációs rendszer: Windows 10/11, Linux, macOS
-- Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
+<ul>
+  <li>Processzor: Intel Core 3 vagy AMD Ryzen 3</li> 
+  <li>Memória: 4GB RAM</li> 
+  <li>Videókártya: Integrált megfelel</li> 
+  <li>Operációs rendszer: Windows 10/11, Linux, macOS</li> 
+  <li>Böngésző: Google Chrome, Opera, Microsoft Edge, Safari</li> 
+</ul>
 
  <h2> Ajánlott: </h2>
 
-- Processzor: Intel Core 3 vagy AMD Ryzen 3
-- Memória: 8GB RAM
-- Videókártya: GeForce GTX 1050 vagy AMD RX550
-- Operációs rendszer: Windows 10/11, Linux, macOS
-- Böngésző: Google Chrome, Opera, Microsoft Edge, Safari
+<ul>
+  <li>Processzor: Intel Core 3 vagy AMD Ryzen 3</li> 
+  <li>emória: 8GB RAM</li> 
+  <li>VVideókártya: GeForce GTX 1050 vagy AMD RX550</li> 
+  <li>Operációs rendszer: Windows 10/11, Linux, macOS</li> 
+  <li>Böngésző: Google Chrome, Opera, Microsoft Edge, Safari</li> 
+</ul>
 
 <h2> Fejlesztéshez használt szoftverek és eszközök </h2>
 
@@ -42,36 +46,46 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 
 <h3> Kódíráshoz használt: </h3>
 
-- **Fejleszői környezet**: Visual Studio Code (v1.98.2)
-- **Szerverfutattási környezet**: Node.js (v22.11.0)
-    - Csomagok: @faker-js/faker, bcrypt, bcryptjs, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize
-- **Frontend keretrendszer**: Angular 19 (v19.0.4)
-- **Frontend technológiák**: HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. Illetve VSC-ba hozzáadott Prettier extension.
-- **Adatbázis**: MySQL (MariaDB (v10.4.32) [XAMPP]
+<ul>
+  <li> <strong> Fejleszői környezet: </strong> Visual Studio Code (v1.98.2) </li>
+  <li> <strong> Szerverfutattási környezet: </strong> Node.js (v22.11.0) </li>
+    <ul>
+      <li>Csomagok: @faker-js/faker, bcrypt, bcryptjs, cors, dotenv, express, express,session, faker, jsonwebtoken, mariadb, nodemon, sequelize</li>
+    </ul>
+  <li> <strong> Frontend keretrendszer: </strong> Angular 19 (v19.0.4) </li>
+  <li> <strong> Frontend technológiák és eszközök: </strong> HTML5, CSS3, TypeScript (v5.6.3) és egyéb Bootstrap Icons és komponensek, mint a navbar, cards, toasts, accordion. Illetve VSC-ba hozzáadott Prettier extension. </li>
+  <li> <strong> Adatbázis </strong> MySQL (MariaDB (v10.4.32) [XAMPP] </li>
+</ul>
 
 <h3> Egyéb fejlesztői eszkökök:  </h3>
 
-- **Csoportmunkát segítő szoftverek:** Trello és Github
-- **Dokumentációkészítéshez használt eszközök**: Microsoft Word (v16)
-- **Képtervezéshez és szerkesztéshez használt szoftverek:** Adobe Photoshop, Canva, Background Remover (remove.bg)
+<ul>
+  <li> <strong> Csoportmunkát segítő szoftverek: </strong> Trello és Github </li>
+  <li> <strong> Dokumentációkészítéshez használt eszközök: </strong>  Microsoft Word (v16) </li>
+  <li> <strong> Képtervezéshez és szerkesztéshez használt szoftverek: </strong>  Adobe Photoshop, Canva, Background Remover (remove.bg) </li>
+</ul>
 
-<h3> Telepítés és beindítás menete </h3>
+<h2> Telepítés és beindítás menete </h2>
 
 <p> A projetktünket lokálisan, azaz a saját számítógépen tudja futtatni aktív és stabil internetkapcsolat mellett. </p>
 
 <h3> Szükséges szoftverek </h3>
 
-- Visual Studio Code 
-- XAMPP
-- Node.Js
-- Git és Github
-- Postman
+<ul>
+  <li> Visual Studio Code </li> 
+  <li> XAMPP </li> 
+  <li> Node.Js </li> 
+  <li> Git és Github </li> 
+  <li> Postman </li> 
+</ul>
 
 <h3> Szükséges keretrendszer </h3>
 
-- Angular ( letöltés, terminálba: @angular/cli@19.0.5 )
+<ul>
+ <li> Angular ( letöltés, terminálba: @angular/cli@19.0.5 ) </li>
+</ul>
 
----
+<hr>
 
 <h3> A projekt letöltése </h3>
 
@@ -79,7 +93,8 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 
 <h3> XAMPP indítása </h3>
 
-<p> Ezután nyissa meg XAMMP-ot (XAMPP Control Panel (v3.3.0)) és indítsa el az Apache-ot és a MySQL-t a mellettük lévő <i>Start</i> gomb segítségével, majd nyomjon rá a MySQL melletti <i>Admin</i> gombra, hogy megnyissa a phpMyAdmin felületét. Ezt megteheti úgy is, hogy a böngésző címmezőjébe beírja a következő URL-t: http://localhost/phpmyadmin/ . Majd hozzon létre egy új adatbázist. Az adatbázis neve legyen <i>heble</i> és a karakterkódolásnak állítsa be következőt: <i>utf8_hungarian_ci</i>. </p>
+<p> Ezután nyissa meg XAMMP-ot (XAMPP Control Panel (v3.3.0)) és indítsa el az Apache-ot és a MySQL-t a mellettük lévő <i>Start</i> gomb segítségével, majd nyomjon rá a MySQL melletti <i>Admin</i> gombra, hogy megnyissa a phpMyAdmin felületét. Ezt megteheti úgy is, hogy a böngésző címmezőjébe beírja a következő URL-t: <i>http://localhost/phpmyadmin/</i> . </p>
+<p> Majd hozzon létre egy új adatbázist. Az adatbázis neve legyen <i>heble</i> és a karakterkódolásnak állítsa be következőt: <i>utf8_hungarian_ci</i>. </p>
 
 <h3> Szerveroldali alkalmazás indítása (Backend) </h3>
 
@@ -89,13 +104,13 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 
 <p> Most ugyanígy külön nyissa meg a <strong>frontend</strong> könyvtárat. Itt is telepítse a szükséges csomagokat <i>npm i</i> segítségével, majd végül <i>ng serve --open</i> segítségével indítsa el az Angular alkalmazást. </p>
 
----
+<hr>
 
 <h3> Hiba felmerülése esetén </h3>
 
-<p> Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív internetkapcsolata. Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az <i>npm i</i> parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze és lépjen velünk kapcsolatba! </p>
+<p> Ha valami nem megfelelően tölt be, akkor ellenőrizze, hogy van-e aktív internetkapcsolata. Előfordulhat, hogy egyes csomagokat nem telepít elsőre, így ebben az esetben újra le kell futtatni az <i>npm i</i> parancsot. Előfordulhat az is, hogy a XAMPP nem indul, ekkor rendszergazdaként próbálja meg ismételten futtatni. Ha bármi egyéb hiba lép fel indításkor akkor kérjük azt jelezze nekünk, lépjen velünk azonnal kapcsolatba! </p>
 
----
+<hr>
 
 <h3> Backend végpontok áttekintése </h3>
 
