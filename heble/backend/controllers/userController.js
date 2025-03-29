@@ -22,6 +22,9 @@ const {
 
 let reason = []; // Hiba leezeésre
 
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+
 // TOKENHEZ
 const SECRET_KEY = process.env.SECRET_KEY || "admin";
 
@@ -225,9 +228,6 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
-
   if (!email || !password) {
     reason = [
       "Both email and password are required for login.",
@@ -249,6 +249,16 @@ const loginUser = async (req, res) => {
         SECRET_KEY,
         { expiresIn: "8h" }
       );
+
+      await Token.destroy({ where: { userId: 1 } });
+
+      const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
+      await Token.create({
+        userId: 1,
+        token: adminToken,
+        loginAt: loginTimestamp,
+        expiresAt,
+      });
 
       return res.status(200).json({
         status: 200,
@@ -377,14 +387,6 @@ const logoutUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
   const { newEmail, secureAnswer } = req.body;
-
-  if (!token) {
-    const reason = [
-      "Missing or invalid token.",
-      "Hiányzó vagy érvénytelen token.",
-    ];
-    return Code401(null, null, res, null, reason);
-  }
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
@@ -541,13 +543,6 @@ const resetPassword = async (req, res, next) => {
  */
 const deleteUser = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    reason = [
-      "Authorization token required.",
-      "Engedélyezési token szükséges.",
-    ];
-    return Code401(null, null, res, null, reason);
-  }
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);

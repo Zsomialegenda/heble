@@ -57,7 +57,7 @@ async function seedData() {
   })();
 }
 
-//seedData();
+seedData();
 
 // Routes
 app.use("/users", userRoute);

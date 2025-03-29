@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Code404, Code403 } = require("../utils/statusCode");
+const { Code404, Code403, Code401 } = require("../utils/statusCode");
 let reason = [];
 
 const SECRET_KEY = process.env.SECRET_KEY || "admin";
@@ -9,7 +9,7 @@ const authenticator = (req, res, next) => {
 
   if (!token) {
     reason = ["Token not provided.", "A token nincs megadva."];
-    return Code404(null, req, res, next, reason);
+    return Code401(null, req, res, next, reason);
   }
 
   jwt.verify(token, SECRET_KEY, (err, decoded) => {

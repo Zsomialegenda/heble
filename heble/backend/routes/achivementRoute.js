@@ -6,15 +6,16 @@ const {
   updateAchievement,
   getAchievementById,
 } = require("../controllers/achivementController");
+const authenticator = require("../utils/authenticator");
 
 // GET metódusok
 router.get("/", getAllAchievements);
-router.get("/:id", getAchievementById);
-
-// PUT metódusok
-router.post("/", addAchievement);
+router.get("/:id?", getAchievementById);
 
 // POST metódusok
-router.patch("/:id", updateAchievement);
+router.post("/", authenticator, addAchievement);
+
+// PATCH metódusok
+router.patch("/:id?", authenticator, updateAchievement);
 
 module.exports = router;

@@ -9,6 +9,6 @@ const {
 // GET metódusok
 router.get("/", getAllDelOrBanUsers);
 router.get('/email', getDelOrBanUserByEmail);
-router.get("/:id", getDelOrBanUserByID);
+router.get("/:id?", getDelOrBanUserByID);
 
 module.exports = router;

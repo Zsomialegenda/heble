@@ -124,7 +124,7 @@ const getExercise = async (req, res) => {
   }
 };
 
-/** logExerciseAndGainXP -- Gyakorlat rögzítése és XP növelése
+/** logExercise -- Gyakorlat rögzítése és XP növelése
  *
  * @param {*} req token - fejléc, pushUps, pullUps, sitUps, squats, running - számok
  * @param {*} res Válaszként visszaadja a frissített adatokat és az újonnan szerzett achievementeket - 200
@@ -136,16 +136,8 @@ const getExercise = async (req, res) => {
  *              5. Nem megfelelő a token - 401
  *              6. Belső szerver hiba - 5000
  */
-const logExerciseAndGainXP = async (req, res, next) => {
+const logExercise = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-
-  if (!token) {
-    reason = [
-      "Authorization token required.",
-      "Engedélyezési token szükséges.",
-    ];
-    return Code401(null, null, res, null, reason);
-  }
 
   let decoded;
   try {
@@ -278,6 +270,6 @@ module.exports = {
   getAllExercises,
   getExercise,
   getUserExercises,
-  logExerciseAndGainXP,
+  logExercise,
   statsExercises,
 };

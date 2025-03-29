@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 
 //GET metódusok
-router.get("", getAllExperiences);
-router.get("/:id", getUserExperience);
+router.get("/", getAllExperiences);
+router.get("/:id?", getUserExperience);
 
 module.exports = router;

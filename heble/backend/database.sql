@@ -1,394 +1,836 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
---
--- Adatbázis: `heble`
---
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `achievements`
---
-
-CREATE TABLE `achievements` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `pushUpsRequired` int(11) DEFAULT 0,
-  `pullUpsRequired` int(11) DEFAULT 0,
-  `sitUpsRequired` int(11) DEFAULT 0,
-  `squatsRequired` int(11) DEFAULT 0,
-  `runningRequired` int(11) DEFAULT 0,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `achievements`
---
-
-INSERT INTO `achievements` (`id`, `name`, `description`, `pushUpsRequired`, `pullUpsRequired`, `sitUpsRequired`, `squatsRequired`, `runningRequired`, `createdAt`, `updatedAt`) VALUES
-(1, 'Fekvőtámasz mester', 'Végezzen összesen 50 fekvőtámaszt!', 50, 0, 0, 0, 0, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(2, 'Húzódzkodás profi', 'Végezzen összesen 20 Húzódzkodást!', 0, 20, 0, 0, 0, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(3, 'Guggolás specialista', 'Végezzen összesen 100 guggolást!', 0, 0, 0, 100, 0, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(4, 'Újonc futó', 'Fusson összesen 5 kilométert!', 0, 0, 0, 0, 5, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(5, 'Sokoldalú sportoló', 'Végezzen el 20 fekvőtámaszt, 10 Húzódzkodást, 30 guggolást és fusson 1 kilométert!', 20, 10, 0, 30, 1, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(6, 'Haladó sportoló', 'Érjen el összesen 100 fekvőtámaszt, 50 Húzódzkodást, 150 guggolást és fusson 10 kilométert!', 100, 50, 0, 150, 10, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(7, 'Marathon futó', 'Fusson összesen 42 kilométert!', 0, 0, 0, 0, 42, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(8, 'asd', 'asd', 1, 1, 0, 1, 1, '2025-03-21 20:23:40', '2025-03-21 20:23:40');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `deletedorbannedusers`
---
-
-CREATE TABLE `deletedorbannedusers` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `reason` enum('deleted','banned') NOT NULL,
-  `deletedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `exercises`
---
-
-CREATE TABLE `exercises` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `pushUps` int(11) DEFAULT 0,
-  `pullUps` int(11) DEFAULT 0,
-  `sitUps` int(11) DEFAULT 0,
-  `squats` int(11) DEFAULT 0,
-  `running` float DEFAULT 0 COMMENT 'Running distance in kilometers',
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `exercises`
---
-
-INSERT INTO `exercises` (`id`, `userId`, `pushUps`, `pullUps`, `sitUps`, `squats`, `running`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 168, 44, 161, 447, 21.9121, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(3, 3, 183, 17, 18, 142, 26.4368, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(4, 4, 23, 97, 101, 474, 38.69, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(5, 5, 191, 64, 109, 262, 30.5147, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(6, 6, 159, 87, 116, 416, 41.2505, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(7, 7, 52, 78, 53, 271, 24.9656, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(8, 8, 127, 21, 21, 70, 45.131, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(9, 9, 5, 51, 243, 329, 11.2465, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(10, 10, 19, 34, 87, 76, 19.6279, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(11, 11, 20, 46, 209, 370, 43.946, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(12, 12, 180, 180, 180, 165, 165, '2025-03-21 19:06:05', '2025-03-21 19:07:33'),
-(13, 13, 55, 55, 55, 55, 55, '2025-03-21 20:22:07', '2025-03-21 20:22:33');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `tokens`
---
-
-CREATE TABLE `tokens` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `loginAt` datetime NOT NULL,
-  `expiresAt` datetime NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `tokens`
---
-
-INSERT INTO `tokens` (`id`, `userId`, `token`, `loginAt`, `expiresAt`, `createdAt`, `updatedAt`) VALUES
-(10, 13, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJlbWFpbCI6ImFzZEBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwibG9naW5BdCI6IjIwMjUtMDMtMjJUMTI6MTI6NDQuOTUyWiIsImlhdCI6MTc0MjY0NTU2NCwiZXhwIjoxNzQyNjc0MzY0fQ.kg9W3k3jGOHNH0uaU5vR19c7J9Sro2ccMGH3o3L_EzE', '2025-03-22 12:12:44', '2025-03-22 20:12:44', '2025-03-22 12:12:44', '2025-03-22 12:12:44');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `userachievements`
---
-
-CREATE TABLE `userachievements` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `achievementId` int(11) NOT NULL,
-  `earnedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `userachievements`
---
-
-INSERT INTO `userachievements` (`id`, `userId`, `achievementId`, `earnedAt`) VALUES
-(1, 1, 1, '2025-03-21 18:53:36'),
-(3, 1, 2, '2025-03-21 18:53:36'),
-(5, 3, 1, '2025-03-21 18:53:36'),
-(7, 1, 3, '2025-03-21 18:53:36'),
-(8, 3, 3, '2025-03-21 18:53:36'),
-(10, 1, 4, '2025-03-21 18:53:36'),
-(11, 4, 2, '2025-03-21 18:53:36'),
-(13, 3, 4, '2025-03-21 18:53:37'),
-(14, 1, 5, '2025-03-21 18:53:37'),
-(15, 4, 3, '2025-03-21 18:53:37'),
-(16, 5, 1, '2025-03-21 18:53:37'),
-(18, 3, 5, '2025-03-21 18:53:37'),
-(19, 4, 4, '2025-03-21 18:53:37'),
-(20, 5, 2, '2025-03-21 18:53:37'),
-(22, 6, 1, '2025-03-21 18:53:37'),
-(23, 4, 5, '2025-03-21 18:53:37'),
-(24, 5, 3, '2025-03-21 18:53:37'),
-(25, 6, 2, '2025-03-21 18:53:37'),
-(26, 7, 1, '2025-03-21 18:53:37'),
-(27, 5, 4, '2025-03-21 18:53:37'),
-(28, 6, 3, '2025-03-21 18:53:37'),
-(29, 8, 1, '2025-03-21 18:53:37'),
-(30, 7, 2, '2025-03-21 18:53:37'),
-(31, 5, 5, '2025-03-21 18:53:37'),
-(32, 6, 4, '2025-03-21 18:53:37'),
-(33, 9, 2, '2025-03-21 18:53:37'),
-(34, 8, 2, '2025-03-21 18:53:37'),
-(35, 7, 3, '2025-03-21 18:53:37'),
-(36, 5, 6, '2025-03-21 18:53:37'),
-(37, 6, 5, '2025-03-21 18:53:37'),
-(38, 10, 2, '2025-03-21 18:53:37'),
-(39, 9, 3, '2025-03-21 18:53:37'),
-(40, 7, 4, '2025-03-21 18:53:37'),
-(41, 8, 4, '2025-03-21 18:53:37'),
-(42, 6, 6, '2025-03-21 18:53:37'),
-(43, 10, 4, '2025-03-21 18:53:37'),
-(44, 9, 4, '2025-03-21 18:53:37'),
-(45, 7, 5, '2025-03-21 18:53:37'),
-(46, 8, 5, '2025-03-21 18:53:37'),
-(47, 11, 2, '2025-03-21 18:53:37'),
-(48, 8, 7, '2025-03-21 18:53:37'),
-(49, 11, 3, '2025-03-21 18:53:37'),
-(50, 11, 4, '2025-03-21 18:53:37'),
-(51, 11, 5, '2025-03-21 18:53:37'),
-(52, 11, 7, '2025-03-21 18:53:37'),
-(53, 12, 2, '2025-03-21 19:07:24'),
-(54, 12, 4, '2025-03-21 19:07:24'),
-(55, 12, 5, '2025-03-21 19:07:25'),
-(56, 12, 1, '2025-03-21 19:07:26'),
-(57, 12, 7, '2025-03-21 19:07:26'),
-(58, 12, 3, '2025-03-21 19:07:29'),
-(59, 12, 6, '2025-03-21 19:07:32'),
-(60, 13, 1, '2025-03-21 20:22:33'),
-(61, 13, 2, '2025-03-21 20:22:33'),
-(62, 13, 4, '2025-03-21 20:22:33'),
-(63, 13, 5, '2025-03-21 20:22:33'),
-(64, 13, 7, '2025-03-21 20:22:33');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `userexperience`
---
-
-CREATE TABLE `userexperience` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `level` int(11) NOT NULL DEFAULT 1,
-  `xp` int(11) NOT NULL DEFAULT 0,
-  `xpToNextLevel` int(11) NOT NULL DEFAULT 100,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `userexperience`
---
-
-INSERT INTO `userexperience` (`id`, `userId`, `level`, `xp`, `xpToNextLevel`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 7, 46, 840, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(3, 3, 6, 417, 121, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(4, 4, 5, 339, 756, '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(5, 5, 5, 28, 275, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(6, 6, 8, 90, 793, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(7, 7, 6, 138, 577, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(8, 8, 10, 203, 711, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(9, 9, 8, 471, 383, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(10, 10, 6, 347, 892, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(11, 11, 10, 297, 861, '2025-03-21 18:53:37', '2025-03-21 18:53:37'),
-(12, 12, 15, 1803, 3896, '2025-03-21 19:06:05', '2025-03-21 19:07:33'),
-(13, 13, 11, 445, 1365, '2025-03-21 20:22:07', '2025-03-21 20:22:33');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `secureAnswer` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `users`
---
-
-INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `secureAnswer`, `createdAt`, `updatedAt`) VALUES
-(1, 'Admin', 'User', 'admin', '$2b$10$LUDg49OsVuVrWGOzxzxf4OqAwj8zX5EzwRp4q50Dquxyb3Zdg8tka', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(3, 'Vicenta', 'Wisoky', 'Rosalee25@hotmail.com', '$2b$10$p/RzEceTgptJ5lPNm22OiOjQK6uNwsAdUipcCLkhWeXnhJhAcK/r2', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(4, 'Kayden', 'Morar', 'Broderick13@gmail.com', '$2b$10$CKdTE3sAcJInHyaJ8X76fenivFSGFNYiRhOyfxinCpoT/vOjN4RVm', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(5, 'Jamil', 'Koch', 'Alexis26@yahoo.com', '$2b$10$6jPwtLVPZlIht/9VaJpuCOw/sLdVaT4nEo/uXo/qgUFaNc3ZI4t3q', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(6, 'Claire', 'Toy', 'Howard84@yahoo.com', '$2b$10$U22cQQPQ.JcJpdLBDJ6RSO4dQdPiroGH3REsOhlygg2Y0N1CqJ2FG', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(7, 'Laurine', 'Kertzmann', 'Idella82@hotmail.com', '$2b$10$/eNCBCeRMlvQoAAoKjEVi.n5/L0vnjVT1UQbhWoxL6fnr17zXSbhm', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(8, 'Kira', 'Rowe', 'Lurline.Koepp56@gmail.com', '$2b$10$5t34xIP/u25lB.7PUGP9v.qmMysEIi2Ohi7x1MNcRD9rVKiu.eJyq', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(9, 'Sharon', 'Franey', 'Kathleen37@yahoo.com', '$2b$10$ethm8MU.ofaF0FsvvgxFnelFqnHxikPi2.TaI1HiIcr0FVNrxkCv2', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(10, 'Madison', 'Turcotte', 'Jonathan_Kshlerin12@hotmail.com', '$2b$10$y2Sn/EcNg1FkORyIA3HABO/xVaEUyefMApTs5eOr5P8nmkpSwtyIq', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(11, 'Jeremie', 'Murray', 'Arnaldo.Klein21@yahoo.com', '$2b$10$92jK.NCl2xECMrKQf4R1dO7b/WXN.gkguCedtilBnVLejEs6rfVuK', 'heble', '2025-03-21 18:53:36', '2025-03-21 18:53:36'),
-(12, 'asd', 'asd', 'asd@example.com', '$2a$10$GkFm4jAYPrUgDK/8SHegBOhuIlPvEpM6jVJ8WAdgYHVrQDkJilLDa', '$2a$10$TDhMt10EEXCWyLytZLAAN.lCnJa7XoLJJe5NvGYBkw4qZQ2JDzJ4y', '2025-03-21 19:06:05', '2025-03-21 19:06:05'),
-(13, 'asd', 'asd', 'asd@gmail.com', '$2a$10$8nioqmRJamQAK4ooSILyduZYA2xVtxUT/Ey5xhast.EpTjufCvkk.', '$2a$10$MrTnCMK4tNhCd03Us3T3UebnsT04itn39EomraEMkNki4VRyCzb/m', '2025-03-21 20:22:07', '2025-03-21 20:22:07');
-
---
--- Indexek a kiírt táblákhoz
---
-
---
--- A tábla indexei `achievements`
---
-ALTER TABLE `achievements`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- A tábla indexei `deletedorbannedusers`
---
-ALTER TABLE `deletedorbannedusers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userId` (`userId`);
-
---
--- A tábla indexei `exercises`
---
-ALTER TABLE `exercises`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userId` (`userId`);
-
---
--- A tábla indexei `tokens`
---
-ALTER TABLE `tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userId` (`userId`);
-
---
--- A tábla indexei `userachievements`
---
-ALTER TABLE `userachievements`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UserAchievements_achievementId_userId_unique` (`userId`,`achievementId`),
-  ADD KEY `achievementId` (`achievementId`);
-
---
--- A tábla indexei `userexperience`
---
-ALTER TABLE `userexperience`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userId` (`userId`);
-
---
--- A tábla indexei `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- A kiírt táblák AUTO_INCREMENT értéke
---
-
---
--- AUTO_INCREMENT a táblához `achievements`
---
-ALTER TABLE `achievements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT a táblához `deletedorbannedusers`
---
-ALTER TABLE `deletedorbannedusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT a táblához `exercises`
---
-ALTER TABLE `exercises`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT a táblához `tokens`
---
-ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT a táblához `userachievements`
---
-ALTER TABLE `userachievements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
-
---
--- AUTO_INCREMENT a táblához `userexperience`
---
-ALTER TABLE `userexperience`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT a táblához `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- Megkötések a kiírt táblákhoz
---
-
---
--- Megkötések a táblához `deletedorbannedusers`
---
-ALTER TABLE `deletedorbannedusers`
-  ADD CONSTRAINT `deletedorbannedusers_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Megkötések a táblához `exercises`
---
-ALTER TABLE `exercises`
-  ADD CONSTRAINT `exercises_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Megkötések a táblához `tokens`
---
-ALTER TABLE `tokens`
-  ADD CONSTRAINT `tokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Megkötések a táblához `userachievements`
---
-ALTER TABLE `userachievements`
-  ADD CONSTRAINT `userachievements_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `userachievements_ibfk_2` FOREIGN KEY (`achievementId`) REFERENCES `achievements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Megkötések a táblához `userexperience`
---
-ALTER TABLE `userexperience`
-  ADD CONSTRAINT `userexperience_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+INSERT IGNORE INTO `users` (`firstName`, `lastName`, `email`, `password`, `secureAnswer`, `createdAt`, `updatedAt`) VALUES
+('Brooke', 'Buckridge', 'Madelynn_Buckridge@yahoo.com', '$2b$10$QuOXnTLX8AwvFMl7es3.leL.hnWIAr/3gddi33Be45vzhLJTKZILG', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Omari', 'Gerhold', 'Glen56@hotmail.com', '$2b$10$yP.7obEK4FOyfFiKUYiAa.8tcby6ftIkcCYH.tr5nuKuNni1BAMH6', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Jakayla', 'Wuckert', 'Jeffry93@gmail.com', '$2b$10$1TlEybk0PV5nn.uwXGmY/.B37rJjYqn3WTLK/3i9CEByH/oe8Xv7G', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Hazle', 'Maggio', 'Keanu15@gmail.com', '$2b$10$8P3pu2gFcFajK.xxrnZve.M/rN49U5SBpUIaqz4QnTkVUegEGiTje', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Lucius', 'Koelpin', 'Amely.Bode75@hotmail.com', '$2b$10$nKgtjRO0mkxZfVPsSP6vFuomgbtOAT7KCWwK6awHWitKDI.WOClqe', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Estella', 'Gusikowski', 'Hobart.Feil2@yahoo.com', '$2b$10$OVcmrdNvqsnzCNT1NOLb1eleqQcRn.0E0JMJ98w/xuV84VQGLBTPa', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Michael', 'Hoeger', 'Sydney.Barrows@yahoo.com', '$2b$10$zXpOefeMMKaxGJeaQ7xIvOUElIB69y.CHjPMdFTRBfZghZK7cqV6O', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Norma', 'Schuster', 'Sidney99@yahoo.com', '$2b$10$gQSBq/goEpovcGc7Cy1k0u18bQQc1zQdcjUJ3OohBU.A4jH37ousm', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Cyril', 'Beatty', 'Derek0@yahoo.com', '$2b$10$h1T/PE7gYNVlPgv5StdOKuiBtyGbWilDoh17O/bBa48k3.iYo9jO2', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Modesta', 'Conner', 'Paris.Conn6@yahoo.com', '$2b$10$qNnGQp01OvB0/xRhGpIfOOocb5DwL5GLKsGYkg/lp1HCIxmV0hsuS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Willie', 'Buckridge', 'Autumn_Kemmer27@gmail.com', '$2b$10$pwB4rK6p1qKTHJ9TISCeyufJB.ojcKctUjhPcLDGVSQbBY9O5i72u', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Christa', 'Murphy', 'Reinhold70@yahoo.com', '$2b$10$XpgOMl4krB77iywAvMTNPuLOzJsOVODSwhXQizmmPOruTQJ68wHiK', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Lavina', 'Rice', 'Katherine.Howe47@gmail.com', '$2b$10$DGwA/WXhM/xI8Ixw0kurEOs81.jhpuC.mhwnefJEEvJI53BdU4s8u', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Katlynn', 'Kulas-Prohaska', 'Buck78@gmail.com', '$2b$10$y3AJ79oX2/kKOA09Vsr6kufJcfAAgREeBn7fSAASz9ymImm6lflzq', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Markus', 'Bradtke', 'Terry.Blick63@hotmail.com', '$2b$10$2E.etmvJAOHrXylXLzHrleuJgQgKZSmvA2pgtLwXXeZCr3BL1cZR2', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Geovany', 'Abshire', 'Mariela0@gmail.com', '$2b$10$lxqQX7eMy90V9XVQHcSnOuFh8y7UeetaFM.xIeZtU9/enBriUKChS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Alice', 'Ziemann', 'Dimitri51@gmail.com', '$2b$10$2PZ3P8MSCs1SczMfMbIHz.ZYsiZlRFfkZkrFDRY0z4xJtRnp3qtg2', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Luigi', 'McKenzie', 'Annamarie_Bradtke@gmail.com', '$2b$10$/G8kCXx4ThTQkl.4nDQG2O3JCeQBR/PHbRGttaWaCTqtZk0aXlQQK', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Brian', 'Gutkowski', 'Brooke68@hotmail.com', '$2b$10$mk4k5GKmV22nTJozxhAHSu48.wUmy9cuOpcbPmLxfpUmp41a.LNZW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Orlando', 'Kertzmann', 'Drake_Bahringer27@yahoo.com', '$2b$10$X.XKSC/LfIC/lJSApwY8YuuPfzcaK8.c2ZaiNkAr82EIYgRYPHZcy', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Arne', 'Wehner', 'Paxton_Weimann@yahoo.com', '$2b$10$dZuwJjUV90rm2E7wEnMt2OX.MbwtP29bLPBFtK8p57lgNpbB.kWJq', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Donnell', 'Zulauf', 'Tressa18@hotmail.com', '$2b$10$7phdQ4kxWgi2h80xEEtZ.e4mxBC3KvmOPUGaAulHtfPUioRpNCAIC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Bettye', 'Towne', 'Howell2@hotmail.com', '$2b$10$tztLYMJr34yz/mcdRi3AmOEsSvfVvFXLXwVMhOht.ez.heCLRxa9a', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Rebeca', 'Veum', 'Jayden_Quigley37@yahoo.com', '$2b$10$AiYobZsZCqZZQls2ZZB21.PABhgkd3LdCjOHyBQtk13eHlEUIw13m', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Jovanny', 'Kub', 'Estell95@gmail.com', '$2b$10$sqbQXgJrZmvXnrKMqdXql.qWwK2VUz8J8kNewYCDRicqFLCiiwFIO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Demetrius', 'Schumm', 'Avis.Lesch-Turner@yahoo.com', '$2b$10$PLghTMiIdYz4..XdwbyGF.dT64i3BkWbDjmGsEClPmPW.5N0tJ5va', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Gene', 'Murphy', 'Devonte54@hotmail.com', '$2b$10$U9vtv/vsHFPRI2VK5K9uROiuIEkVPaePkd6zZEeH9eh53kKynSIXW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Rosalinda', 'Emmerich', 'Marlin_Bechtelar@hotmail.com', '$2b$10$6cNWdQeoVSynsFf/Tkd7ze.sJs6jfIhrt7.2y8cG14JXlDG7RtW1S', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Angela', 'Thiel', 'Peyton.Labadie@yahoo.com', '$2b$10$FvJJ56kzEbDcvJS8cEURNOVSCWJOAUfSVr1HAPDujXmjKVHXBGLo6', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Marian', 'Quitzon', 'Guido4@yahoo.com', '$2b$10$dJ0yEtFBTtKltk7fxUKrRuckh9hHJ5Iy6XEunRnezqkZNf4OqIlCW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Gussie', 'Lesch', 'Marjory44@gmail.com', '$2b$10$VaG.X0ukGY2unVBKPAYa5usw6VY0k0qbCmlnpfZyIwrFPHXk.fLqe', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Cristal', 'Wiegand', 'Edna61@gmail.com', '$2b$10$k5/iIij7eUlElURGNKMCD.BcB.zpQRpQUCuUGSk2unJeu.lAP1l0W', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Stefanie', 'Beatty', 'Jessy_Roberts9@gmail.com', '$2b$10$zVDYBekrWapsGJ7Br/qew.zAZ36QuD8Casg/VlI1GX0a.80N4AP6y', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Wilhelm', 'Dickinson', 'Clementina.Ebert@yahoo.com', '$2b$10$qo8PZcoe.qWnukj/g3wmMekAY5CLldhkhu.EskXC09G1mrOC7ToCi', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Jasen', 'Hills', 'Rosalinda.Sporer@yahoo.com', '$2b$10$jII2S56j267KxY4z5tx5wuhqGswIWMKvDCN3hudPwZBHQhk40BAG.', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Stephon', 'Rempel', 'Mollie_Larkin@hotmail.com', '$2b$10$q8ZPIOyBq7xv.qq2tbE9P.WoVDunOzt7djUYxMegaB8U6osDeSvk2', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Jerrell', 'Schneider-Krajcik', 'Tabitha73@hotmail.com', '$2b$10$OhKg8GQIsHNYh.IcwbNsGuJJaDzUfYDoL5TwATxoL/sGs9Qznbdwm', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Kiara', 'Prohaska', 'Vada_Beer@yahoo.com', '$2b$10$d6xwzZrCZJV6f1A0.CGRE.S8k/isIQZzkTPYEid6ZZdhzlhOGnTzC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Emmie', 'Prohaska', 'Ewell_Deckow87@hotmail.com', '$2b$10$0WGqPyQdwKqvOGxTniI8hOzlMbD3MJefrpXNhvlIK3SyVf0orNBxC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Vivienne', 'Murray', 'Darion_Schmidt@yahoo.com', '$2b$10$FmUZ2dwD8trAgRp5wBeLbe.9.eUjNEFCZSuVJ9EX.AyMx0o4WqFoC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Leilani', 'Purdy', 'Amie.Walter78@gmail.com', '$2b$10$cVay5cjLfK14HatYCgFVBOwBYZrLT8YXV91/vqzDx.C9LpU1i.nwC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Reynold', 'Schulist', 'Johnathan_Macejkovic@hotmail.com', '$2b$10$ewmiT2w9UorhA/q4u3YUjeZdqIPYIJRuQeRlJ6QMoCfvsZ4p.XUkS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Emma', 'Hintz', 'Cale_Hartmann@yahoo.com', '$2b$10$3.a5/NnwFOaQcotk4Yd.Meh3bPTtmSZBA8xLfqmDH9hb7ARVMOiru', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Brody', 'Reinger', 'Meggie_Kunde86@gmail.com', '$2b$10$gk4FFFUE.XeV0jBU.Td4EulwLwLPcHnwMV7UdBy8X7jibFUhsjcda', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Ruthie', 'Rice', 'Merritt.Sporer43@hotmail.com', '$2b$10$yE8j0gjKjjELE80r34/tG.xXcGgFp7xHuJ6IIIDAYsI6iyGQU4ZLu', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Adolfo', 'Pfeffer', 'Neal.Walsh@hotmail.com', '$2b$10$/GItQMiMLtwUFFDvnx2Ea.TtUs50S0QE0mtl7OnlSHLtUfOVWi/HW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Clement', 'Abernathy', 'Shyann.Koss@gmail.com', '$2b$10$0gEM8fQUV7eFgAjONzyfdeDwh7bLI6AtcyFR6PQ9gGajP14qIg6uu', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Alfonzo', 'Funk', 'Levi_Strosin6@hotmail.com', '$2b$10$vAtrEW3dmwETvEL65gNBpu6qlZtNYHZF.BMnRYlGJjgZ7FEza18me', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Tevin', 'Schumm', 'Vince73@hotmail.com', '$2b$10$WPjxkW1dnKotZAxxOiwEjOjprZG63gai.FMvbQSAVeuBHQqnlgnqO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Ruben', 'Kreiger', 'Walton.Nikolaus44@gmail.com', '$2b$10$Q5DBIK1yU0iacx.oTgpKWe76izmTnvH7otTCbQaSxbblH4eRm722a', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Georgianna', 'Stoltenberg', 'Anthony82@hotmail.com', '$2b$10$UVVJUBPDDfKnHad8WFmRT.4p9b4HvdSLESEeKioB.1Fntx2E/4HAW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Chasity', 'Stokes', 'Colleen80@hotmail.com', '$2b$10$mot3oDisg2/26DKlj5aWGOXLq/EGJfK0EugMbhee5o3/9Z2V6ALoC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Urban', 'Wehner', 'Otis_Hyatt@hotmail.com', '$2b$10$Gb37lW8ffoCOxW06KNRmIOsyOZ6lyaZhOwnX9RJfYBPHok7ro2DrC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Davon', 'Beatty', 'Demarco_Conroy82@gmail.com', '$2b$10$W1eARLFqPb0xPtRpg6eSH.m7rtJtWm/fMkp0N4EUfAZX6zD.3jhx.', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Imogene', 'McGlynn', 'Kim.Predovic64@yahoo.com', '$2b$10$mkzZ.F6X4SkyRN6dayFOA.3KcWoxXV638NptZHtgU4KB8aDYh399C', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Halie', 'Corkery', 'Oleta_Rath98@yahoo.com', '$2b$10$f3c.O6EsA7DKXE7TW02icuw0ElkLBgEMwZf93qsXl2yGDhy9hxRMy', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Webster', 'Marks', 'Stuart56@yahoo.com', '$2b$10$1PmyBmvmkkCmNHPS./ET.OvXtDmc9r/rOOtxaix6x74ZFBBj5PzoO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Alexander', 'Miller', 'Dolores.Bartell@yahoo.com', '$2b$10$kOS59wkZhJ75uYJLKa3QMuDOXjnDKO9t8oqINxrzM4JXMAUNvmCIa', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Darrell', 'Yost', 'Evans.Keebler88@yahoo.com', '$2b$10$5WvgSzmpjh7CviwW1P0xduAxl7ghX7Xc2Tbq9l0RVtUOOf1zWkVSq', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Cleveland', 'Orn', 'Stephon88@yahoo.com', '$2b$10$kYoFtLh.Cg9WZfZ5DVs7xOXR7K4E/cfNDRV80hj6JtsDvsc34/ZXO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Sister', 'Emmerich', 'Roel.Wiegand@hotmail.com', '$2b$10$dTrU5chEgsxDLIN9MK1OV.1rQU63DA1nK9pIhrMtopBx8VSAdbJzO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Isabell', 'Brown', 'Donavon12@gmail.com', '$2b$10$aL57TDlR6CKVgggU/VsMwetO3nZv5r4qGjlUyljyHPnMkwk9jTfnS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Marjorie', 'Rodriguez', 'Reilly16@hotmail.com', '$2b$10$CZWnWX34rmPsVkyyAZFqQuXJBkDsHEi.hpHCvn41Ub/7NvCyXCC2O', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Missouri', 'Lubowitz', 'Jacinthe.Koepp@gmail.com', '$2b$10$TDdDdoj83QGwtglPQEFQ2.b40McSk1sVF3a/GcZE..7slWQSeuXMC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Anne', 'Deckow', 'Dwight_Hartmann79@hotmail.com', '$2b$10$IbV6XSicC7vdBUBejNBC0ucJad5n1Y3oxChpAcCbuWByHWQ5s/hgi', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Khalil', 'Prohaska-Ebert', 'Emilie.Weimann@gmail.com', '$2b$10$qWw79gXKwsgk0yai3RajfuIbVMm/Fjpxpo6KAeGX2qsi7MrNCouli', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Kenny', 'Hodkiewicz', 'Tomasa.Stamm54@hotmail.com', '$2b$10$Nh5hhGKx/AMd7p0g9yAeeOCYn8D9eEG6S8H8jh4sWWmcdgPFK1kMa', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Coby', 'White', 'Robyn_Wisozk62@gmail.com', '$2b$10$eFjWbV9QOVR8RV7Ae1/IIu/bOScGWntVqbqwMIbCHhO45V.IBERoS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Damion', 'Zboncak', 'Walker21@yahoo.com', '$2b$10$Hh2KAs9PDNhKJT5hXudW8eH/MZAlEmcSH0gl572a2mbdOyM1yI/r.', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Dan', 'McKenzie-Ratke', 'Charlie_Beatty66@gmail.com', '$2b$10$qik4RE0X48bvjiwo8VToXevtmbYln3KS1OE4xdqOr3YEU1ua.2aPi', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Jonathon', 'Gleason', 'Alvera84@yahoo.com', '$2b$10$/hof9023ksjcuiRo8/pW0.9tK1IuIpcd7TewgOh3/PurxpLvqkC0S', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Adah', 'Schmitt', 'Augusta28@yahoo.com', '$2b$10$emXo2DQOMmddt7NXk5Z5O.p58g7T031EFFRfMlIwAKZvDnTS3RZWO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Edythe', 'Torphy', 'Kellie.Walsh@gmail.com', '$2b$10$ZMwtlh2ZjJR87T5BBYHCouy5KiYw1O6s9oYFuOl93BBE6FqlaLsrO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Derrick', 'Hand', 'Elinor.Thompson85@yahoo.com', '$2b$10$BCiDSdYC/FtFlyygn0k7NezNMoGG6HZXtuLKFUtWuyns4fXMEnwJC', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Wilma', 'Nicolas', 'Jeanne86@gmail.com', '$2b$10$YzA5fr2P1NHro2iGP1lPqeQhfR9zTvFC.KkPXqQN8/Kk6x4STpxX6', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Mariane', 'Lesch', 'Greyson_Ryan54@hotmail.com', '$2b$10$86NO1w5ZO4Fr8xAhzpnlEOBIjD0ksO0xCqq4apQinPQYyGsXXTh4K', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Dexter', 'Purdy', 'Sydney.Hackett@gmail.com', '$2b$10$T4kYzxZykPptI3Fz0B07C.ePfq1fj8S0Uwqzq3K5V6Q5JVGcm.uvG', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Omer', 'Russel', 'Elian_Konopelski61@yahoo.com', '$2b$10$vNJCbJ0vEomUgbO0.lAwW.7sF9/Ghyc9nVsc65pW9RnLZGHum/s6S', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Deven', 'Turcotte', 'Molly.Kiehn@yahoo.com', '$2b$10$LkZIL21R3oS.uP.Ewf8ARunxGQ6UrPEAiWppynopOhBSlXap376PW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Adelbert', 'Ebert', 'Dustin_Rutherford25@hotmail.com', '$2b$10$LlGj8YBtRo3ixfY/ygZiZe1ZBRvfTakUvYtHWmEaxPygjczlv7wOW', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Elaina', 'Wisoky', 'Leda_Nikolaus@gmail.com', '$2b$10$0PsjYkC6fIHXetTn.NXDJulOYk2cvld8/zucxg9SRid7zQn3pMhnK', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Dusty', 'Larson', 'Kenny82@hotmail.com', '$2b$10$ypMezK3/p2gii7.lAViF6OR3ng/0Ez7VimjLsFsZjKeyknXzefIuS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Demetrius', 'Breitenberg', 'Jonas.Kihn55@hotmail.com', '$2b$10$pk2rK6WDZQKBEojBwp3f6.odaCprVuovOF/3udWYl/sel5SaqLLi2', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Bryon', 'Dooley', 'Emelie.Tillman63@yahoo.com', '$2b$10$PcoxYaocnhq68jj6V9utoOTNgLNy2q6ya4vauQMapVhu76ekaSSvS', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Shanelle', 'Gerlach', 'Viva_Leuschke@yahoo.com', '$2b$10$hDQp1noIvPEDVf8TECWiuOO02bCE8F0uKEm6KmqAFfkkYEKyPVmye', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Kaden', 'Sauer', 'Sigurd_Kuphal@yahoo.com', '$2b$10$WxM1EOnD8YGotCkMlQMzO.I1MvzfhrfH6VmrGAliUf74tOaVWMyOO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Thalia', 'Homenick', 'Talon70@gmail.com', '$2b$10$IshKHoXVT/kYgkKt9KIlV.lZPlrAK9PVpDiVqWfH.6Rox6Cub4r2u', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Savion', 'Yost', 'Nedra_Keebler@gmail.com', '$2b$10$IHZ.vbvBNpjTGfzDSXIbDerBwjxoEXr0tqAKL3RpjtF5.ZFGuxABa', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Allen', 'Kshlerin', 'Isobel_Hirthe15@hotmail.com', '$2b$10$pwUEeaa771bv8cTYa5A.0eflpiDw39AP.5CiKznSdhDSnXVvjgPuO', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Ryann', 'Emard', 'Bailey.Corwin14@yahoo.com', '$2b$10$X/PPvT1RqY4wpax26YAZjOkmT5f7OAjwCelkAmyDK/KZ9ACItvi/G', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+('Odessa', 'Block', 'Cydney21@hotmail.com', '$2b$10$/0c67hUokrDr.EWjDZCFQejg14rQfBMuLJN98YAndVAXBpKWcbw16', 'heble', '2025-03-29 13:11:05', '2025-03-29 13:11:05');
+INSERT IGNORE INTO `exercises` (`userId`, `pushUps`, `pullUps`, `sitUps`, `squats`, `running`, `createdAt`, `updatedAt`) VALUES
+(12, 164, 76, 147, 83, 49, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(13, 199, 14, 289, 435, 20, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(14, 140, 4, 284, 351, 18, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(15, 114, 54, 83, 220, 43, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(16, 188, 77, 150, 48, 21, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(17, 32, 8, 279, 53, 22, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(18, 107, 34, 70, 152, 20, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(19, 80, 78, 232, 292, 36, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(20, 158, 62, 37, 9, 28, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(21, 162, 97, 16, 452, 41, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(22, 147, 41, 288, 49, 12, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(23, 51, 29, 33, 493, 26, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(24, 71, 16, 92, 386, 19, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(25, 109, 91, 294, 485, 1, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(26, 105, 11, 106, 398, 15, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(27, 130, 13, 251, 41, 45, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(28, 16, 77, 274, 470, 8, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(29, 167, 35, 273, 465, 0, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(30, 23, 9, 156, 210, 6, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(31, 63, 53, 103, 169, 27, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(32, 15, 39, 82, 345, 25, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(33, 47, 20, 73, 221, 23, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(34, 134, 25, 5, 341, 48, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(35, 30, 64, 176, 43, 33, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(36, 0, 39, 97, 414, 4, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(37, 136, 93, 97, 211, 0, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(38, 137, 69, 214, 418, 23, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(39, 34, 96, 168, 317, 17, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(40, 57, 49, 25, 203, 48, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(41, 150, 77, 225, 330, 17, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(42, 88, 15, 246, 497, 15, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(43, 121, 18, 3, 82, 12, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(44, 123, 10, 183, 185, 6, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(45, 98, 52, 168, 261, 48, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(46, 85, 36, 136, 322, 1, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(47, 90, 48, 97, 127, 2, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(48, 182, 31, 69, 458, 16, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(49, 84, 90, 93, 49, 42, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(50, 79, 11, 115, 315, 27, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(51, 77, 14, 77, 498, 30, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(52, 196, 28, 83, 420, 20, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(53, 131, 82, 69, 456, 18, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(54, 125, 91, 200, 335, 10, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(55, 101, 56, 93, 376, 13, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(56, 25, 70, 69, 82, 31, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(57, 27, 17, 54, 236, 27, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(58, 175, 2, 148, 490, 7, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(59, 56, 18, 14, 222, 16, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(60, 32, 8, 207, 24, 32, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(61, 3, 25, 299, 390, 30, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(62, 48, 77, 203, 107, 2, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(63, 52, 78, 146, 276, 15, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(64, 46, 44, 82, 258, 49, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(65, 180, 22, 21, 283, 7, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(66, 64, 51, 234, 432, 42, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(67, 130, 46, 5, 241, 28, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(68, 67, 78, 260, 9, 6, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(69, 115, 23, 71, 99, 27, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(70, 118, 36, 85, 104, 27, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(71, 79, 63, 144, 217, 45, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(72, 48, 8, 150, 319, 21, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(73, 105, 16, 107, 84, 10, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(74, 6, 0, 36, 411, 26, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(75, 193, 27, 57, 324, 2, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(76, 150, 71, 204, 94, 39, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(77, 163, 100, 213, 79, 35, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(78, 128, 54, 271, 362, 8, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(79, 85, 100, 70, 70, 36, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(80, 54, 88, 168, 113, 23, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(81, 64, 62, 89, 153, 13, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(82, 94, 55, 229, 302, 26, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(83, 54, 90, 113, 36, 11, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(84, 69, 9, 140, 407, 16, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(85, 108, 58, 201, 225, 4, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(86, 51, 84, 93, 187, 12, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(87, 165, 85, 29, 469, 31, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(88, 6, 58, 50, 108, 20, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(89, 193, 90, 229, 460, 43, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(90, 41, 2, 12, 279, 25, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(91, 140, 94, 173, 187, 1, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(92, 66, 67, 59, 255, 9, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(93, 37, 66, 269, 476, 33, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(94, 101, 68, 221, 416, 5, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(95, 18, 29, 39, 186, 2, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(96, 173, 41, 2, 178, 34, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(97, 84, 85, 146, 143, 20, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(98, 50, 95, 270, 46, 32, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(99, 149, 44, 175, 392, 45, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(100, 153, 66, 236, 423, 28, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(101, 55, 38, 202, 363, 2, '2025-03-29 13:11:07', '2025-03-29 13:11:07');
+INSERT IGNORE INTO `userachievements` (`userId`, `achievementId`, `earnedAt`) VALUES
+(12, 1, '2025-03-29 13:11:05'),
+(12, 2, '2025-03-29 13:11:05'),
+(13, 1, '2025-03-29 13:11:05'),
+(12, 4, '2025-03-29 13:11:05'),
+(14, 1, '2025-03-29 13:11:05'),
+(13, 3, '2025-03-29 13:11:05'),
+(12, 5, '2025-03-29 13:11:05'),
+(14, 3, '2025-03-29 13:11:05'),
+(13, 4, '2025-03-29 13:11:05'),
+(15, 1, '2025-03-29 13:11:05'),
+(14, 4, '2025-03-29 13:11:05'),
+(13, 5, '2025-03-29 13:11:05'),
+(15, 2, '2025-03-29 13:11:05'),
+(16, 1, '2025-03-29 13:11:05'),
+(12, 6, '2025-03-29 13:11:05'),
+(13, 6, '2025-03-29 13:11:05'),
+(15, 3, '2025-03-29 13:11:05'),
+(16, 2, '2025-03-29 13:11:05'),
+(12, 8, '2025-03-29 13:11:05'),
+(14, 5, '2025-03-29 13:11:05'),
+(17, 4, '2025-03-29 13:11:05'),
+(13, 9, '2025-03-29 13:11:05'),
+(15, 4, '2025-03-29 13:11:05'),
+(16, 4, '2025-03-29 13:11:05'),
+(12, 9, '2025-03-29 13:11:05'),
+(14, 9, '2025-03-29 13:11:05'),
+(17, 5, '2025-03-29 13:11:05'),
+(16, 5, '2025-03-29 13:11:05'),
+(15, 5, '2025-03-29 13:11:05'),
+(18, 1, '2025-03-29 13:11:05'),
+(17, 9, '2025-03-29 13:11:05'),
+(15, 6, '2025-03-29 13:11:05'),
+(16, 6, '2025-03-29 13:11:05'),
+(19, 1, '2025-03-29 13:11:05'),
+(18, 2, '2025-03-29 13:11:05'),
+(15, 7, '2025-03-29 13:11:05'),
+(16, 9, '2025-03-29 13:11:05'),
+(18, 3, '2025-03-29 13:11:05'),
+(20, 1, '2025-03-29 13:11:05'),
+(19, 2, '2025-03-29 13:11:05'),
+(15, 8, '2025-03-29 13:11:05'),
+(18, 4, '2025-03-29 13:11:05'),
+(20, 2, '2025-03-29 13:11:05'),
+(19, 3, '2025-03-29 13:11:05'),
+(21, 1, '2025-03-29 13:11:05'),
+(15, 9, '2025-03-29 13:11:05'),
+(18, 5, '2025-03-29 13:11:05'),
+(20, 4, '2025-03-29 13:11:05'),
+(19, 4, '2025-03-29 13:11:05'),
+(21, 2, '2025-03-29 13:11:05'),
+(18, 6, '2025-03-29 13:11:05'),
+(20, 5, '2025-03-29 13:11:05'),
+(22, 1, '2025-03-29 13:11:05'),
+(19, 5, '2025-03-29 13:11:05'),
+(21, 3, '2025-03-29 13:11:05'),
+(18, 9, '2025-03-29 13:11:05'),
+(20, 9, '2025-03-29 13:11:05'),
+(22, 2, '2025-03-29 13:11:05'),
+(19, 6, '2025-03-29 13:11:05'),
+(23, 1, '2025-03-29 13:11:05'),
+(21, 4, '2025-03-29 13:11:05'),
+(22, 4, '2025-03-29 13:11:05'),
+(19, 9, '2025-03-29 13:11:05'),
+(23, 2, '2025-03-29 13:11:05'),
+(24, 1, '2025-03-29 13:11:05'),
+(21, 5, '2025-03-29 13:11:05'),
+(22, 5, '2025-03-29 13:11:05'),
+(23, 3, '2025-03-29 13:11:05'),
+(21, 6, '2025-03-29 13:11:05'),
+(25, 1, '2025-03-29 13:11:05'),
+(24, 3, '2025-03-29 13:11:05'),
+(22, 6, '2025-03-29 13:11:05'),
+(23, 4, '2025-03-29 13:11:05'),
+(21, 7, '2025-03-29 13:11:05'),
+(25, 2, '2025-03-29 13:11:05'),
+(24, 4, '2025-03-29 13:11:05'),
+(26, 1, '2025-03-29 13:11:05'),
+(22, 9, '2025-03-29 13:11:05'),
+(23, 5, '2025-03-29 13:11:05'),
+(21, 9, '2025-03-29 13:11:05'),
+(25, 3, '2025-03-29 13:11:05'),
+(24, 5, '2025-03-29 13:11:05'),
+(26, 3, '2025-03-29 13:11:05'),
+(27, 1, '2025-03-29 13:11:05'),
+(23, 6, '2025-03-29 13:11:05'),
+(25, 5, '2025-03-29 13:11:05'),
+(24, 6, '2025-03-29 13:11:05'),
+(26, 4, '2025-03-29 13:11:05'),
+(27, 4, '2025-03-29 13:11:05'),
+(28, 2, '2025-03-29 13:11:05'),
+(23, 9, '2025-03-29 13:11:05'),
+(25, 6, '2025-03-29 13:11:05'),
+(24, 9, '2025-03-29 13:11:05'),
+(26, 5, '2025-03-29 13:11:05'),
+(27, 5, '2025-03-29 13:11:05'),
+(28, 3, '2025-03-29 13:11:05'),
+(25, 9, '2025-03-29 13:11:05'),
+(26, 6, '2025-03-29 13:11:05'),
+(27, 6, '2025-03-29 13:11:05'),
+(28, 4, '2025-03-29 13:11:06'),
+(29, 1, '2025-03-29 13:11:06'),
+(26, 9, '2025-03-29 13:11:06'),
+(27, 8, '2025-03-29 13:11:06'),
+(28, 5, '2025-03-29 13:11:06'),
+(29, 2, '2025-03-29 13:11:06'),
+(30, 3, '2025-03-29 13:11:06'),
+(27, 9, '2025-03-29 13:11:06'),
+(28, 9, '2025-03-29 13:11:06'),
+(29, 3, '2025-03-29 13:11:06'),
+(31, 1, '2025-03-29 13:11:06'),
+(30, 4, '2025-03-29 13:11:06'),
+(29, 5, '2025-03-29 13:11:06'),
+(31, 2, '2025-03-29 13:11:06'),
+(32, 2, '2025-03-29 13:11:06'),
+(30, 5, '2025-03-29 13:11:06'),
+(29, 9, '2025-03-29 13:11:06'),
+(31, 3, '2025-03-29 13:11:06'),
+(32, 3, '2025-03-29 13:11:06'),
+(30, 9, '2025-03-29 13:11:06'),
+(33, 2, '2025-03-29 13:11:06'),
+(32, 4, '2025-03-29 13:11:06'),
+(31, 4, '2025-03-29 13:11:06'),
+(34, 1, '2025-03-29 13:11:06'),
+(33, 3, '2025-03-29 13:11:06'),
+(32, 5, '2025-03-29 13:11:06'),
+(34, 2, '2025-03-29 13:11:06'),
+(33, 4, '2025-03-29 13:11:06'),
+(31, 5, '2025-03-29 13:11:06'),
+(35, 2, '2025-03-29 13:11:06'),
+(32, 9, '2025-03-29 13:11:06'),
+(34, 3, '2025-03-29 13:11:06'),
+(33, 5, '2025-03-29 13:11:06'),
+(31, 6, '2025-03-29 13:11:06'),
+(35, 4, '2025-03-29 13:11:06'),
+(34, 4, '2025-03-29 13:11:06'),
+(33, 6, '2025-03-29 13:11:06'),
+(31, 9, '2025-03-29 13:11:06'),
+(36, 2, '2025-03-29 13:11:06'),
+(35, 5, '2025-03-29 13:11:06'),
+(34, 5, '2025-03-29 13:11:06'),
+(37, 1, '2025-03-29 13:11:06'),
+(33, 9, '2025-03-29 13:11:06'),
+(36, 3, '2025-03-29 13:11:06'),
+(35, 6, '2025-03-29 13:11:06'),
+(37, 2, '2025-03-29 13:11:06'),
+(38, 1, '2025-03-29 13:11:06'),
+(34, 6, '2025-03-29 13:11:06'),
+(36, 5, '2025-03-29 13:11:06'),
+(35, 9, '2025-03-29 13:11:06'),
+(37, 3, '2025-03-29 13:11:06'),
+(38, 2, '2025-03-29 13:11:06'),
+(34, 8, '2025-03-29 13:11:06'),
+(39, 2, '2025-03-29 13:11:06'),
+(36, 9, '2025-03-29 13:11:06'),
+(37, 5, '2025-03-29 13:11:06'),
+(38, 3, '2025-03-29 13:11:06'),
+(34, 9, '2025-03-29 13:11:06'),
+(39, 3, '2025-03-29 13:11:06'),
+(40, 1, '2025-03-29 13:11:06'),
+(37, 9, '2025-03-29 13:11:06'),
+(39, 4, '2025-03-29 13:11:06'),
+(40, 2, '2025-03-29 13:11:06'),
+(41, 1, '2025-03-29 13:11:06'),
+(38, 4, '2025-03-29 13:11:06'),
+(39, 5, '2025-03-29 13:11:06'),
+(42, 1, '2025-03-29 13:11:06'),
+(40, 3, '2025-03-29 13:11:06'),
+(41, 2, '2025-03-29 13:11:06'),
+(38, 5, '2025-03-29 13:11:06'),
+(39, 6, '2025-03-29 13:11:06'),
+(42, 3, '2025-03-29 13:11:06'),
+(40, 4, '2025-03-29 13:11:06'),
+(41, 3, '2025-03-29 13:11:06'),
+(38, 6, '2025-03-29 13:11:06'),
+(39, 9, '2025-03-29 13:11:06'),
+(43, 1, '2025-03-29 13:11:06'),
+(42, 4, '2025-03-29 13:11:06'),
+(40, 5, '2025-03-29 13:11:06'),
+(41, 4, '2025-03-29 13:11:06'),
+(38, 7, '2025-03-29 13:11:06'),
+(43, 4, '2025-03-29 13:11:06'),
+(42, 5, '2025-03-29 13:11:06'),
+(40, 6, '2025-03-29 13:11:06'),
+(44, 1, '2025-03-29 13:11:06'),
+(41, 5, '2025-03-29 13:11:06'),
+(38, 9, '2025-03-29 13:11:06'),
+(43, 5, '2025-03-29 13:11:06'),
+(42, 6, '2025-03-29 13:11:06'),
+(40, 8, '2025-03-29 13:11:06'),
+(44, 3, '2025-03-29 13:11:06'),
+(45, 1, '2025-03-29 13:11:06'),
+(41, 6, '2025-03-29 13:11:06'),
+(43, 6, '2025-03-29 13:11:06'),
+(42, 9, '2025-03-29 13:11:06'),
+(40, 9, '2025-03-29 13:11:06'),
+(44, 4, '2025-03-29 13:11:06'),
+(45, 2, '2025-03-29 13:11:06'),
+(41, 7, '2025-03-29 13:11:06'),
+(43, 9, '2025-03-29 13:11:06'),
+(46, 1, '2025-03-29 13:11:06'),
+(44, 5, '2025-03-29 13:11:06'),
+(45, 3, '2025-03-29 13:11:06'),
+(46, 2, '2025-03-29 13:11:06'),
+(41, 9, '2025-03-29 13:11:06'),
+(47, 1, '2025-03-29 13:11:06'),
+(44, 6, '2025-03-29 13:11:06'),
+(45, 4, '2025-03-29 13:11:06'),
+(46, 3, '2025-03-29 13:11:06'),
+(44, 9, '2025-03-29 13:11:06'),
+(45, 5, '2025-03-29 13:11:06'),
+(48, 1, '2025-03-29 13:11:06'),
+(47, 2, '2025-03-29 13:11:06'),
+(46, 5, '2025-03-29 13:11:06'),
+(45, 6, '2025-03-29 13:11:06'),
+(48, 2, '2025-03-29 13:11:06'),
+(47, 3, '2025-03-29 13:11:06'),
+(49, 1, '2025-03-29 13:11:06'),
+(46, 6, '2025-03-29 13:11:06'),
+(45, 8, '2025-03-29 13:11:06'),
+(48, 3, '2025-03-29 13:11:06'),
+(49, 2, '2025-03-29 13:11:06'),
+(47, 5, '2025-03-29 13:11:06'),
+(46, 9, '2025-03-29 13:11:06'),
+(45, 9, '2025-03-29 13:11:06'),
+(50, 1, '2025-03-29 13:11:06'),
+(48, 4, '2025-03-29 13:11:06'),
+(49, 4, '2025-03-29 13:11:06'),
+(47, 6, '2025-03-29 13:11:06'),
+(50, 3, '2025-03-29 13:11:06'),
+(51, 1, '2025-03-29 13:11:06'),
+(48, 5, '2025-03-29 13:11:06'),
+(49, 5, '2025-03-29 13:11:06'),
+(47, 9, '2025-03-29 13:11:06'),
+(50, 4, '2025-03-29 13:11:06'),
+(51, 3, '2025-03-29 13:11:06'),
+(48, 6, '2025-03-29 13:11:06'),
+(49, 6, '2025-03-29 13:11:06'),
+(52, 1, '2025-03-29 13:11:06'),
+(50, 5, '2025-03-29 13:11:06'),
+(51, 4, '2025-03-29 13:11:06'),
+(48, 9, '2025-03-29 13:11:06'),
+(49, 8, '2025-03-29 13:11:06'),
+(52, 2, '2025-03-29 13:11:06'),
+(50, 6, '2025-03-29 13:11:06'),
+(53, 1, '2025-03-29 13:11:06'),
+(51, 5, '2025-03-29 13:11:06'),
+(49, 9, '2025-03-29 13:11:06'),
+(52, 3, '2025-03-29 13:11:06'),
+(50, 9, '2025-03-29 13:11:06'),
+(53, 2, '2025-03-29 13:11:06'),
+(54, 1, '2025-03-29 13:11:06'),
+(51, 6, '2025-03-29 13:11:06'),
+(53, 3, '2025-03-29 13:11:06'),
+(54, 2, '2025-03-29 13:11:06'),
+(52, 4, '2025-03-29 13:11:06'),
+(55, 1, '2025-03-29 13:11:06'),
+(51, 9, '2025-03-29 13:11:06'),
+(53, 4, '2025-03-29 13:11:06'),
+(54, 3, '2025-03-29 13:11:06'),
+(52, 5, '2025-03-29 13:11:06'),
+(55, 2, '2025-03-29 13:11:06'),
+(53, 5, '2025-03-29 13:11:06'),
+(54, 4, '2025-03-29 13:11:06'),
+(52, 6, '2025-03-29 13:11:06'),
+(55, 3, '2025-03-29 13:11:06'),
+(56, 2, '2025-03-29 13:11:06'),
+(53, 6, '2025-03-29 13:11:06'),
+(54, 5, '2025-03-29 13:11:06'),
+(52, 9, '2025-03-29 13:11:06'),
+(57, 3, '2025-03-29 13:11:06'),
+(55, 4, '2025-03-29 13:11:06'),
+(56, 4, '2025-03-29 13:11:06'),
+(53, 7, '2025-03-29 13:11:06'),
+(54, 6, '2025-03-29 13:11:06'),
+(57, 4, '2025-03-29 13:11:06'),
+(55, 5, '2025-03-29 13:11:06'),
+(56, 5, '2025-03-29 13:11:06'),
+(53, 9, '2025-03-29 13:11:06'),
+(58, 1, '2025-03-29 13:11:06'),
+(54, 7, '2025-03-29 13:11:06'),
+(57, 5, '2025-03-29 13:11:06'),
+(56, 6, '2025-03-29 13:11:06'),
+(58, 3, '2025-03-29 13:11:06'),
+(59, 1, '2025-03-29 13:11:06'),
+(55, 6, '2025-03-29 13:11:06'),
+(54, 9, '2025-03-29 13:11:06'),
+(57, 6, '2025-03-29 13:11:06'),
+(56, 9, '2025-03-29 13:11:06'),
+(58, 4, '2025-03-29 13:11:06'),
+(59, 3, '2025-03-29 13:11:06'),
+(55, 7, '2025-03-29 13:11:06'),
+(60, 4, '2025-03-29 13:11:06'),
+(57, 9, '2025-03-29 13:11:06'),
+(58, 5, '2025-03-29 13:11:06'),
+(59, 4, '2025-03-29 13:11:06'),
+(55, 9, '2025-03-29 13:11:06'),
+(60, 5, '2025-03-29 13:11:06'),
+(58, 9, '2025-03-29 13:11:06'),
+(59, 5, '2025-03-29 13:11:06'),
+(60, 9, '2025-03-29 13:11:06'),
+(59, 6, '2025-03-29 13:11:06'),
+(61, 2, '2025-03-29 13:11:06'),
+(59, 9, '2025-03-29 13:11:06'),
+(62, 2, '2025-03-29 13:11:06'),
+(61, 3, '2025-03-29 13:11:06'),
+(63, 1, '2025-03-29 13:11:06'),
+(62, 3, '2025-03-29 13:11:06'),
+(61, 4, '2025-03-29 13:11:06'),
+(63, 2, '2025-03-29 13:11:06'),
+(64, 2, '2025-03-29 13:11:06'),
+(62, 5, '2025-03-29 13:11:06'),
+(61, 5, '2025-03-29 13:11:06'),
+(65, 1, '2025-03-29 13:11:06'),
+(63, 3, '2025-03-29 13:11:06'),
+(64, 3, '2025-03-29 13:11:06'),
+(62, 6, '2025-03-29 13:11:06'),
+(61, 9, '2025-03-29 13:11:06'),
+(65, 2, '2025-03-29 13:11:06'),
+(63, 4, '2025-03-29 13:11:06'),
+(64, 4, '2025-03-29 13:11:06'),
+(62, 9, '2025-03-29 13:11:06'),
+(66, 1, '2025-03-29 13:11:06'),
+(63, 5, '2025-03-29 13:11:06'),
+(65, 3, '2025-03-29 13:11:06'),
+(64, 5, '2025-03-29 13:11:06'),
+(66, 2, '2025-03-29 13:11:06'),
+(63, 6, '2025-03-29 13:11:06'),
+(67, 1, '2025-03-29 13:11:06'),
+(65, 4, '2025-03-29 13:11:06'),
+(64, 6, '2025-03-29 13:11:06'),
+(66, 3, '2025-03-29 13:11:06'),
+(63, 9, '2025-03-29 13:11:06'),
+(67, 2, '2025-03-29 13:11:06'),
+(68, 1, '2025-03-29 13:11:06'),
+(65, 5, '2025-03-29 13:11:06'),
+(64, 8, '2025-03-29 13:11:06'),
+(66, 4, '2025-03-29 13:11:06'),
+(67, 3, '2025-03-29 13:11:06'),
+(68, 2, '2025-03-29 13:11:06'),
+(69, 1, '2025-03-29 13:11:06'),
+(65, 6, '2025-03-29 13:11:06'),
+(64, 9, '2025-03-29 13:11:06'),
+(66, 5, '2025-03-29 13:11:06'),
+(67, 4, '2025-03-29 13:11:06'),
+(68, 4, '2025-03-29 13:11:06'),
+(69, 2, '2025-03-29 13:11:06'),
+(70, 1, '2025-03-29 13:11:06'),
+(65, 9, '2025-03-29 13:11:07'),
+(66, 6, '2025-03-29 13:11:07'),
+(67, 5, '2025-03-29 13:11:07'),
+(68, 5, '2025-03-29 13:11:07'),
+(69, 4, '2025-03-29 13:11:07'),
+(70, 2, '2025-03-29 13:11:07'),
+(71, 1, '2025-03-29 13:11:07'),
+(66, 8, '2025-03-29 13:11:07'),
+(67, 6, '2025-03-29 13:11:07'),
+(68, 9, '2025-03-29 13:11:07'),
+(70, 3, '2025-03-29 13:11:07'),
+(71, 2, '2025-03-29 13:11:07'),
+(69, 5, '2025-03-29 13:11:07'),
+(70, 4, '2025-03-29 13:11:07'),
+(71, 3, '2025-03-29 13:11:07'),
+(67, 9, '2025-03-29 13:11:07'),
+(66, 9, '2025-03-29 13:11:07'),
+(72, 3, '2025-03-29 13:11:07'),
+(71, 4, '2025-03-29 13:11:07'),
+(69, 6, '2025-03-29 13:11:07'),
+(70, 5, '2025-03-29 13:11:07'),
+(72, 4, '2025-03-29 13:11:07'),
+(71, 5, '2025-03-29 13:11:07'),
+(73, 1, '2025-03-29 13:11:07'),
+(69, 9, '2025-03-29 13:11:07'),
+(70, 6, '2025-03-29 13:11:07'),
+(72, 5, '2025-03-29 13:11:07'),
+(71, 6, '2025-03-29 13:11:07'),
+(73, 4, '2025-03-29 13:11:07'),
+(74, 3, '2025-03-29 13:11:07'),
+(72, 9, '2025-03-29 13:11:07'),
+(70, 9, '2025-03-29 13:11:07'),
+(73, 5, '2025-03-29 13:11:07'),
+(74, 4, '2025-03-29 13:11:07'),
+(75, 1, '2025-03-29 13:11:07'),
+(71, 8, '2025-03-29 13:11:07'),
+(73, 6, '2025-03-29 13:11:07'),
+(74, 5, '2025-03-29 13:11:07'),
+(75, 2, '2025-03-29 13:11:07'),
+(71, 9, '2025-03-29 13:11:07'),
+(76, 1, '2025-03-29 13:11:07'),
+(73, 9, '2025-03-29 13:11:07'),
+(74, 9, '2025-03-29 13:11:07'),
+(75, 3, '2025-03-29 13:11:07'),
+(76, 2, '2025-03-29 13:11:07'),
+(75, 5, '2025-03-29 13:11:07'),
+(77, 1, '2025-03-29 13:11:07'),
+(76, 4, '2025-03-29 13:11:07'),
+(75, 6, '2025-03-29 13:11:07'),
+(77, 2, '2025-03-29 13:11:07'),
+(78, 1, '2025-03-29 13:11:07'),
+(76, 5, '2025-03-29 13:11:07'),
+(75, 9, '2025-03-29 13:11:07'),
+(79, 1, '2025-03-29 13:11:07'),
+(77, 4, '2025-03-29 13:11:07'),
+(78, 2, '2025-03-29 13:11:07'),
+(76, 6, '2025-03-29 13:11:07'),
+(79, 2, '2025-03-29 13:11:07'),
+(77, 5, '2025-03-29 13:11:07'),
+(80, 1, '2025-03-29 13:11:07'),
+(78, 3, '2025-03-29 13:11:07'),
+(76, 9, '2025-03-29 13:11:07'),
+(79, 4, '2025-03-29 13:11:07'),
+(77, 6, '2025-03-29 13:11:07'),
+(80, 2, '2025-03-29 13:11:07'),
+(78, 4, '2025-03-29 13:11:07'),
+(81, 1, '2025-03-29 13:11:07'),
+(79, 5, '2025-03-29 13:11:07'),
+(77, 9, '2025-03-29 13:11:07'),
+(80, 3, '2025-03-29 13:11:07'),
+(81, 2, '2025-03-29 13:11:07'),
+(78, 5, '2025-03-29 13:11:07'),
+(82, 1, '2025-03-29 13:11:07'),
+(79, 6, '2025-03-29 13:11:07'),
+(80, 4, '2025-03-29 13:11:07'),
+(81, 3, '2025-03-29 13:11:07'),
+(78, 6, '2025-03-29 13:11:07'),
+(82, 2, '2025-03-29 13:11:07'),
+(79, 9, '2025-03-29 13:11:07'),
+(80, 5, '2025-03-29 13:11:07'),
+(81, 4, '2025-03-29 13:11:07'),
+(83, 1, '2025-03-29 13:11:07'),
+(78, 9, '2025-03-29 13:11:07'),
+(82, 3, '2025-03-29 13:11:07'),
+(83, 2, '2025-03-29 13:11:07'),
+(82, 4, '2025-03-29 13:11:07'),
+(80, 6, '2025-03-29 13:11:07'),
+(81, 5, '2025-03-29 13:11:07'),
+(84, 1, '2025-03-29 13:11:07'),
+(85, 1, '2025-03-29 13:11:07'),
+(83, 4, '2025-03-29 13:11:07'),
+(82, 5, '2025-03-29 13:11:07'),
+(80, 9, '2025-03-29 13:11:07'),
+(81, 6, '2025-03-29 13:11:07'),
+(84, 3, '2025-03-29 13:11:07'),
+(85, 2, '2025-03-29 13:11:07'),
+(83, 5, '2025-03-29 13:11:07'),
+(82, 6, '2025-03-29 13:11:07'),
+(81, 9, '2025-03-29 13:11:07'),
+(84, 4, '2025-03-29 13:11:07'),
+(86, 1, '2025-03-29 13:11:07'),
+(85, 3, '2025-03-29 13:11:07'),
+(83, 6, '2025-03-29 13:11:07'),
+(82, 9, '2025-03-29 13:11:07'),
+(84, 5, '2025-03-29 13:11:07'),
+(86, 2, '2025-03-29 13:11:07'),
+(87, 1, '2025-03-29 13:11:07'),
+(83, 9, '2025-03-29 13:11:07'),
+(86, 3, '2025-03-29 13:11:07'),
+(87, 2, '2025-03-29 13:11:07'),
+(88, 2, '2025-03-29 13:11:07'),
+(85, 5, '2025-03-29 13:11:07'),
+(84, 9, '2025-03-29 13:11:07'),
+(86, 4, '2025-03-29 13:11:07'),
+(87, 3, '2025-03-29 13:11:07'),
+(85, 6, '2025-03-29 13:11:07'),
+(88, 3, '2025-03-29 13:11:07'),
+(89, 1, '2025-03-29 13:11:07'),
+(86, 5, '2025-03-29 13:11:07'),
+(87, 4, '2025-03-29 13:11:07'),
+(85, 9, '2025-03-29 13:11:07'),
+(88, 4, '2025-03-29 13:11:07'),
+(89, 2, '2025-03-29 13:11:07'),
+(86, 6, '2025-03-29 13:11:07'),
+(87, 5, '2025-03-29 13:11:07'),
+(90, 3, '2025-03-29 13:11:07'),
+(88, 5, '2025-03-29 13:11:07'),
+(89, 3, '2025-03-29 13:11:07'),
+(86, 9, '2025-03-29 13:11:07'),
+(87, 6, '2025-03-29 13:11:07'),
+(90, 4, '2025-03-29 13:11:07'),
+(91, 1, '2025-03-29 13:11:07'),
+(88, 9, '2025-03-29 13:11:07'),
+(89, 4, '2025-03-29 13:11:07'),
+(87, 7, '2025-03-29 13:11:07'),
+(90, 5, '2025-03-29 13:11:07'),
+(91, 2, '2025-03-29 13:11:07'),
+(92, 1, '2025-03-29 13:11:07'),
+(89, 5, '2025-03-29 13:11:07'),
+(87, 9, '2025-03-29 13:11:07'),
+(90, 9, '2025-03-29 13:11:07'),
+(91, 3, '2025-03-29 13:11:07'),
+(92, 2, '2025-03-29 13:11:07'),
+(89, 6, '2025-03-29 13:11:07'),
+(91, 5, '2025-03-29 13:11:07'),
+(93, 2, '2025-03-29 13:11:07'),
+(92, 3, '2025-03-29 13:11:07'),
+(89, 7, '2025-03-29 13:11:07'),
+(91, 6, '2025-03-29 13:11:07'),
+(93, 3, '2025-03-29 13:11:07'),
+(94, 1, '2025-03-29 13:11:07'),
+(92, 4, '2025-03-29 13:11:07'),
+(89, 8, '2025-03-29 13:11:07'),
+(91, 9, '2025-03-29 13:11:07'),
+(93, 4, '2025-03-29 13:11:07'),
+(94, 2, '2025-03-29 13:11:07'),
+(95, 2, '2025-03-29 13:11:07'),
+(92, 5, '2025-03-29 13:11:07'),
+(89, 9, '2025-03-29 13:11:07'),
+(93, 5, '2025-03-29 13:11:07'),
+(94, 3, '2025-03-29 13:11:07'),
+(95, 3, '2025-03-29 13:11:07'),
+(96, 1, '2025-03-29 13:11:07'),
+(92, 6, '2025-03-29 13:11:07'),
+(93, 6, '2025-03-29 13:11:07'),
+(94, 4, '2025-03-29 13:11:07'),
+(95, 5, '2025-03-29 13:11:07'),
+(96, 2, '2025-03-29 13:11:07'),
+(92, 9, '2025-03-29 13:11:07'),
+(93, 9, '2025-03-29 13:11:07'),
+(94, 5, '2025-03-29 13:11:07'),
+(97, 1, '2025-03-29 13:11:07'),
+(95, 9, '2025-03-29 13:11:07'),
+(96, 3, '2025-03-29 13:11:07'),
+(94, 6, '2025-03-29 13:11:07'),
+(97, 2, '2025-03-29 13:11:07'),
+(98, 1, '2025-03-29 13:11:07'),
+(96, 4, '2025-03-29 13:11:07'),
+(94, 9, '2025-03-29 13:11:07'),
+(97, 3, '2025-03-29 13:11:07'),
+(98, 2, '2025-03-29 13:11:07'),
+(99, 1, '2025-03-29 13:11:07'),
+(96, 5, '2025-03-29 13:11:07'),
+(97, 4, '2025-03-29 13:11:07'),
+(98, 4, '2025-03-29 13:11:07'),
+(99, 2, '2025-03-29 13:11:07'),
+(96, 6, '2025-03-29 13:11:07'),
+(100, 1, '2025-03-29 13:11:07'),
+(97, 5, '2025-03-29 13:11:07'),
+(98, 5, '2025-03-29 13:11:07'),
+(99, 3, '2025-03-29 13:11:07'),
+(101, 1, '2025-03-29 13:11:07'),
+(96, 9, '2025-03-29 13:11:07'),
+(100, 2, '2025-03-29 13:11:07'),
+(98, 6, '2025-03-29 13:11:07'),
+(97, 6, '2025-03-29 13:11:07'),
+(99, 4, '2025-03-29 13:11:07'),
+(101, 2, '2025-03-29 13:11:07'),
+(100, 3, '2025-03-29 13:11:07'),
+(98, 9, '2025-03-29 13:11:07'),
+(97, 9, '2025-03-29 13:11:07'),
+(99, 5, '2025-03-29 13:11:07'),
+(101, 3, '2025-03-29 13:11:07'),
+(100, 4, '2025-03-29 13:11:07'),
+(99, 6, '2025-03-29 13:11:07'),
+(101, 5, '2025-03-29 13:11:07'),
+(100, 5, '2025-03-29 13:11:07'),
+(99, 8, '2025-03-29 13:11:07'),
+(101, 6, '2025-03-29 13:11:07'),
+(100, 6, '2025-03-29 13:11:07'),
+(99, 9, '2025-03-29 13:11:07'),
+(101, 9, '2025-03-29 13:11:07'),
+(100, 7, '2025-03-29 13:11:07'),
+(100, 9, '2025-03-29 13:11:07');
+INSERT IGNORE INTO `userexperience` (`id`, `userId`, `level`, `xp`, `xpToNextLevel`, `createdAt`, `updatedAt`) VALUES
+(12, 12, 2, 290, 149, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(13, 13, 7, 183, 245, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(14, 14, 6, 342, 615, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(15, 15, 10, 337, 652, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(16, 16, 10, 407, 477, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(17, 17, 5, 298, 124, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(18, 18, 2, 222, 997, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(19, 19, 6, 406, 140, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(20, 20, 2, 429, 704, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(21, 21, 4, 460, 176, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(22, 22, 10, 252, 705, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(23, 23, 3, 134, 317, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(24, 24, 3, 146, 859, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(25, 25, 4, 179, 910, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(26, 26, 10, 223, 180, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(27, 27, 2, 289, 635, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(28, 28, 1, 133, 835, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(29, 29, 9, 456, 131, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(30, 30, 9, 425, 877, '2025-03-29 13:11:05', '2025-03-29 13:11:05'),
+(31, 31, 1, 243, 500, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(32, 32, 9, 11, 265, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(33, 33, 6, 1, 339, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(34, 34, 2, 223, 731, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(35, 35, 3, 261, 141, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(36, 36, 6, 145, 199, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(37, 37, 7, 14, 588, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(38, 38, 6, 15, 367, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(39, 39, 4, 298, 358, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(40, 40, 8, 150, 707, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(41, 41, 10, 341, 515, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(42, 42, 9, 0, 437, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(43, 43, 7, 293, 783, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(44, 44, 8, 357, 808, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(45, 45, 5, 489, 498, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(46, 46, 6, 260, 792, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(47, 47, 6, 213, 991, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(48, 48, 4, 47, 546, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(49, 49, 1, 405, 867, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(50, 50, 8, 354, 977, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(51, 51, 1, 152, 678, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(52, 52, 4, 167, 935, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(53, 53, 3, 247, 501, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(54, 54, 6, 96, 613, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(55, 55, 9, 478, 956, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(56, 56, 10, 168, 860, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(57, 57, 9, 355, 671, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(58, 58, 8, 157, 388, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(59, 59, 9, 490, 971, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(60, 60, 4, 75, 949, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(61, 61, 6, 247, 866, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(62, 62, 7, 492, 289, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(63, 63, 1, 102, 364, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(64, 64, 8, 207, 153, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(65, 65, 5, 40, 902, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(66, 66, 6, 194, 637, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(67, 67, 10, 166, 244, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(68, 68, 4, 252, 588, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(69, 69, 8, 248, 239, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(70, 70, 8, 325, 855, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(71, 71, 5, 343, 946, '2025-03-29 13:11:06', '2025-03-29 13:11:06'),
+(72, 72, 8, 192, 202, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(73, 73, 8, 154, 661, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(74, 74, 6, 379, 141, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(75, 75, 10, 251, 238, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(76, 76, 6, 60, 295, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(77, 77, 10, 114, 903, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(78, 78, 4, 44, 338, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(79, 79, 10, 498, 221, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(80, 80, 6, 18, 351, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(81, 81, 8, 277, 681, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(82, 82, 4, 440, 559, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(83, 83, 9, 436, 614, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(84, 84, 2, 43, 244, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(85, 85, 10, 288, 473, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(86, 86, 1, 427, 543, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(87, 87, 10, 4, 401, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(88, 88, 2, 438, 757, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(89, 89, 6, 474, 179, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(90, 90, 6, 24, 799, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(91, 91, 5, 372, 679, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(92, 92, 2, 485, 321, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(93, 93, 6, 398, 410, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(94, 94, 8, 263, 265, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(95, 95, 9, 478, 996, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(96, 96, 5, 378, 496, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(97, 97, 1, 407, 199, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(98, 98, 9, 244, 790, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(99, 99, 4, 302, 511, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(100, 100, 10, 304, 851, '2025-03-29 13:11:07', '2025-03-29 13:11:07'),
+(101, 101, 4, 110, 329, '2025-03-29 13:11:07', '2025-03-29 13:11:07');
