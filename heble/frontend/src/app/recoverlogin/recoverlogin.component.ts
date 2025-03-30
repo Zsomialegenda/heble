@@ -19,7 +19,7 @@ export class RecoverloginComponent {
     secureAnswer: '',
   };
 
-   // jelszó megváltoztatásáért felelős függvény, ami a sikeres felhasználói adatok megadása után átnavigálja a felhasználót a jelszó megváltoztatásért felelős komponenshez
+   // jelszó megváltoztatásáért felelős metódus, ami a sikeres felhasználói adatok megadása után átnavigálja a felhasználót a jelszó megváltoztatásért felelős komponenshez
   submitData() {
     console.log(this.userData);
 

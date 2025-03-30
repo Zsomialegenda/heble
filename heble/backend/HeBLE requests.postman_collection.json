@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "970d0357-fa03-423e-a94e-b972d75f6092",
 		"name": "HeBLE requests",
-		"description": "This is the collection of HeBLE requests for our last term prject.",
+		"description": "Ez a HeLE backend kollekció az évvégi projekteknek.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39982026",
 		"_collection_link": "https://heble6.postman.co/workspace/HeBLE-Workspace~d8f98ec3-6bb5-4548-97de-6a20ebe103db/collection/39982026-970d0357-fa03-423e-a94e-b972d75f6092?action=share&source=collection_link&creator=39982026"
@@ -77,7 +77,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"Georgianna_Larson@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"Myrtice.Graham@hotmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -298,7 +298,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjFUMTY6Mjg6MzIuMTU0WiIsImlhdCI6MTc0MjU3NDUxMiwiZXhwIjoxNzQyNjAzMzEyfQ.a8WjWWgAKnrEC2OwTnO3K2zy5BSjn2Tjr-qb8JTwKtE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjZUMDg6Mjc6NDcuNDg4WiIsImlhdCI6MTc0Mjk3NzY2NywiZXhwIjoxNzQzMDA2NDY3fQ.Tl7IeszsNWVlRwHRLVED6CBdjvo-GJdnPDUWPubS-FU",
 									"type": "string"
 								}
 							]
@@ -307,7 +307,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \r\n    \"email\": \"Raven21@hotmail.com\",\r\n    \"password\": \"Nagycsirke_1298\",\r\n    \"secureAnswer\": \"heble\"\r\n}",
+							"raw": "{   \r\n    \"email\": \"Myrtice.Graham@hotmail.com\",\r\n    \"password\": \"Nagycsirke_1298\",\r\n    \"secureAnswer\": \"heble\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -544,7 +544,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yM1QxOToxNToxNi4zNDdaIiwiaWF0IjoxNzQyNzU3MzE2LCJleHAiOjE3NDI3ODYxMTZ9.rBWgWOUtE436U_Yxe1gCjjxFXm2bFzhexZsGL4Q21sw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFzZEBleGFtcGxlLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJsb2dpbkF0IjoiMjAyNS0wMy0yOVQxNjo1ODo0NS4xNzFaIiwiaWF0IjoxNzQzMjY3NTI1LCJleHAiOjE3NDMyOTYzMjV9.fDIFY7uSTTwkBu5JavdRO0z_Oj4rqZR5pjCrQFeuizU",
 									"type": "string"
 								}
 							]
@@ -769,7 +769,14 @@
 					"name": "update achievement",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaXNBZG1pbiI6dHJ1ZSwibG9naW5BdCI6IjIwMjUtMDMtMjlUMTY6NDQ6NDguODIyWiIsImlhdCI6MTc0MzI2NjY4OCwiZXhwIjoxNzQzMjk1NDg4fQ.UR4BWTH_Aqvgyph3aFSmViFhY8BkcdodJcCWHmHplj0",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
@@ -2525,7 +2532,7 @@
 					]
 				}
 			],
-			"description": "Itt találhatók meg a tesztesetek, amik igazából a megffelelő hibbaüzenetek kezelését tesztelik (a sikeres válasz és adatbázishiba kivételével)."
+			"description": "Itt találhatók meg a tesztesetek, amik igazából a megfelelő hibaüzenetek kezelését tesztelik (a sikeres válasz és adatbázishiba kivételével)."
 		}
 	]
 }

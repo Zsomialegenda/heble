@@ -1,3 +1,4 @@
+//achievementek hozzáadásához létrehozott interface, ami felállít egy szerkezetet, hogy milyen adatokat várunk el a backend felől.
 export interface AddAchievement {
   id: number;
   name: string;

@@ -14,6 +14,7 @@ export class AdminAchievementComponent {
 
   newAchievements: AddAchievement[] = [];
 
+  // achievement frissítése
   updateAchievement(
     id: number,
     name: string,
@@ -43,6 +44,7 @@ export class AdminAchievementComponent {
     });
   }
 
+  // új achievement hozzáadása
   addAchievement(
     name: string,
     description: string,

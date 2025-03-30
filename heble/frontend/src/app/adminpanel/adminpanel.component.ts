@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
 import { AdminService } from '../services/admin.service';
@@ -20,89 +20,18 @@ Chart.register(...registerables);
   styleUrl: './adminpanel.component.css',
 })
 export class AdminpanelComponent implements OnInit {
-sitUpsRequired: any;
-foundUser: any;
-
   constructor(private http: HttpClient, private adminService: AdminService) {}
-  allUsers: any = 0;
-  activeUsers: any = 0;
-
-  allUsersCount: any = 0;
-  activeUsersCount: any = 0;
-
   private achievementChart?: Chart;
   private exerciseChart?: Chart;
 
   leaderboards: { [key: string]: any[] } = {};
   leaderboardData: any[] = [];
 
-  totalPushUps: any;
-  totalPullUps: any;
-  totalSitUps: any;
-  totalSquats: any;
-  totalRunning: any;
 
   ngOnInit() {
-    this.allUsersCount = this.adminService.getAllUsers().subscribe({
-      next: (res: any) => {
-        this.allUsersCount = res.userCount;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-    this.activeUsersCount = this.adminService.getActiveUsers().subscribe({
-      next: (res: any) => {
-        this.activeUsersCount = res.tokenCount;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-
-    this.totalPushUps = this.adminService.getTotalPushUps().subscribe({
-      next: (res: any) => {
-        this.totalPushUps = res.total;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-    this.totalPullUps = this.adminService.getTotalPullUps().subscribe({
-      next: (res: any) => {
-        this.totalPullUps = res.total;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-    this.totalSitUps = this.adminService.getTotalSitUps().subscribe({
-      next: (res: any) => {
-        this.totalSitUps = res.total;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-    this.totalSquats = this.adminService.getTotalSquats().subscribe({
-      next: (res: any) => {
-        this.totalSquats = res.total;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-    this.totalRunning = this.adminService.getTotalRunning().subscribe({
-      next: (res: any) => {
-        this.totalRunning = res.total;
-      },
-      error: (err: HttpErrorResponse) => {
-        alert(err);
-      },
-    });
-
     this.loadAchievementChart();
     this.loadExerciseChart();
+    // ranglisták lekérése
     this.fetchLeaderboard('pushUpsLeaderBoard', 'exercise', 'pushUps');
     this.fetchLeaderboard('pullUpsLeaderBoard', 'exercise', 'pullUps');
     this.fetchLeaderboard('sitUpsLeaderBoard', 'exercise', 'sitUps');

@@ -10,6 +10,7 @@ export class UserService {
 
   signupEnd = 'signup';
   loginEnd = 'login';
+  logoutEnd = 'logout';
   forgotPasswordEnd = 'forgot';
   changePasswordEnd = 'forgot/reset';
 
@@ -30,6 +31,11 @@ export class UserService {
     return !!localStorage.getItem('token');
   }
 
+  // kijelentkezésért felelős függvény
+  signOut(users: any) {
+    return this.http.post(this.baseURL + this.logoutEnd, users);
+  }
+  
   // token lekérdezésének függvénye
   getToken() {
     return localStorage.getItem('token');

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-nav',
@@ -15,8 +16,11 @@ export class NavComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) {}
 
   SignOut() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userService.getToken);
+    this.userService.signOut(headers).subscribe(() => {
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
+    });
   }
 
   role: any;

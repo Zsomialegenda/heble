@@ -56,7 +56,7 @@ export class UserprofileComponent implements OnInit {
     }
   }
 
-  // a felhasználói fiókhoz rendelt email-cím megváltoztatása biztonsági jelszó alapján, egy új email-címért felelős függvény
+  // a felhasználói fiókhoz rendelt email-cím megváltoztatása biztonsági jelszó alapján, egy új email-címért felelős metódus
   submitData() {
     console.log(this.userData);
 

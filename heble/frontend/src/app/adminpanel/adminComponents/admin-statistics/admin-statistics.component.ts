@@ -13,6 +13,7 @@ Chart.register(...registerables);
   styleUrl: './admin-statistics.component.css'
 })
 export class AdminStatisticsComponent implements OnInit{
+  // felhasználói statisztikák, mint összes- és aktív felhasználók száma
   allUsersCount: any;
   activeUsersCount: any;
 
@@ -28,6 +29,7 @@ export class AdminStatisticsComponent implements OnInit{
 
   constructor(private http: HttpClient, private adminService: AdminService) {}
   ngOnInit() {
+    // az adminpanel betöltése után lekérdezi az összes- és aktív felhasználók számát
       this.allUsersCount = this.adminService.getAllUsers().subscribe({
         next: (res: any) => {
           this.allUsersCount = res.userCount;
@@ -45,6 +47,7 @@ export class AdminStatisticsComponent implements OnInit{
         },
       });
 
+      // gyakorlatok összeredményeinek lekérése: Fekvőtámasz, Húzódzkodás, Felülés, Guggolás, Futás
       this.totalPushUps = this.adminService.getTotalPushUps().subscribe({
         next: (res: any) => {
           this.totalPushUps = res.total;
@@ -90,6 +93,7 @@ export class AdminStatisticsComponent implements OnInit{
       this.loadExerciseChart();
     }
 
+    // achievement (teljesítmények) oszlopdiagram chart.js modul segítségével
     async loadAchievementChart() {
       this.adminService.getAchievementStats().subscribe({
         next: (res: any) => {
@@ -133,6 +137,7 @@ export class AdminStatisticsComponent implements OnInit{
       });
     }
 
+    // gyakorlatok oszlopdiagram chart.js modul segítségével
     async loadExerciseChart() {
       this.adminService.getExerciseStats().subscribe({
         next: (res: any) => {

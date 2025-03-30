@@ -20,6 +20,7 @@ export class AdminUserManagementComponent {
 
   constructor(private http: HttpClient, private adminService: AdminService) {}
 
+  // felhasználó lekérése email alapján
   getUserByEmail(email: string) {
     this.adminService.getUserByEmail(email).subscribe({
       next: (user) => {
@@ -33,6 +34,7 @@ export class AdminUserManagementComponent {
     });
   }
 
+  // felhasználó törlése
   deleteUser(email: string, password: string, secureAnswer: string) {
     if (!email || !password || !secureAnswer) {
       alert('Minden mezőt ki kell tölteni!');
