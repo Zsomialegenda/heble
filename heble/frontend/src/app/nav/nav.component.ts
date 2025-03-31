@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { TokenInterceptorService } from '../services/token-interceptor.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,13 +14,17 @@ import { HttpHeaders } from '@angular/common/http';
 
 // Az SignOut metódus kijelentkezéskor törli a localStorage-ból a tokent, és át navigálja felhasználót a bejelentkezéshez. A másik metódus betöltésekor ellenőrzi a felhasználó szerepkörét, hogy admin-e vagy sem
 export class NavComponent implements OnInit {
-  constructor(public userService: UserService, private router: Router) {}
+  constructor(public userService: UserService, private router: Router) { }
 
   SignOut() {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userService.getToken);
-    this.userService.signOut(headers).subscribe(() => {
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
+    this.userService.signOut(this.userService.getToken).subscribe({
+      next: (res: any) => {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }, error: (err: HttpErrorResponse) => {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
     });
   }
 

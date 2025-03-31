@@ -15,7 +15,7 @@ const { assignAchievements } = require("../utils/checkAchievements");
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
-const GENERATED_USERS_PASS = process.env.GENERATED_USERS_PASS || "heble"
+const GENERATED_USERS_PASS = process.env.GENERATED_USERS_PASS || "heble0";
 
 /** generateUsers -- felhasználók generálása
  *
@@ -37,7 +37,7 @@ const generateUsers = async (req, res) => {
       email: ADMIN_USERNAME,
       password: hashedAdminPassword,
       isAdmin: true,
-      secureAnswer: "heble",
+      secureAnswer: await bcrypt.hash('heble0', 10),
     };
 
     const users = await Promise.all(
@@ -45,9 +45,9 @@ const generateUsers = async (req, res) => {
         const firstName = faker.person.firstName();
         const lastName = faker.person.lastName();
         const email = faker.internet.email();
-        const password = await bcrypt.hash(GENERATED_USERS_PASS, 10); // Minden előre generált felhasználónak "heble" lesz a jelszava
+        const password = await bcrypt.hash(GENERATED_USERS_PASS || 'heble0', 10); // Minden előre generált felhasználónak "heble0" lesz a jelszava
         const isAdmin = false;
-        const secureAnswer = "heble";
+        const secureAnswer = await bcrypt.hash('heble0', 10); // Minden előre generált felhasználónak "heble0" lesz a jelszava
 
         return { firstName, lastName, email, password, isAdmin, secureAnswer };
       })

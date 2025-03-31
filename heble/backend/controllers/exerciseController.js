@@ -20,7 +20,7 @@ const {
 } = require("../utils/statusCode");
 let reason = []; // Hiba leezeésre
 
-const SECRET_KEY = process.env.SECRET_KEY || "admin";
+const SECRET_KEY = process.env.SECRET_KEY || "heble";
 
 const { assignAchievements } = require("../utils/checkAchievements");
 

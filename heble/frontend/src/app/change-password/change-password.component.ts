@@ -21,7 +21,7 @@ export class ChangePasswordComponent {
 
   // jelszó megváltoztatásáért felelős metódus, ami sikeres jelszómegadást követően megváltoztatja a felhasználó jelszavát
   submitData() {
-    console.log(this.userData);
+    // console.log(this.userData);
 
     this.userService.changePassword(this.userData).subscribe({
       next: (res: any) => {

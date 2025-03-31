@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -113,18 +113,15 @@ export class AdminService {
     );
   }
 
-  deleteUser(
-    email: string,
-    password: string,
-    secureAnswer: string
-  ) {
+  deleteUser(email: string, password: string, secureAnswer: string) {
     const body = { email, password, secureAnswer };
-    return this.http.request(
-      'DELETE',
-      this.baseURL + this.usersEnd + 'delete/',
-      { body }
-    );
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+
+    return this.http.request('DELETE', this.baseURL + this.usersEnd + 'delete/', { body, headers });
   }
+
 
   updateAchievement(id: number, achievementData: any) {
     return this.http.patch(

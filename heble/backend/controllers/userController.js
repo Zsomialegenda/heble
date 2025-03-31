@@ -24,9 +24,10 @@ let reason = []; // Hiba leezeésre
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
+const GENERATED_USERS_PASS = process.env.GENERATED_USERS_PASS || "heble0";
 
 // TOKENHEZ
-const SECRET_KEY = process.env.SECRET_KEY || "admin";
+const SECRET_KEY = process.env.SECRET_KEY || "heble";
 
 /** getAllUsers -- az összes felhasználó lekérdezése
  *
@@ -550,6 +551,8 @@ const deleteUser = async (req, res) => {
 
     const { email, password, secureAnswer } = req.body;
 
+   
+
     if (!isAdmin) {
       reason = [
         "Only admins can delete users.",
@@ -580,7 +583,7 @@ const deleteUser = async (req, res) => {
     );
 
     if (
-      !(password === process.env.ADMIN_PASSWORD && secureAnswer === "heble") &&
+      !(password === process.env.ADMIN_PASSWORD && GENERATED_USERS_PASS === secureAnswer) &&
       (!isPasswordValid || !isSecureAnswerValid)
     ) {
       reason = [

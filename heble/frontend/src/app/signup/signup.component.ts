@@ -41,7 +41,7 @@ export class SignupComponent {
     }
 
     if (this.validEmail) {
-      console.log(this.registerUserData);
+      // console.log(this.registerUserData);
 
       this.userService.signup(this.registerUserData).subscribe({
         next: (res: any) => {

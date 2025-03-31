@@ -33,9 +33,9 @@ export class UserService {
 
   // kijelentkezésért felelős függvény
   signOut(users: any) {
-    return this.http.post(this.baseURL + this.logoutEnd, users);
+    return this.http.request('DELETE', this.baseURL + this.logoutEnd, users);
   }
-  
+
   // token lekérdezésének függvénye
   getToken() {
     return localStorage.getItem('token');

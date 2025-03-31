@@ -21,7 +21,7 @@ export class RecoverloginComponent {
 
    // jelszó megváltoztatásáért felelős metódus, ami a sikeres felhasználói adatok megadása után átnavigálja a felhasználót a jelszó megváltoztatásért felelős komponenshez
   submitData() {
-    console.log(this.userData);
+    // console.log(this.userData);
 
     this.userService.forgotPassword(this.userData).subscribe({
       next: (res: any) => {

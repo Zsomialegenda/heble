@@ -98,7 +98,7 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 
 <h3> Szerveroldali alkalmazás indítása (Backend) </h3>
 
-<p> Nyissa meg a Visual Studio Code-ot és nyissa meg a projektet. Majd válassza ki a heble mappán belül a <strong>backend</strong> könyvtárat. Kattintson rá jobb egérgombbal és válassza ki az <i>Open in Integrated Terminal</i>-t opciót, ezzel megnyitva a terminált. Telepítse a szükséges csomagoakt <i>npm i</i>, végül indítsa el a szervert <i>npm start</i> segítségével. </p>
+<p> Nyissa meg a Visual Studio Code-ot és nyissa meg a projektet. Majd válassza ki a heble mappán belül a <strong>backend</strong> könyvtárat. A backenden belül található a .env környezeti változó, amelyen változtatásokat kell végbevinni indítás előtt. Ennek részletes leírása a dokumentációban található. Ezután, ha ez kész, akkor kattintson rá jobb egérgombbal és válassza ki az <i>Open in Integrated Terminal</i>-t opciót, ezzel megnyitva a terminált. Telepítse a szükséges csomagoakt <i>npm i</i>, végül indítsa el a szervert <i>npm start</i> segítségével. </p>
 
 <h3> Felhasználói felület indítása (Frontend) </h3>
 
@@ -123,7 +123,7 @@ A projektünk elkészítéséhez a vizsgakövetelményben által megkövetelt mo
 | `/count`                        | GET         | A felhasználók számának lekérése. | 200 OK - Felhasználók száma <br/> 404 Not Found - Nincsenek felhasználók <br/> 500 Internal Server Error - Sikertelen lekérdezés |
 | `/signup`                       | POST         | Új felhasználó regisztrációja. | 201 Created - Sikeres regisztráció <br/> 400 Bad Request - Érvénytelen adatok <br/> 403 Forbidden - Fiók tiltott/törölt <br/> 409 Conflict - Email már használatban <br/> 500 Internal Server Error - Sikertelen regisztráció |
 | `/login`                        | POST        | Felhasználó bejelentkezése. | 200 OK - Sikeres bejelentkezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 401 Unauthorized - Hibás email <br/> 401 Unauthorized - Hibás jelszó <br/> 500 Internal Server Error - Sikertelen bejelentkezés |
-| `/logout`                       | POST        | Felhasználó kijelentkezése. | 200 OK - Sikeres kijelentkezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 500 Internal Server Error - Sikertelen kijelentkezés |
+| `/logout`                       | DELETE        | Felhasználó kijelentkezése. | 200 OK - Sikeres kijelentkezés <br/> 400 Bad Request - Érvénytelen adatok <br/> 500 Internal Server Error - Sikertelen kijelentkezés |
 | `/update` | PATCH        | Felhasználó adatainak frissítése. | 200 OK - Sikeres frissités <br/> 401 Unathorized - Nincs token <br/> 404 Not Found - Nem található felhasználó <br/> 400 Bad Request - Nem jó a biztonsági válasz <br/> 400 Bad Request - Nincs e-mail megadva <br/> 500 Internal Server Error - Sikertelen frissités |
 | `/forgot` | PUT | Biztonsági jelszó ellenőrzése elfelejtett jelszó esetén. | 200 OK - Sikeres ellenőrzés  <br/> 400 Bad Request - Hiányzó email/biztonsági jelszó <br/> 401 Unathorized - Helytelen biztonsági jelszó <br/> 404 Not Found - A felhasználó nem található <br/> 500 Internal Server Error - Sikertelen ellenőrzés |
 | `/forgot/reset` | PUT | Jelszó visszaállítás. | 200 OK - Sikeres visszaállítás <br/> 400 Bad Request - Hiányzik az email/új jelszó <br/> 404 Not Found - A felhasználó nem található <br/> 500 Internal Server Error - Sikertelen visszaállítás |

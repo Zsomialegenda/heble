@@ -21,7 +21,7 @@ export class LoginComponent {
 
   // A felhasználó bejelentkezéstetésért felőles metódus: a felhasználóhoz tartozó token eltárolása a localStorage-ban a későbbi használathoz és a kulcsfontosságú adatok kinyeréséhez, mint például a felhasználói azonosító, szerepkör és email
   login() {
-    console.log(this.loginUserData);
+    // console.log(this.loginUserData);
 
     this.userService.login(this.loginUserData).subscribe({
       next: (res: any) => {

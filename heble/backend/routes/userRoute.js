@@ -27,13 +27,13 @@ router.put("/forgot/reset", resetPassword);
 // POST metódusojk
 router.post("/email",authenticator, getUserByEmail);
 router.post("/login", loginUser);
-router.post("/logout", logoutUser);
 router.post("/signup", signupUser);
 
 // PATCH metódusok
 router.patch("/update", authenticator, updateUser);
 
 // DELETE metódusojk
-router.delete("/delete/:id?", authenticator, deleteUser);
+router.delete("/delete", authenticator, deleteUser);
+router.delete("/logout", authenticator, logoutUser);
 
 module.exports = router;

@@ -27,7 +27,7 @@ export class UserprofileComponent implements OnInit {
   userID: any;
   exercises: Exercise | null = null;
 
-  // a komponens betöltésekor a személyes adatok és az elvégzett gyakorlatok lekérdezése a bejelentkezett felhasználóhoz kötődően 
+  // a komponens betöltésekor a személyes adatok és az elvégzett gyakorlatok lekérdezése a bejelentkezett felhasználóhoz kötődően
   ngOnInit(): void {
     this.userID = this.userService.getUserID();
 
@@ -37,7 +37,7 @@ export class UserprofileComponent implements OnInit {
         UserData.subscribe({
           next: (res: any) => {
             this.user = res;
-            console.log(this.user);
+            // console.log(this.user);
           },
           error: (err: HttpErrorResponse) => {
             alert(err.message);
@@ -58,7 +58,7 @@ export class UserprofileComponent implements OnInit {
 
   // a felhasználói fiókhoz rendelt email-cím megváltoztatása biztonsági jelszó alapján, egy új email-címért felelős metódus
   submitData() {
-    console.log(this.userData);
+    // console.log(this.userData);
 
     this.userService.updateEmail({ newEmail: this.userData.newEmail, secureAnswer: this.userData.secureAnswer }).subscribe({
       next: (res: any) => {

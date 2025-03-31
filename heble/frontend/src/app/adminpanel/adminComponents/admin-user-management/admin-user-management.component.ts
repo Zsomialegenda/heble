@@ -42,11 +42,11 @@ export class AdminUserManagementComponent {
     }
 
     this.adminService.deleteUser(email, password, secureAnswer).subscribe({
-      next: (response: any) => {
-        alert(response.message);
+      next: (res: any) => {
+        alert(res.message);
       },
       error: (error) => {
-        console.log(error.error?.reason?.[0] || 'Hiba történt a törlés során.');
+        alert(error.error?.reason?.[0] || 'Hiba történt a törlés során.');
       },
     });
   }

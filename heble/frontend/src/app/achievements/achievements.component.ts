@@ -24,7 +24,7 @@ export class AchievementsComponent {
       next: (res: any) => {
 
         this.achievements = res.data;
-        console.log(this.achievements);
+        // console.log(this.achievements);
       },
       error: (err: HttpErrorResponse) => {
         //alert(err.message);

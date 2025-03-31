@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { Code404, Code403, Code401 } = require("../utils/statusCode");
 let reason = [];
 
-const SECRET_KEY = process.env.SECRET_KEY || "admin";
+const SECRET_KEY = process.env.SECRET_KEY || "heble";
 
 const authenticator = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
